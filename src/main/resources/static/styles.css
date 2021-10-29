@@ -4,16 +4,17 @@
   }
 
   #search-box   {
-    margin-left: 25%;
-    max-width: 35%;
+    margin: 0 auto;
+      max-width: 80%;
   }
   #search-bar   {
-      width: 90%;
+      width: 80%;
       bottom: 0px;
       margin-bottom: 0px
   }
-  #search   {
-      margin-top: -6.5%;
+  #search-button   {
+      margin-top: 0%;
+      display: inline;
   }
   #temporary    {
       text-align: center;
