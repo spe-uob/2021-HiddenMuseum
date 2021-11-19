@@ -19,4 +19,7 @@ First use the command:
 
 then use the command:
 
-#### docker build --build-arg JAR_FILE=PATHTOJARFILE -t DOCKERUSERNAME/DOCKERIMAGE . bck-i-search: build
+#### docker build --build-arg JAR_FILE=PATHTOJARFILE -t DOCKERUSERNAME/DOCKERIMAGE . 
+
+then use the command: 
+#### docker run -p 8080:8080 DOCKERUSERNAME/DOCKERIMAGE
