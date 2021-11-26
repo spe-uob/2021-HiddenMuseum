@@ -24,10 +24,14 @@ The plan for implementing this is to make a web application using a JavaScript f
 - Java version 11
 - [Docker](https://www.docker.com/)
 
+### Building
+
 Build the project with Maven (if `./mvnw` fails, install Apache Maven and use `mvn` instead)
 ```bash
 $ ./mvnw clean package
 ```
+
+### Running with Docker
 
 Put the `.jar` into a Docker Image
 ```bash
@@ -37,6 +41,13 @@ $ docker build --build-arg JAR_FILE=path/to/jar/file -t <username>/<image> .
 Run the Docker Container
 ```bash
 $ docker run -p 8080:8080 <username>/<image>
+```
+
+### Running without Docker
+
+Run Spring-Boot using Maven
+```bash
+$ ./mvnw spring-boot:run
 ```
 
 Go to [localhost:8080](https://localhost:8080/) and you should see it running.
