@@ -24,7 +24,7 @@ The plan for implementing this is to make a web application using a JavaScript f
 - Java version 11
 - [Docker](https://www.docker.com/)
 
-Build the project with Maven
+Build the project with Maven (if `./mvnw` fails, install Apache Maven and use `mvn` instead)
 ```bash
 $ ./mvnw clean package
 ```
@@ -38,6 +38,8 @@ Run the Docker Container
 ```bash
 $ docker run -p 8080:8080 <username>/<image>
 ```
+
+Go to [localhost:8080](https://localhost:8080/) and you should see it running.
 
 
 ## License
