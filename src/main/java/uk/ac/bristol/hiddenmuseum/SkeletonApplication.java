@@ -1,4 +1,4 @@
-package com.hiddenmuseumdemo;
+package uk.ac.bristol.hiddenmuseum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

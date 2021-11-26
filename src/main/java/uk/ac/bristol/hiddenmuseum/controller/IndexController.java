@@ -1,4 +1,4 @@
-package com.hiddenmuseumdemo.controller;
+package uk.ac.bristol.hiddenmuseum.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
