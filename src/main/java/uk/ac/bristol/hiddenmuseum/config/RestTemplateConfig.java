@@ -1,4 +1,4 @@
-package com.hiddenmuseumdemo.config;
+package uk.ac.bristol.hiddenmuseum.config;
 
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
