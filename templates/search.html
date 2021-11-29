@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Search</title>
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <script type="text/javascript" th:src="@{/layui/layui.js}" ></script>
+    <script type="text/javascript" th:src="@{/js/jquery.js}"></script>
+    <style type="text/css">
+        .but_inline{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-form-item" >
+        <div class="layui-inline">
+            <label class="layui-form-label">medium</label>
+            <div class="layui-input-inline">
+                <select name="medium" lay-verify="required" lay-search="" id="medium">
+                    <option value="Oil on canvas">Oil on canvas</option>
+                    <option value="Oil on panel">Oil on panel</option>
+                    <option value="Oil on Canvas">Oil on Canvas</option>
+                    <option value="Oil on paper laid down on canvas">Oil on paper laid down on canvas</option>
+                    <option value="Siliver-gilt">Siliver-gilt</option>
+                    <option value="Tempera and gilding on panel">Tempera and gilding on panel</option>
+                    <option value="Black and White Photograph">Black and White Photograph</option>
+                    <option value="Compressed Pu Erh tea">Compressed Pu Erh tea</option>
+                    <option value="Figure Bronze, wire and isophon">Figure Bronze, wire and isophon</option>
+                    <option value="Marble">Marble</option>
+                    <option value="Nine gouaches, 2010">Nine gouaches, 2010</option>
+                    <option value="Oll on canvas">Oll on canvas</option>
+                    <option value="Oil on Maho9any Panel">Oil on Maho9any Panel</option>
+                    <option value="Oil on Panel">Oil on Panel</option>
+                    <option value="Oil on Paper">Oil on Paper</option>
+                    <option value="Oil on canvas laid on panel">Oil on canvas laid on panel</option>
+                    <option value="Oil on canvas laid on panel & oil on panel">Oil on canvas laid on panel & oil on panel</option>
+                    <option value="Oil on canvas transferred from panel">Oil on canvas transferred from panel</option>
+                    <option value="Oil on cardboard">Oil on cardboard</option>
+                    <option value="Oil on cardboard on panel">Oil on cardboard on panel</option>
+                    <option value="Oil on plywood">Oil on plywood</option>
+                    <option value="Pencil, watercolour and wash on paper">Pencil, watercolour and wash on paper</option>
+                    <option value="Photograph">Photograph</option>
+                    <option value="Silver-gilt, the ewer re-gilded">Silver-gilt, the ewer re-gildeds</option>
+                    <option value="Tempera and gold on panel">Tempera and gold on panel</option>
+                    <option value="Video aniimation, with music by Yu Fin, 10 minutes, 2010">Video aniimation, with music by Yu Fin, 10 minutes, 2010</option>
+                    <option value="Wood">Wood</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">artist</label>
+            <div class="layui-input-inline">
+                <select name="artist" lay-verify="required" lay-search="">
+                    <option th:each="str:${artists}" th:value="${str}" th:text="${str}" id="artist">options</option>
+
+                </select>
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">object_type</label>
+            <div class="layui-input-inline">
+                <select name="object_type" lay-verify="required" lay-search="" id="object_type">
+                    <option value="Painting">Painting</option>
+                    <option value="Vase">Vase</option>
+                    <option value="Sculpture">Sculpture</option>
+                    <option value="Drawing/Watercolour">Drawing/Watercolour</option>
+                    <option value="Photograph">Photograph</option>
+                    <option value="Communion Cup & Paten Cover">Communion Cup & Paten Cover</option>
+                    <option value="Ewer / Bowl">Ewer / Bowl</option>
+                    <option value="Flagon">Flagon</option>
+                    <option value="Time Based Media">Time Based Media</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-input-block but_inline">
+            <button class="layui-btn" id="search" onclick="showInfo()">submit</button>
+        </div>
+        <div class="layui-input-block but_inline">
+            <button type="reset" class="layui-btn layui-btn-primary">reset</button>
+        </div>
+        <table class="layui-table"   id="show">
+            <thead>
+            <tr>
+                <th>source</th>
+                <th>label</th>
+                <th>artist </th>
+                <th>year_of_creation</th>
+                <th>images</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item:${list}">
+                <td th:text="${item.getSource()}"></td>
+                <td th:text="${item.getLabel()}"></td>
+                <td th:text="${item.getArtist()}"></td>
+                <td th:text="${item.getYear_of_creation()}"></td>
+                <td th:text="${item.getImage()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</form>
+
+
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+    });
+</script>
+<script type="text/javascript" th:inline="javascript">
+    function showInfo(){
+        $.ajax({
+            url: "/showInfo?medium="+$("#medium").val()+"&artist="+$("#artist").val()+"&objectType="+$("#object_type").val(),
+            type: "get",
+            success: function (data) {
+            }
+        });
+    }
+</script>
+</body>
+</html>
