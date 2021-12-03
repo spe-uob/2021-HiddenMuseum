@@ -48,3 +48,4 @@ public class RestTemplateConfig {
         return factory;
     }
 }
+
