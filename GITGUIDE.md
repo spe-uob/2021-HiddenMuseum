@@ -8,6 +8,7 @@
 
 ```bash
 $ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
+$ cd 2021-HiddenMuseum
 ```
 
 ### **Step 1 -** Move to the [`dev`](https://github.com/spe-uob/2021-HiddenMuseum/tree/dev) branch
