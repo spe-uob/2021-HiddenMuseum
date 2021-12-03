@@ -35,11 +35,8 @@ public class SearchController {
         Object data = JSONValue.parse(results);
         JSONObject jsonData = (JSONObject)data;
         JSONArray AllRecords = (JSONArray)jsonData.get("records");
-        System.out.println("hu");
         JSONObject ArtPiece = (JSONObject)AllRecords.get(0);
-        System.out.println("hi");
         JSONObject Fields = (JSONObject)ArtPiece.get("fields");
-        System.out.println("HI");
         //getting each of the values from field
         String title = (String)Fields.get("title_of_object");
         String artistName = (String)Fields.get("artist"); //some had to be renamed so they dont conflict with the ones from earlier
@@ -52,8 +49,8 @@ public class SearchController {
         JSONObject image = (JSONObject)Fields.get("image_of_object");
         String imageID = (String)image.get("id");
         String imgSource = "https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/" + imageID + "/300";
-        //adding each var to the template "single"
-        System.out.println("HELLO");
+
+
         modelAndView.addObject("imgSource",imgSource);
         modelAndView.addObject("title",title);
         modelAndView.addObject("artistName",artistName);
