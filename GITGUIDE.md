@@ -13,8 +13,6 @@ $ cd 2021-HiddenMuseum
 
 ### **Step 1 -** Move to the [`dev`](https://github.com/spe-uob/2021-HiddenMuseum/tree/dev) branch
 
-*You only need to do this the first time.*
-
 ```bash
 $ git checkout -b dev origin/dev
 ```
