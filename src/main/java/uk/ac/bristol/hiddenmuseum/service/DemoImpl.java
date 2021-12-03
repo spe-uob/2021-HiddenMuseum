@@ -1,10 +1,9 @@
-package com.hiddenmuseumdemo.service;
+package uk.ac.bristol.hiddenmuseum.service;
 
-import com.hiddenmuseumdemo.config.RestTemplateConfig;
+import uk.ac.bristol.hiddenmuseum.config.RestTemplateConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 
 
 @Service

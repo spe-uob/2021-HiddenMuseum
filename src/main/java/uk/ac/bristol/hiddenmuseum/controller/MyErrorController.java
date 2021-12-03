@@ -1,4 +1,4 @@
-package com.hiddenmuseumdemo.controller;
+package uk.ac.bristol.hiddenmuseum.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
@@ -9,6 +9,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
+
 public class MyErrorController implements ErrorController {
 
     @RequestMapping("/error")

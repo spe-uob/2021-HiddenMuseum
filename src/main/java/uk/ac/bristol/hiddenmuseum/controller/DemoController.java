@@ -1,17 +1,13 @@
-package com.hiddenmuseumdemo.controller;
+package uk.ac.bristol.hiddenmuseum.controller;
 
-import com.hiddenmuseumdemo.service.DemoService;
+import uk.ac.bristol.hiddenmuseum.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.json.simple.*;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import java.util.*;
 
 @RestController 
 //need to use @RestController not @Controller for some reason, 
