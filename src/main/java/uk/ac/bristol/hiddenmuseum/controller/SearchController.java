@@ -10,12 +10,12 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.servlet.ModelAndView;
 import uk.ac.bristol.hiddenmuseum.service.fieldImpl;
 import java.util.HashMap;
 import java.util.*;
+
 
 @Controller
 public class SearchController {
@@ -40,6 +40,7 @@ public class SearchController {
                 i.setValue(Input);
             }
         }
+
         medium = fieldMap.get("medium");
         objectType = fieldMap.get("object_Type");
         artist = fieldMap.get("artist");
