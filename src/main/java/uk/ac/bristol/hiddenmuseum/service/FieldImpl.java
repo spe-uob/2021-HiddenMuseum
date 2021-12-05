@@ -6,7 +6,8 @@ import org.json.simple.*;
 
 @Service
 public class FieldImpl {
-    public static JSONObject returnJsonFields(String results)  {
+
+    public static JSONObject returnJsonFields(String results) {
         Object data = JSONValue.parse(results);
         JSONObject jsonData = (JSONObject)data;
         JSONArray AllRecords = (JSONArray)jsonData.get("records");
