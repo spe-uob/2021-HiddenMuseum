@@ -11,15 +11,28 @@ import java.lang.reflect.Field;
 import java.util.*;  
 import org.json.simple.*;
 
-
+/**
+ * Controller for the index page of the program
+ */
 @Controller
 public class IndexController {
 	
     @Autowired
     private DemoService demoService;
+
+    /**
+     * Request handler for the home page of the web app
+     *
+     * @param medium
+     * @param objectType
+     * @param artist
+     * @param name
+     * @param model
+     * @return
+     */
     @GetMapping("/")
     @SuppressWarnings("unchecked")
-    public String helloWorld(
+    public String index(
             @RequestParam(defaultValue="Oil on canvas", required=false) String medium,
             @RequestParam(defaultValue="Painting", required=false) String objectType,
             @RequestParam(defaultValue="Lucien PISSARRO", required=false) String artist, String name, Model model)  {
@@ -27,10 +40,12 @@ public class IndexController {
         JSONObject Fields = fieldImpl.returnJsonFields(results);
         Iterator<String> keys = (Iterator<String>) Fields.keySet().iterator();
         List<String> fieldList = new ArrayList<>();
+
         while(keys.hasNext()){
             String key = keys.next();
             fieldList.add(key);
         }
+
         model.addAttribute("fieldList", fieldList);
         model.addAttribute("name", name);
         return "index";
