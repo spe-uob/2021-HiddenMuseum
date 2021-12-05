@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.servlet.ModelAndView;
-import uk.ac.bristol.hiddenmuseum.service.fieldImpl;
+import uk.ac.bristol.hiddenmuseum.service.FieldImpl;
 import java.util.HashMap;
 import java.util.*;
 
@@ -60,7 +60,7 @@ public class SearchController {
         artist = fieldMap.get("artist");
 
         String results = demoService.getDemoInfo(medium, objectType, artist);
-        JSONObject Fields = fieldImpl.returnJsonFields(results);
+        JSONObject Fields = FieldImpl.returnJsonFields(results);
         JSONObject image = (JSONObject) Fields.get("image_of_object");
 
         // getting each of the values from field

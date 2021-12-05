@@ -1,6 +1,6 @@
 package uk.ac.bristol.hiddenmuseum.controller;
 
-import uk.ac.bristol.hiddenmuseum.service.fieldImpl;
+import uk.ac.bristol.hiddenmuseum.service.FieldImpl;
 import uk.ac.bristol.hiddenmuseum.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ import org.json.simple.*;
  */
 @Controller
 public class IndexController {
-    
+
     @Autowired
     private DemoService demoService;
 
@@ -37,7 +37,7 @@ public class IndexController {
             @RequestParam(defaultValue="Painting", required=false) String objectType,
             @RequestParam(defaultValue="Lucien PISSARRO", required=false) String artist, String name, Model model)  {
         String results = demoService.getDemoInfo(medium,objectType,artist);
-        JSONObject Fields = fieldImpl.returnJsonFields(results);
+        JSONObject Fields = FieldImpl.returnJsonFields(results);
         Iterator<String> keys = (Iterator<String>) Fields.keySet().iterator();
         List<String> fieldList = new ArrayList<>();
 
