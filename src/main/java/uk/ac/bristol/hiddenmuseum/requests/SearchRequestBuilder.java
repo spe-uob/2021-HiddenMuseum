@@ -7,6 +7,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
 
+/**
+ * Creates requests to search the database
+ */
 public class SearchRequestBuilder implements RequestBuilder {
 
     private final String base;
@@ -19,31 +22,74 @@ public class SearchRequestBuilder implements RequestBuilder {
     private Integer limit = 10;
     private Integer offset = 0;
 
+    /**
+     * Create a search request builder
+     *
+     * @param base URL where datasets can be found (do not include API endpoints)
+     * @param dataset dataset to search
+     */
     public SearchRequestBuilder(String base, String dataset) {
         this.base = base;
         this.dataset = dataset;
     }
 
+    /**
+     * Set the long query string
+     * Sets the `q` parameter when sending a request to the API
+     *
+     * @param query long query string
+     * @return this object, for chaining
+     */
     public SearchRequestBuilder setQuery(String query) {
         this.query = query;
         return this;
     }
 
+    /**
+     * Sets the maximum number of search results to show
+     * Sets the `row` parameter when sending a request to the API
+     *
+     * @param n maximum number of search results to show
+     * @return this object, for chaining
+     */
     public SearchRequestBuilder setLimit(int n) {
         this.limit = n;
         return this;
     }
 
+    /**
+     * Sets how many results to skip (e.g. for pagination)
+     * Sets the `start` parameter when sending a request to the API
+     *
+     * @param n how many to results to offset by
+     * @return this object, for chaining
+     */
     public SearchRequestBuilder setOffset(int n) {
         this.offset = n;
         return this;
     }
 
+    /**
+     * Sets a value to filter by, only including matches
+     * Sets the `refine.{field}` parameter when sending a request to the API
+     *
+     * @param field field to filter by
+     * @param value value to match
+     * @return this object, for chaining
+     */
     public SearchRequestBuilder refineBy(String field, String value) {
         this.refine.put(field, value);
         return this;
     }
 
+    /**
+     * Sets a value to filter results by, excluding matches
+     * Sets the `exclude.{field}` parameter when sending a request to the API
+     *
+     * @param field field to filter by
+     * @param value value to match
+     * @return this object, for chaining
+     */
     public SearchRequestBuilder exclude(String field, String value) {
         this.excluded.put(field, value);
         return this;

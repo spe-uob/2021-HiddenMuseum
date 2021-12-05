@@ -3,12 +3,22 @@ package uk.ac.bristol.hiddenmuseum.requests;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Creates requests to lookup individual records
+ */
 public class LookupRequestBuilder implements RequestBuilder {
 
     private final String base;
     private final String dataset;
     private final String recordId;
 
+    /**
+     * Create a lookup request builder
+     *
+     * @param base URL where datasets can be found (do not include API endpoints)
+     * @param dataset dataset to search
+     * @param recordId record to look up
+     */
     public LookupRequestBuilder(String base, String dataset, String recordId) {
         this.base = base;
         this.dataset = dataset;
