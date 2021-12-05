@@ -10,19 +10,19 @@ public class LookupRequestBuilder implements RequestBuilder {
 
     private final String base;
     private final String dataset;
-    private final String recordId;
+    private final String recordID;
 
     /**
      * Create a lookup request builder
      *
      * @param base URL where datasets can be found (do not include API endpoints)
      * @param dataset dataset to search
-     * @param recordId record to look up
+     * @param recordID record to look up
      */
-    public LookupRequestBuilder(String base, String dataset, String recordId) {
+    public LookupRequestBuilder(String base, String dataset, String recordID) {
         this.base = base;
         this.dataset = dataset;
-        this.recordId = recordId;
+        this.recordID = recordID;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class LookupRequestBuilder implements RequestBuilder {
         output.append("/api/datasets/1.0/");
         output.append(this.dataset);
         output.append("/records/");
-        output.append(this.recordId);
+        output.append(this.recordID);
         return output.toString();
     }
 
