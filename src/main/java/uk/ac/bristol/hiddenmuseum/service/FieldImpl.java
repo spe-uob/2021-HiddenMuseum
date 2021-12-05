@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import org.json.simple.*;
 
 @Service
-public class fieldImpl {
+public class FieldImpl {
     public static JSONObject returnJsonFields(String results)  {
         Object data = JSONValue.parse(results);
         JSONObject jsonData = (JSONObject)data;
