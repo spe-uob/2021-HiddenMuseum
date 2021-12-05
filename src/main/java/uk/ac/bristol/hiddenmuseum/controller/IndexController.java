@@ -16,7 +16,7 @@ import org.json.simple.*;
  */
 @Controller
 public class IndexController {
-	
+    
     @Autowired
     private DemoService demoService;
 
@@ -50,4 +50,5 @@ public class IndexController {
         model.addAttribute("name", name);
         return "index";
     }
+
 }
