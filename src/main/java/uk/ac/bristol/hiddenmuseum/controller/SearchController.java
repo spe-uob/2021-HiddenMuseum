@@ -12,16 +12,30 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.servlet.ModelAndView;
-import uk.ac.bristol.hiddenmuseum.service.fieldImpl;
+import uk.ac.bristol.hiddenmuseum.service.FieldImpl;
 import java.util.HashMap;
 import java.util.*;
 
-
+/**
+ * Controller for search requests
+ */
 @Controller
 public class SearchController {
+
     @Autowired
     private DemoService demoService;
 
+    /**
+     * Request handler for searches
+     *
+     * @param medium
+     * @param objectType
+     * @param artist
+     * @param field
+     * @param Input
+     * @param model
+     * @return
+     */
     @GetMapping("/search")
     public String test(
             @RequestParam(defaultValue = "Oil on canvas", required = false) String medium,
@@ -46,8 +60,9 @@ public class SearchController {
         artist = fieldMap.get("artist");
 
         String results = demoService.getDemoInfo(medium, objectType, artist);
-        JSONObject Fields = fieldImpl.returnJsonFields(results);
+        JSONObject Fields = FieldImpl.returnJsonFields(results);
         JSONObject image = (JSONObject) Fields.get("image_of_object");
+
         // getting each of the values from field
         String title = (String) Fields.get("title_of_object");
         String artistName = (String) Fields.get("artist"); // some had to be renamed so they dont conflict with the ones
@@ -61,6 +76,7 @@ public class SearchController {
         String imageID = (String) image.get("id");
         String imgSource = "https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/"
                 + imageID + "/300";
+
         // adding each var to the template "single"
         model.addAttribute("imgSource", imgSource);
         model.addAttribute("title", title);

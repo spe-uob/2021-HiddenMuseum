@@ -8,8 +8,8 @@
         <version>2.6.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zxl</groupId>
-    <artifactId>skeleton</artifactId>
+    <groupId>uk.ac.bris</groupId>
+    <artifactId>hiddenmuseum</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>skeleton</name>
     <description>Demo project for Spring Boot</description>
