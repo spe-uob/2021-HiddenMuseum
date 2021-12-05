@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Search results</title>
+    </head>
+
+    <body>
+        <p th:text="${response.nhits} + ' hits'"></p>
+        <li th:each="record : ${response.records}">
+            <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
+                <span th:text="${record.fields.get('title_of_object')} + ' by ' + ${record.fields.get('artist')}"></span>
+            </a>
+        </li>
+    </body>
+
 </html>
