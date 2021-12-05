@@ -1,32 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>$Title$</title>
 </head>
-
 <body>
-<h1>
-    <span th:text="${title}" th:remove="tag">title</span>
-    <small th:text="'by '+${artistName}" >Subtitle</small>
-</h1>
-<img th:src="${imgSource}">
-<table style="width:100%">
-    <tr>
-        <th style="text-align:left;">Type and medium</th>
-        <th style="text-align:left;">Creation Date</th>
-        <th style="text-align:left;">Source and display Status</th>
-    </tr>
-    <tr>
-        <td th:text="${type}+' and '+${mediums}"></td>
-        <td th:text="${year_of_creation}"></td>
-        <td th:text="${source}+' and '+${current_display_status}"></td>
-    </tr>
-</table>
-<p><b>Description: </b></p>
-<p style="text-align:left;width: 40%;" th:text="${body}"></p>
+$END$
 </body>
-
 </html>
