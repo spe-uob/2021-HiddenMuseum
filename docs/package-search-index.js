@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"uk.ac.bristol.hiddenmuseum"},{"l":"uk.ac.bristol.hiddenmuseum.config"},{"l":"uk.ac.bristol.hiddenmuseum.controller"},{"l":"uk.ac.bristol.hiddenmuseum.service"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"uk.ac.bristol.hiddenmuseum"},{"l":"uk.ac.bristol.hiddenmuseum.config"},{"l":"uk.ac.bristol.hiddenmuseum.controller"},{"l":"uk.ac.bristol.hiddenmuseum.requests"},{"l":"uk.ac.bristol.hiddenmuseum.service"}]
