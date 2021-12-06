@@ -8,11 +8,14 @@
 
     <body>
         <p th:text="${response.nhits} + ' hits'"></p>
-        <li th:each="record : ${response.records}">
-            <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
-                <span th:text="${record.fields.get('title_of_object')} + ' by ' + ${record.fields.get('artist')}"></span>
-            </a>
-        </li>
+        <ul>
+            <li th:each="record : ${response.records}">
+                <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
+                    <span th:text="${record.fields.get('title_of_object')}"></span>
+                    <span th:if="${record.fields.get('artist')}" th:text="'by ' + ${record.fields.get('artist')}"></span>
+                </a>
+            </li>
+        </ul>
     </body>
 
 </html>
