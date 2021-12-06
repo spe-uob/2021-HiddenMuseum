@@ -8,10 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * Controller to handle invalid HTTP requests
+ */
 @Controller
-
 public class MyErrorController implements ErrorController {
 
+    /**
+     * Request handler for invalid HTTP requests
+     * Returns the correct error page depending on what the error is
+     *
+     * @param request faulty HTTP request
+     * @return appropriate error page
+     */
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);

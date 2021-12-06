@@ -11,7 +11,7 @@ import uk.ac.bristol.hiddenmuseum.config.RestTemplateConfig;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class SkeletonApplicationTests {
+class HiddenMuseumTests {
 
     @Test
     void contextLoads() {

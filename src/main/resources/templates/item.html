@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Lookup result</title>
+    </head>
+
+    <body>
+        <h1 th:text="${response.recordid}"></h1>
+        <h2 th:text="${response.datasetid}"></h2>
+
+        <dl>
+            <div th:each="field : ${response.fields}">
+                <dt th:text="${field.key}"></dt>
+                <dd th:text="${field.value}"></dd>
+            </div>
+        </dl>
+    </body>
+
+</html>

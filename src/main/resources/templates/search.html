@@ -1,32 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
+    <head>
+        <meta charset="UTF-8">
+        <title>Search results</title>
+    </head>
 
-    <title>Title</title>
-</head>
-
-<body>
-<h1>
-    <span th:text="${title}" th:remove="tag">title</span>
-    <small th:text="'by '+${artistName}" >Subtitle</small>
-</h1>
-<img th:src="${imgSource}">
-<table style="width:100%">
-    <tr>
-        <th style="text-align:left;">Type and medium</th>
-        <th style="text-align:left;">Creation Date</th>
-        <th style="text-align:left;">Source and display Status</th>
-    </tr>
-    <tr>
-        <td th:text="${type}+' and '+${mediums}"></td>
-        <td th:text="${year_of_creation}"></td>
-        <td th:text="${source}+' and '+${current_display_status}"></td>
-    </tr>
-</table>
-<p><b>Description: </b></p>
-<p style="text-align:left;width: 40%;" th:text="${body}"></p>
-</body>
+    <body>
+        <p th:text="${response.nhits} + ' hits'"></p>
+        <ul>
+            <li th:each="record : ${response.records}">
+                <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
+                    <span th:text="${record.fields.get('title_of_object')}"></span>
+                    <span th:if="${record.fields.get('artist')}" th:text="'by ' + ${record.fields.get('artist')}"></span>
+                </a>
+            </li>
+        </ul>
+    </body>
 
 </html>
