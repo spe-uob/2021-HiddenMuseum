@@ -2,6 +2,20 @@
     text-align: center;
     font-size: 48px;
   }
+  h1   {
+      text-align: center;
+  }
+  h2    {
+      text-align: center;
+  }
+  .go-home  {
+      text-align: center;
+      font-size: 36px;
+  }
+  .relative {
+      position: relative;
+      text-align: center;
+  }
 
   #search-box   {
     margin: 0 auto;
@@ -9,11 +23,11 @@
   }
   #search-bar   {
       width: 80%;
-      bottom: 0px;
-      margin-bottom: 0px
+      bottom: 0;
+      margin-bottom: 0
   }
   #search-button   {
-      margin-top: 0%;
+      margin-top: 0;
       display: inline;
   }
   #temporary    {
