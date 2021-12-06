@@ -40,12 +40,9 @@ public class SearchController {
     public String search(
             @RequestParam Map<String, String> params,
             Model model) {
-        System.out.println(params.toString());
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(params.getOrDefault("q", ""));
         var response = srq.sendRequest();
-        System.out.println(response.nhits);
-        System.out.println(response.records);
         model.addAttribute("response", response);
         return "search";
     }
