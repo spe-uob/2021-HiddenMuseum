@@ -8,7 +8,7 @@ import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 /**
  * @deprecated
- * Use the {@link SearchRequestBuilder} instead.
+ * Use the {@link SearchRequestBuilder} and {@link SearchRequestBuilder#sendRequest} instead
  */
 @Deprecated
 @Service

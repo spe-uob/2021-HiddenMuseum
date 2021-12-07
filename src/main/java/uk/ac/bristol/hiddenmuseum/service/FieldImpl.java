@@ -3,11 +3,13 @@ package uk.ac.bristol.hiddenmuseum.service;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Service;
 import org.json.simple.*;
+import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 /**
  * @deprecated
- * Use the {@link SearchRequestBuilder} instead.
+ * Use {@link SearchRecord#fields} instead<br />
+ * {@link SearchRecord} is returned by a {@link SearchRequestBuilder}
  */
 @Deprecated
 @Service
