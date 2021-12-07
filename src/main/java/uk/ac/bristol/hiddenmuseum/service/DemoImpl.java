@@ -4,8 +4,13 @@ import uk.ac.bristol.hiddenmuseum.config.RestTemplateConfig;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
-
+/**
+ * @deprecated
+ * Use the {@link SearchRequestBuilder} instead.
+ */
+@Deprecated
 @Service
 public class DemoImpl implements  DemoService{
 
