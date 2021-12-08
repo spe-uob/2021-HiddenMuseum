@@ -32,9 +32,8 @@ public class MyErrorController implements ErrorController {
                 return "error-404";
             } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "error-500";
-            }
+            } else return "error-default";
         }
-
-        return "error-404";
+        else return "error-default";
     }
 }

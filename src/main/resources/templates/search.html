@@ -7,7 +7,7 @@
     </head>
 
     <body>
-        <p th:text="${response.nhits} + ' hits'"></p>
+        <p th:text="${response.nhits} + ' results'"></p>
         <ul>
             <li th:each="record : ${response.records}">
                 <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
