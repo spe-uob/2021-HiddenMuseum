@@ -24,6 +24,7 @@
         }
 
         .contents {
+            text-align: left;
             padding: 0 18px;
             display: none;
             overflow: hidden;
@@ -35,7 +36,7 @@
             width: 80%;
         }
 
-        .right{
+        .right {
             float: right;
             margin: 0 0 0 15px;
         }
@@ -49,40 +50,40 @@
             <div th:each="field : ${response.fields}">
                 <div th:switch="${field.key}">
                     <div class="left">
-                    <div th:case="'title_of_object'">
-                        <h1 th:text="${field.value}"></h1>
-                        <br>
-                    </div>
-                    <div th:case="'artist'">
-                        <dd th:text="'Made by '+ ${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'year_of_creation'">
-                        <dd th:text="'Created ' + ${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'medium'">
-                        <dd th:text="'Made with '+${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'object_type'">
-                        <dd th:text="'It is a ' +${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'label'">
-                        <dd style="text-align:left;width: 40%;" th:text="'Description: '+${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'current_display_status'">
-                        <dd th:text="'Display status: '+ ${field.value}"></dd>
-                        <br>
-                    </div>
-                    <div th:case="'source'">
+                        <div th:case="'title_of_object'">
+                            <h1 th:text="${field.value}"></h1>
+                            <br>
+                        </div>
+                        <div th:case="'artist'">
+                            <dd th:text="'Made by '+ ${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'year_of_creation'">
+                            <dd th:text="'Created ' + ${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'medium'">
+                            <dd th:text="'Made with '+${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'object_type'">
+                            <dd th:text="'It is a ' +${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'label'">
+                            <dd style="text-align:left;width: 40%;" th:text="'Description: '+${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'current_display_status'">
+                            <dd th:text="'Display status: '+ ${field.value}"></dd>
+                            <br>
+                        </div>
+                        <div th:case="'source'">
 
-                        <dd th:text="'Sourced from: '+ ${field.value}"></dd>
-                        <br>
+                            <dd th:text="'Sourced from: '+ ${field.value}"></dd>
+                            <br>
+                        </div>
                     </div>
-                </div>
                     <div th:case="'image_of_object'">
 
                         <img th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'"
@@ -93,31 +94,32 @@
                 </div>
             </div>
         </div>
-        <button type="button" class="collapsible">Additional content</button>
-        <div class="contents">
-            <h2 th:text="${response.recordid}">
-                </h1>
-                <h3 th:text="${response.datasetid}">
-            </h2>
-            <div th:each="field : ${response.fields}">
-                <div th:switch="${field.key}">
-                    <div th:case="'title_of_object'">
-                    </div>
-                    <div th:case="'medium'">
-                    </div>
-                    <div th:case="'artist'">
-                    </div>
-                    <div th:case="'object_type'">
-                    </div>
-                    <div th:case="'source'">
-                    </div>
-                    <div th:case="'current_display_status'">
-                    </div>
-                    <div th:case="'label'">
-                    </div>
-                    <div th:case="*">
-                        <dt th:text="${field.key}"></dt>
-                        <dd th:text="${field.value}"></dd>
+            <button type="button" class="collapsible">Additional content</button>
+            <div class="contents">
+                <h2 th:text="${response.recordid}">
+                    </h1>
+                    <h3 th:text="${response.datasetid}">
+                </h2>
+                <div th:each="field : ${response.fields}">
+                    <div th:switch="${field.key}">
+                        <div th:case="'title_of_object'">
+                        </div>
+                        <div th:case="'medium'">
+                        </div>
+                        <div th:case="'artist'">
+                        </div>
+                        <div th:case="'object_type'">
+                        </div>
+                        <div th:case="'source'">
+                        </div>
+                        <div th:case="'current_display_status'">
+                        </div>
+                        <div th:case="'label'">
+                        </div>
+                        <div th:case="*">
+                            <dt th:text="${field.key}"></dt>
+                            <dd th:text="${field.value}"></dd>
+                        </div>
                     </div>
                 </div>
             </div>
