@@ -25,9 +25,6 @@ import java.util.*;
 @Controller
 public class SearchController {
 
-    @Autowired
-    private DemoService demoService;
-
     /**
      * Request handler for search requests
      *
