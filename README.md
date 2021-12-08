@@ -7,8 +7,8 @@ An advanced search tool for searching collections at the **Bristol Museum & Art 
 1. [Overview](#overview)
 2. [Setup](#setup)
 3. [License](#license)
-4. [Ethics](#ethics)
-
+4. [Contributing](#contributing)
+5. [Ethics](#ethics)
 
 ## Overview
 
@@ -58,6 +58,13 @@ Go to [localhost:8080](https://localhost:8080/) and you should see it running.
 This project uses the MIT License. It may be redistributed under different terms and without source code.
 
 [Read more...](/LICENSE.md)
+
+
+## Contributing
+
+Contribution guidelines are currently work in progress, check back soon.
+
+We have a simple guide on how to use `git` with this project though: [read more...](/GITGUIDE.md)
 
 
 ## Ethics
