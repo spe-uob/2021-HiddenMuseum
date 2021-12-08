@@ -9,7 +9,6 @@ import uk.ac.bristol.hiddenmuseum.requests.SearchResponse;
 
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class SearchRequestBuilderTest {
 
 
