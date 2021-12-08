@@ -42,7 +42,15 @@ public class SearchController {
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(params.getOrDefault("q", ""));
+        try{
+            Integer nhitsToDisplay = Integer.parseInt(params.getOrDefault("nhits", "10"));
+            if (nhitsToDisplay > 100){
+                nhitsToDisplay = 100;
+            }
+            srq.setLimit(nhitsToDisplay);
+        }finally{}
         var response = srq.sendRequest();
+        model.addAttribute("prevSearch", params.getOrDefault("q", ""));
         model.addAttribute("response", response);
         return "search";
     }
