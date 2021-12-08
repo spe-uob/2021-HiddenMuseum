@@ -43,7 +43,7 @@ Run the Docker Container
 $ docker run -p 8080:8080 <username>/<image>
 ```
 
-### Running without Docker
+### Running without Docker (e.g. for development)
 
 Run Spring-Boot using Maven
 ```bash
