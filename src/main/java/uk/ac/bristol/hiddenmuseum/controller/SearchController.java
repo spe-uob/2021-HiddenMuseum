@@ -31,10 +31,9 @@ public class SearchController {
     /**
      * Request handler for search requests
      *
-     * @param dataset
-     * @param params
-     * @param model
-     * @return
+     * @param params GET request parameters
+     * @param model Spring MVC model
+     * @return view to use
      */
     @GetMapping("/search")
     public String search(
