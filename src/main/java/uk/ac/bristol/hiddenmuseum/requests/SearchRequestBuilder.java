@@ -4,7 +4,8 @@ import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
+import static java.lang.System.out;
+import static java.lang.System.*;
 import java.util.HashMap;
 
 /**
@@ -41,6 +42,7 @@ public class SearchRequestBuilder implements RequestBuilder {
      * @return this object, for chaining
      */
     public SearchRequestBuilder setQuery(String query) {
+        System.out.println(query);
         this.query = query;
         return this;
     }

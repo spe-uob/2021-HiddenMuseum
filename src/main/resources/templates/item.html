@@ -2,6 +2,7 @@
 <html lang="en">
 
     <head>
+        <link rel="stylesheet" type="text/css" href="../static/styles.css">
         <meta charset="UTF-8">
         <title>Lookup result</title>
     </head>
@@ -9,13 +10,86 @@
     <body>
         <h1 th:text="${response.recordid}"></h1>
         <h2 th:text="${response.datasetid}"></h2>
-
+        
         <dl>
             <div th:each="field : ${response.fields}">
-                <dt th:text="${field.key}"></dt>
-                <dd th:text="${field.value}"></dd>
+                <div th:switch="${field.key}">
+                    <div th:case="'title_of_object'">
+                        <h1 th:text="${field.value}"></h1>
+                    </div>
+                    <div th:case="'artist'">
+                        <p> Made by </p>
+                        <dt th:text="${field.value}"></dt>
+                    </div>
+                    <div th:case="'year_of_creation'">
+                        <p> Created </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="'medium'">
+                        <p> made with  </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="'object_type'">
+                        <p> It is a  </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="'label'">
+                        <p> description: </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="'current_display_status'">
+                        <p> display status:  </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="'source'">
+                        <p> Sourced from </p>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                    <div th:case="*"></div>
+                </div>
+            </div>
+            <button type="button" class="collapsible">Additional content</button>
+            <div class="contents">
+            <div th:each="field : ${response.fields}">
+                <div th:switch="${field.key}">
+                    <div th:case="'title_of_object'">
+                    </div>
+                    <div th:case="'medium'">
+                    </div>
+                    <div th:case="'artist'">
+                    </div>
+                    <div th:case="'object_type'">
+                    </div>
+                    <div th:case="'source'">
+                    </div>
+                    <div th:case="'current_display_status'">
+                    </div>
+                    <div th:case="'label'">
+                    </div>
+                    <div th:case="*">
+                        <dt th:text="${field.key}"></dt>
+                        <dd th:text="${field.value}"></dd>
+                    </div>
+                </div>
+            </div>
             </div>
         </dl>
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+            
+            for (i = 0; i < coll.length; i++) {
+              coll[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var contents = this.nextElementSibling;
+                if (contents.style.display === "block") {
+                  contents.style.display = "none";
+                } else {
+                  contents.style.display = "block";
+                }
+              });
+            }
+            </script>
     </body>
 
 </html>
