@@ -5,7 +5,7 @@ import org.json.simple.JSONObject;
 import java.io.Serializable;
 
 /**
- * Object returned by a lookup request
+ * Object returned by a lookup request<br />
  * Also included as part of a search response's results
  */
 public class SearchRecord implements Serializable {
