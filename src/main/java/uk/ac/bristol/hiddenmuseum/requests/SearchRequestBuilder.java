@@ -35,7 +35,7 @@ public class SearchRequestBuilder implements RequestBuilder {
     }
 
     /**
-     * Set the long query string
+     * Set the long query string<br />
      * Sets the `q` parameter when sending a request to the API
      *
      * @param query long query string
@@ -48,7 +48,7 @@ public class SearchRequestBuilder implements RequestBuilder {
     }
 
     /**
-     * Sets the maximum number of search results to show
+     * Sets the maximum number of search results to show<br />
      * Sets the `row` parameter when sending a request to the API
      *
      * @param n maximum number of search results to show
@@ -60,7 +60,7 @@ public class SearchRequestBuilder implements RequestBuilder {
     }
 
     /**
-     * Sets how many results to skip (e.g. for pagination)
+     * Sets how many results to skip (e.g. for pagination)<br />
      * Sets the `start` parameter when sending a request to the API
      *
      * @param n how many to results to offset by
@@ -72,7 +72,7 @@ public class SearchRequestBuilder implements RequestBuilder {
     }
 
     /**
-     * Sets a value to filter by, only including matches
+     * Sets a value to filter by, only including matches<br />
      * Sets the `refine.{field}` parameter when sending a request to the API
      *
      * @param field field to filter by
@@ -85,7 +85,7 @@ public class SearchRequestBuilder implements RequestBuilder {
     }
 
     /**
-     * Sets a value to filter results by, excluding matches
+     * Sets a value to filter results by, excluding matches<br />
      * Sets the `exclude.{field}` parameter when sending a request to the API
      *
      * @param field field to filter by
