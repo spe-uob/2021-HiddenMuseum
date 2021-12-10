@@ -15,7 +15,7 @@
         <p th:text="${response.nhits} + ' hits'"></p>
         <form class="form" action="/search">
             <div class="input-group mb-3">
-                <input id="q" name="q" class="form-control" type="text" placeholder="Search" th:value="${prevSearch}">
+                <input id="q" name="q" class="form-control" type="text" placeholder="Search">
                 <input id="nhits" name="nhits" class="form-control" type="text" placeholder="num of records to display (max 100)" >
                 <button id="search-button" class="btn btn-primary" type="submit">
                     <i class="fa fa-search"></i>
@@ -30,6 +30,19 @@
                 </a>
             </li>
         </ul>
+
+        <script type="text/javascript">
+            function onLoad() {
+                const query = window.location.search;
+                const params = new URLSearchParams(query);
+                const search_box = document.getElementById("q");
+                search_box.value = params.get("q");
+                const nhits = document.getElementById("nhits");
+                nhits.value = params.get("nhits");
+            }
+
+            window.onload = onLoad();
+        </script>
     </body>
 
 </html>

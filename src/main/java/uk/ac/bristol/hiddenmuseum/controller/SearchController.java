@@ -25,32 +25,24 @@ import java.util.*;
 @Controller
 public class SearchController {
 
-    @Autowired
-    private DemoService demoService;
-
     /**
      * Request handler for search requests
      *
-     * @param dataset
-     * @param params
-     * @param model
-     * @return
+     * @param q string to search for
+     * @param nhits number of records to show
+     * @param model Spring MVC model
+     * @return view to use
      */
     @GetMapping("/search")
     public String search(
-            @RequestParam Map<String, String> params,
+            @RequestParam(defaultValue = "", required = false) String q,
+            @RequestParam(defaultValue = "25", required = false) int nhits,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
-        srq.setQuery(params.getOrDefault("q", ""));
-        try{
-            Integer nhitsToDisplay = Integer.parseInt(params.getOrDefault("nhits", "10"));
-            if (nhitsToDisplay > 100){
-                nhitsToDisplay = 100;
-            }
-            srq.setLimit(nhitsToDisplay);
-        }finally{}
+        srq.setQuery(q);
+        srq.setLimit(nhits);
         var response = srq.sendRequest();
-        model.addAttribute("prevSearch", params.getOrDefault("q", ""));
+        model.addAttribute("prevSearch", q);
         model.addAttribute("response", response);
         return "search";
     }
