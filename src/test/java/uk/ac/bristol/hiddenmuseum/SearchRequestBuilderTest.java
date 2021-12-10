@@ -66,7 +66,7 @@ public class SearchRequestBuilderTest {
         assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&refine.object=painting");
     }
 
-    /*@Test
+    @Test
     public void requestBuilderGetsExpectedResponse()   {
         String base = "https://opendata.bristol.gov.uk";
         String dataset = "open-data-gallery-3-european-old-masters";
@@ -83,6 +83,6 @@ public class SearchRequestBuilderTest {
         searchRequestBuilder.setQuery("tyrannosaurus");
         SearchResponse response = searchRequestBuilder.sendRequest();
         assert response.nhits == 0;
-    }*/
+    }
 
 }
