@@ -16,10 +16,16 @@
         <form class="form" action="/search">
             <div class="input-group mb-3">
                 <input id="q" name="q" class="form-control" type="text" placeholder="Search" th:value="${prevSearch}">
-                <input id="nhits" name="nhits" class="form-control" type="text" placeholder="num of records to display (max 100)" >
                 <button id="search-button" class="btn btn-primary" type="submit">
                     <i class="fa fa-search"></i>
                 </button>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+            <a id="10" name="10" class="10" href="/">10</a>
+                <p> </p>
+                <a id="25" name="25" class="10" href="/">25</a>
+                <p> </p>
+                <a id="50" name="50" class="10" href="/">50</a>
             </div>
         </form>
         <ul>
@@ -30,6 +36,29 @@
                 </a>
             </li>
         </ul>
+        <a class="go-home" href="/">Go Home</a>
+    <script>
+            function removeParam(key, sourceURL) {
+    var rtn = sourceURL.split("?")[0],
+        param,
+        params_arr = [],
+        queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
+    if (queryString !== "") {
+        params_arr = queryString.split("&");
+        for (var i = params_arr.length - 1; i >= 0; i -= 1) {
+            param = params_arr[i].split("=")[0];
+            if (param === key) {
+                params_arr.splice(i, 1);
+            }
+        }
+        if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+    }
+    return rtn;
+}
+    document.getElementById("10").href =  removeParam("nhits",window.location.href) + "&nhits=10"
+    document.getElementById("25").href =  removeParam("nhits",window.location.href) + "&nhits=25"
+    document.getElementById("50").href =  removeParam("nhits",window.location.href) + "&nhits=50"
+</script>
     </body>
 
 </html>

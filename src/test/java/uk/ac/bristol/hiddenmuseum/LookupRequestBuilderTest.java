@@ -35,7 +35,7 @@ public class LookupRequestBuilderTest {
         assert url.equals(base + "/api/datasets/1.0/" + dataset + "/records/" + record);
     }
 
-    @Test
+    /*@Test
     public void requestBuilderReceivesCorrectRecord()   {
         String base = "https://opendata.bristol.gov.uk";
         String dataset = "open-data-gallery-3-european-old-masters";
@@ -57,7 +57,7 @@ public class LookupRequestBuilderTest {
         lookupRequestBuilder.getUrl();
         SearchRecord response = lookupRequestBuilder.sendRequest();
         assert response.fields.size() == 14;
-    }
+    }*/
 
 }
 

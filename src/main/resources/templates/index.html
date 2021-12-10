@@ -32,13 +32,35 @@
 			</tr>
 			<tr>
 				<td>
-					<select id="field" name="field">
+					<select id="field1" name="field1">
 					<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" 
 					th:selected='${i=="medium"}'></option>
 			  	</select>
 				</td>
 				<td>
-					<input id="Input" name="Input" class="form-control" type="text" placeholder="Input">
+					<input id="Input1" name="Input1" class="form-control" type="text" placeholder="Input">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select id="field2" name="field2">
+					<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" 
+					th:selected='${i=="medium"}'></option>
+			  	</select>
+				</td>
+				<td>
+					<input id="Input2" name="Input2" class="form-control" type="text" placeholder="Input">
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select id="field3" name="field3">
+					<option selected disabled hidden style='display: none' value=''></option>
+					<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" ></option>
+			  	</select>
+				</td>
+				<td>
+					<input id="Input3" name="Input3" class="form-control" type="text" placeholder="Input">
 				</td>
 			</tr>
 		</table>
