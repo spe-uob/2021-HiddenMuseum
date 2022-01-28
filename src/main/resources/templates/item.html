@@ -6,23 +6,6 @@
     <meta charset="UTF-8">
     <title>Lookup result</title>
     <style>
-        .collapsible {
-            background-color: #777;
-            color: white;
-            cursor: pointer;
-            padding: 18px;
-            width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 15px;
-        }
-
-        .active,
-        .collapsible:hover {
-            background-color: #555;
-        }
-
         .contents {
             text-align: left;
             padding: 0 18px;
@@ -32,6 +15,7 @@
         }
 
         .left {
+            color: rgba(46, 49, 55, 255);
             float: left;
             width: 80%;
         }
@@ -40,107 +24,79 @@
             float: right;
             margin: 0 0 0 15px;
         }
+
+        .styled-table {
+            float: left;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            color: rgba(46, 49, 55, 255);
+            min-width: 600px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .styled-table th,
+        .styled-table td {
+            color: rgba(46, 49, 55, 255);
+            max-width: 800px;
+            padding: 12px 15px;
+        }
+
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid rgba(46, 49, 55, 255);;
+        }
     </style>
 </head>
 
 <body>
-
-    <dl>
-        <div style="width: 100%; overflow:auto;">
-            <div th:each="field : ${response.fields}">
-                <div th:switch="${field.key}">
-                    <div class="left">
-                        <div th:case="'title_of_object'">
-                            <h1 th:text="${field.value}"></h1>
-                            <br>
-                        </div>
-                        <div th:case="'artist'">
-                            <dd th:text="'Made by '+ ${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'year_of_creation'">
-                            <dd th:text="'Created ' + ${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'medium'">
-                            <dd th:text="'Made with '+${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'object_type'">
-                            <dd th:text="'It is a ' +${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'label'">
-                            <dd style="text-align:left;width: 40%;" th:text="'Description: '+${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'current_display_status'">
-                            <dd th:text="'Display status: '+ ${field.value}"></dd>
-                            <br>
-                        </div>
-                        <div th:case="'source'">
-
-                            <dd th:text="'Sourced from: '+ ${field.value}"></dd>
-                            <br>
-                        </div>
-                    </div>
-                    <div th:case="'image_of_object'">
-
-                        <img th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'"
-                            alt="image of object" id="right">
+    <a class="go-home" href="/">Go Home</a>
+    <a class="go-home" href="/">return (not usable)</a>
+    <a class="go-home" href="/">export (not usable)</a>
+    <hr class="hr-class">
+    <div style="width: 100%; overflow:auto;">
+        <div th:each="field : ${response.fields}">
+            <div th:switch="${field.key}">
+                <div class="left">
+                    <div th:case="'title_of_object'">
+                        <h1 th:text="${field.value}"></h1>
                         <br>
-                    </div>
-                    <div th:case="*"></div>
-                </div>
-            </div>
-        </div>
-            <button type="button" class="collapsible">Additional content</button>
-            <div class="contents">
-                <h2 th:text="${response.recordid}">
-                    </h1>
-                    <h3 th:text="${response.datasetid}">
-                </h2>
-                <div th:each="field : ${response.fields}">
-                    <div th:switch="${field.key}">
-                        <div th:case="'title_of_object'">
-                        </div>
-                        <div th:case="'medium'">
-                        </div>
-                        <div th:case="'artist'">
-                        </div>
-                        <div th:case="'object_type'">
-                        </div>
-                        <div th:case="'source'">
-                        </div>
-                        <div th:case="'current_display_status'">
-                        </div>
-                        <div th:case="'label'">
-                        </div>
-                        <div th:case="*">
-                            <dt th:text="${field.key}"></dt>
-                            <dd th:text="${field.value}"></dd>
+                        <div class="left">
+                            <table class="styled-table">
+                                <tr>
+                                    <th>Field</th>
+                                    <th>Info</th>
+                                </tr>
+                                <div th:each="field : ${response.fields}">
+                                    <tbody>
+                                    <tr>
+                                        <td th:text="${field.key}"></td>
+                                        <td th:text="${field.value}"></td>
+                                    </tr>
+                                    </tbody>
+                                </div>
+                            </table>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </dl>
-    <script>
-        var coll = document.getElementsByClassName("collapsible");
-        var i;
+                <div th:case="'image_of_object'">
 
-        for (i = 0; i < coll.length; i++) {
-            coll[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var contents = this.nextElementSibling;
-                if (contents.style.display === "block") {
-                    contents.style.display = "none";
-                } else {
-                    contents.style.display = "block";
-                }
-            });
-        }
-    </script>
+                    <img th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'"
+                        alt="image of object" id="right">
+                    <br>
+                </div>
+                <div th:case="*"></div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

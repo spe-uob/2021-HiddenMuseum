@@ -12,6 +12,8 @@
     </head>
 
     <body>
+        <a class="go-home" href="/">Go Home</a>
+        <hr class="hr-class">
         <p th:text="${response.nhits} + ' hits'"></p>
         <form class="form" action="/search">
             <div class="input-group mb-3">
@@ -36,7 +38,6 @@
                 </a>
             </li>
         </ul>
-        <a class="go-home" href="/">Go Home</a>
     <script>
             function removeParam(key, sourceURL) {
     var rtn = sourceURL.split("?")[0],

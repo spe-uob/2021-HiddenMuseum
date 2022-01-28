@@ -17,6 +17,11 @@
       text-align: center;
   }
 
+  .hr-class{
+    color: rgba(46,49,55,255);
+    size: 20px;
+  }
+
   #search-box   {
     margin: 0 auto;
       max-width: 80%;
