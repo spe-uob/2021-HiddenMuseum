@@ -12,7 +12,9 @@
     </head>
 
     <body>
+    <main class="content">
         <p th:text="${response.nhits} + ' hits'"></p>
+        <div id="search-box" action="search">
         <form class="form" action="/search">
             <div class="input-group mb-3">
                 <input id="q" name="q" class="form-control" type="text" placeholder="Search">
@@ -22,6 +24,7 @@
                 </button>
             </div>
         </form>
+        </div>
         <ul>
             <li th:each="record : ${response.records}">
                 <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
@@ -30,6 +33,7 @@
                 </a>
             </li>
         </ul>
+    </main>
 
         <script type="text/javascript">
             function onLoad() {

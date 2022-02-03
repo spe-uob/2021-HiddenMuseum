@@ -4,7 +4,7 @@
 <head>
     <!--link rel="stylesheet" type="text/css" href="../static/styles.css"-->
     <meta charset="UTF-8">
-    <title>Lookup result</title>
+    <title>Item lookup result</title>
     <style>
         .collapsible {
             background-color: #777;
@@ -44,7 +44,7 @@
 </head>
 
 <body>
-
+    <main class="content">
     <dl>
         <div style="width: 100%; overflow:auto;">
             <div th:each="field : ${response.fields}">
@@ -94,6 +94,7 @@
                 </div>
             </div>
         </div>
+
             <button type="button" class="collapsible">Additional content</button>
             <div class="contents">
                 <h2 th:text="${response.recordid}">
@@ -125,6 +126,7 @@
             </div>
         </div>
     </dl>
+    </main>
     <script>
         var coll = document.getElementsByClassName("collapsible");
         var i;
@@ -141,6 +143,7 @@
             });
         }
     </script>
+
 </body>
 
 </html>
