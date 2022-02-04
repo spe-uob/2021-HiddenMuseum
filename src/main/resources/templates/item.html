@@ -5,12 +5,13 @@
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <meta charset="UTF-8">
     <title>Lookup result</title>
+    <script src="/static/script.js"></script>
 </head>
 
 <body>
     <a class="go-home" href="/">Go Home</a>
     <a class="go-home" href="/">return (not usable)</a>
-    <a class="go-home" href="/">export (not usable)</a>
+    <a class="go-home" href="">export (not usable)</a>
     <hr class="hr-class">
     <div style="width: 100%; overflow:auto;">
         <div th:each="field : ${response.fields}">
