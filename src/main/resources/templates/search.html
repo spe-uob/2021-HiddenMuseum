@@ -12,19 +12,19 @@
     </head>
 
     <body>
-    <main class="content">
-        <p th:text="${response.nhits} + ' hits'"></p>
-        <div id="search-box" action="search">
-        <form class="form" action="/search">
-            <div class="input-group mb-3">
-                <input id="q" name="q" class="form-control" type="text" placeholder="Search">
-                <input id="nhits" name="nhits" class="form-control" type="text" placeholder="num of records to display (max 100)" >
-                <button id="search-button" class="btn btn-primary" type="submit">
-                    <i class="fa fa-search"></i>
-                </button>
+        <main class="content">
+            <p th:text="${response.nhits} + ' hits'"></p>
+            <div id="search-box" action="search">
+                <form class="form" action="/search">
+                    <div class="input-group mb-3">
+                        <input id="q" name="q" class="form-control" type="text" placeholder="Search">
+                        <input id="nhits" name="nhits" class="form-control" type="text" placeholder="num of records to display (max 100)" >
+                        <button id="search-button" class="btn btn-primary" type="submit">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
-        </div>
         <ul>
             <li th:each="record : ${response.records}">
                 <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">

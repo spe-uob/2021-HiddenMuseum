@@ -36,14 +36,13 @@
 					<select id="field" name="field">
 					<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" 
 					th:selected='${i=="medium"}'></option>
-			  	</select>
+					</select>
 				</td>
 				<td>
 					<input id="Input" name="Input" class="form-control" type="text" placeholder="Input">
 				</td>
 			</tr>
 		</table>
-	</form>
 	</main>
 
 </body>

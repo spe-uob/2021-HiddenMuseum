@@ -94,13 +94,10 @@
                 </div>
             </div>
         </div>
-
             <button type="button" class="collapsible">Additional content</button>
             <div class="contents">
-                <h2 th:text="${response.recordid}">
-                    </h1>
-                    <h3 th:text="${response.datasetid}">
-                </h2>
+                <h1 th:text="${response.recordid}"></h1>
+                <h2 th:text="${response.datasetid}"></h2>
                 <div th:each="field : ${response.fields}">
                     <div th:switch="${field.key}">
                         <div th:case="'title_of_object'">
