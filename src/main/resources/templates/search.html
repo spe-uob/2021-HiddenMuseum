@@ -7,20 +7,24 @@
     <script src="https://use.fontawesome.com/639e5b5645.js"></script>
 
     <link rel="stylesheet" href="../static/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
-    <a class="go-home" href="/">Go Home</a>
-    <hr class="hr-class">
-    <p th:text="${response.nhits} + ' hits'"></p>
-    <form class="form" action="/search">
-        <div class="input-group mb-3">
-            <input id="q" name="q" class="form-control" type="text" placeholder="Search" th:value="${prevSearch}">
-            <button id="search-button" class="btn btn-primary" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
+    <main class="content">
+        <a class="go-home" href="/">Go Home</a>
+        <hr class="hr-class">
+        <p th:text="${response.nhits} + ' hits'"></p>
+        <div id="search-box" action="search">
+            <form class="form" action="/search">
+                <div class="input-group mb-3">
+                    <input id="q" name="q" class="form-control" type="text" placeholder="Search">
+                    <input id="nhits" name="nhits" class="form-control" type="text" placeholder="num of records to display (max 100)">
+                    <button id="search-button" class="btn btn-primary" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>
         </div>
         <div style="display: flex; justify-content: space-between;">
             <a id="10" name="10" class="10" href="/">10</a>
@@ -29,16 +33,26 @@
             <p> </p>
             <a id="50" name="50" class="10" href="/">50</a>
         </div>
-    </form>
-    <ul>
-        <li th:each="record : ${response.records}">
-            <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
-                <span th:text="${record.fields.get('title_of_object')}"></span>
-                <span th:if="${record.fields.get('artist')}" th:text="'by ' + ${record.fields.get('artist')}"></span>
-            </a>
-        </li>
-    </ul>
-    <script>
+        <ul>
+            <li th:each="record : ${response.records}">
+                <a th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
+                    <span th:text="${record.fields.get('title_of_object')}"></span>
+                    <span th:if="${record.fields.get('artist')}" th:text="'by ' + ${record.fields.get('artist')}"></span>
+                </a>
+            </li>
+        </ul>
+    </main>
+
+    <script type="text/javascript">
+        function onLoad() {
+            const query = window.location.search;
+            const params = new URLSearchParams(query);
+            const search_box = document.getElementById("q");
+            search_box.value = params.get("q");
+            const nhits = document.getElementById("nhits");
+            nhits.value = params.get("nhits");
+        }
+
         function removeParam(key, sourceURL) {
             var rtn = sourceURL.split("?")[0],
                 param,
@@ -56,9 +70,12 @@
             }
             return rtn;
         }
-        document.getElementById("10").href = removeParam("nhits", window.location.href) + "&nhits=10"
-        document.getElementById("25").href = removeParam("nhits", window.location.href) + "&nhits=25"
-        document.getElementById("50").href = removeParam("nhits", window.location.href) + "&nhits=50"
+
+        document.getElementById("10").href = removeParam("nhits", window.location.href) + "&nhits=10";
+        document.getElementById("25").href = removeParam("nhits", window.location.href) + "&nhits=25";
+        document.getElementById("50").href = removeParam("nhits", window.location.href) + "&nhits=50";
+
+        window.onload = onLoad();
     </script>
 </body>
 
