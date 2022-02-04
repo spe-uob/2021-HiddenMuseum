@@ -42,7 +42,6 @@ public class SearchController {
         srq.setQuery(q);
         srq.setLimit(nhits);
         var response = srq.sendRequest();
-        model.addAttribute("prevSearch", q);
         model.addAttribute("response", response);
         return "search";
     }
