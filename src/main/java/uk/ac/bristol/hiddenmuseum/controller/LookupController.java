@@ -28,6 +28,8 @@ public class LookupController {
         var lrq = new LookupRequestBuilder("https://opendata.bristol.gov.uk/", dataset, recordID);
         var response = lrq.sendRequest();
         model.addAttribute("response", response);
+        String url = lrq.getUrl();
+        model.addAttribute("exportJSON", url);
         return "item";
     }
 

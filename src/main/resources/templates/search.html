@@ -13,6 +13,7 @@
 <body>
     <main class="content">
         <a class="go-home" href="/">Go Home</a>
+        <a class="go-home" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
         <hr class="hr-class">
         <p th:text="${response.nhits} + ' hits'"></p>
         <div id="search-box" action="search">
