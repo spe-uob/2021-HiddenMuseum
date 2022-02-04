@@ -52,7 +52,8 @@
         }
 
         .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid rgba(46, 49, 55, 255);;
+            border-bottom: 2px solid rgba(46, 49, 55, 255);
+            ;
         }
     </style>
 </head>
@@ -77,10 +78,10 @@
                                 </tr>
                                 <div th:each="field : ${response.fields}">
                                     <tbody>
-                                    <tr>
-                                        <td th:text="${field.key}"></td>
-                                        <td th:text="${field.value}"></td>
-                                    </tr>
+                                        <tr>
+                                            <td th:text="${field.key}"></td>
+                                            <td th:text="${field.value}"></td>
+                                        </tr>
                                     </tbody>
                                 </div>
                             </table>
