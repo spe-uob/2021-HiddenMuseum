@@ -37,27 +37,11 @@ public class SearchController {
     public String search(
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
-            @RequestParam Map<String, String> params,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
-        srq.setQuery(params.getOrDefault("q", ""));
-        if (!params.get("Input1").equals("") && !params.get("Input1").equals(null)){
-            srq.refineBy(params.get("field1"), params.get("Input1"));
-        }
-        if (!params.get("Input2").equals("") && !params.get("Input2").equals(null)){
-            srq.refineBy(params.get("field2"), params.get("Input2"));
-        }
-        if (!params.get("Input3").equals("") && !params.get("Input3").equals(null)){
-            srq.refineBy(params.get("field3"), params.get("Input3"));
-        }
-        try{
-            Integer nhitsToDisplay = Integer.parseInt(params.getOrDefault("nhits", "10"));
-            srq.setLimit(nhitsToDisplay);
-        }finally{}
         srq.setQuery(q);
         srq.setLimit(nhits);
         var response = srq.sendRequest();
-        model.addAttribute("prevSearch", q);
         model.addAttribute("response", response);
         return "search";
     }
