@@ -1,90 +1,97 @@
   #title {
-    text-align: center;
-    font-size: 48px;
+      text-align: center;
+      font-size: 48px;
   }
-  h1   {
+  
+  h1 {
       text-align: center;
   }
-  h2    {
+  
+  h2 {
       text-align: center;
   }
-  .go-home  {
+  
+  .go-home {
       text-align: center;
       font-size: 36px;
   }
+  
   .relative {
       position: relative;
       text-align: center;
   }
-
-  .hr-class{
-    color: rgba(46,49,55,255);
-    size: 20px;
+  
+  .hr-class {
+      color: rgba(46, 49, 55, 255);
+      size: 20px;
   }
-
-  #search-box   {
-    margin: 0 auto;
+  
+  #search-box {
+      margin: 0 auto;
       max-width: 80%;
   }
-  #search-bar   {
+  
+  #search-bar {
       width: 80%;
       bottom: 0;
       margin-bottom: 0
   }
-  #search-button   {
+  
+  #search-button {
       margin-top: 0;
       display: inline;
   }
-  #temporary    {
+  
+  #temporary {
       text-align: center;
   }
-
+  
   .contents {
-    text-align: left;
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-}
-
-.left {
-    color: rgba(46, 49, 55, 255);
-    float: left;
-    width: 80%;
-}
-
-.right {
-    float: right;
-    margin: 0 0 0 15px;
-}
-
-.styled-table {
-    float: left;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    color: rgba(46, 49, 55, 255);
-    min-width: 600px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.styled-table th,
-.styled-table td {
-    color: rgba(46, 49, 55, 255);
-    max-width: 800px;
-    padding: 12px 15px;
-}
-
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid rgba(46, 49, 55, 255);
-    ;
-}
+      text-align: left;
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f1f1f1;
+  }
+  
+  .left {
+      color: rgba(46, 49, 55, 255);
+      float: left;
+      width: 80%;
+  }
+  
+  .right {
+      float: right;
+      margin: 0 0 0 15px;
+  }
+  
+  .styled-table {
+      float: left;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      color: rgba(46, 49, 55, 255);
+      min-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .styled-table th,
+  .styled-table td {
+      color: rgba(46, 49, 55, 255);
+      max-width: 800px;
+      padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+      border-bottom: 2px solid rgba(46, 49, 55, 255);
+      ;
+  }
