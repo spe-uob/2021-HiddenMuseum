@@ -1,6 +1,8 @@
 package uk.ac.bristol.hiddenmuseum.controller;
 
 import uk.ac.bristol.hiddenmuseum.service.FieldImpl;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaField;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,12 @@ public class IndexController {
         JSONObject Fields = FieldImpl.returnJsonFields(results);
         Iterator<String> keys = (Iterator<String>) Fields.keySet().iterator();
         List<String> fieldList = new ArrayList<>();
+        
+        var srq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var response = srq.sendRequest();
+        for (SchemaField field : response.fields) {
+            System.out.println(field.label);
+        }
 
         while(keys.hasNext()){
             String key = keys.next();
