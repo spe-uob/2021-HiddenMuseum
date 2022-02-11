@@ -30,14 +30,22 @@ public class SearchController {
     public String search(
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
+            @RequestParam(defaultValue = "0", required = false) int page,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
         srq.setLimit(nhits);
+        srq.setOffset(nhits * page);
+
         var response = srq.sendRequest();
         model.addAttribute("response", response);
-        String url = srq.getUrl();
-        model.addAttribute("exportJSON", url );
+
+        String exportUrl = srq.getUrl();
+        model.addAttribute("exportJSON", exportUrl);
+
+        int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
+        model.addAttribute("pages", pages);
+
         return "search";
     }
 

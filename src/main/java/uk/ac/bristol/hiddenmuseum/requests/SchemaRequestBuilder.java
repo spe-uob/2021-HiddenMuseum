@@ -2,26 +2,20 @@ package uk.ac.bristol.hiddenmuseum.requests;
 
 import org.springframework.web.client.RestTemplate;
 
-/**
- * Creates requests to lookup individual records
- */
-public class LookupRequestBuilder implements RequestBuilder<SearchRecord> {
+public class SchemaRequestBuilder implements RequestBuilder<SchemaResponse> {
 
     private final String base;
     private final String dataset;
-    private final String recordID;
 
     /**
-     * Create a lookup request builder
+     * Create a schema request builder
      *
      * @param base URL where datasets can be found (do not include API endpoints)
      * @param dataset dataset to search
-     * @param recordID record to look up
      */
-    public LookupRequestBuilder(String base, String dataset, String recordID) {
+    public SchemaRequestBuilder(String base, String dataset) {
         this.base = base;
         this.dataset = dataset;
-        this.recordID = recordID;
     }
 
     @Override
@@ -30,15 +24,14 @@ public class LookupRequestBuilder implements RequestBuilder<SearchRecord> {
         output.append(this.base);
         output.append("/api/datasets/1.0/");
         output.append(this.dataset);
-        output.append("/records/");
-        output.append(this.recordID);
         return output.toString();
     }
 
     @Override
-    public SearchRecord sendRequest() {
+    public SchemaResponse sendRequest() {
         RestTemplate restTemplate = new RestTemplate();
-        SearchRecord response = restTemplate.getForObject(this.getUrl(), SearchRecord.class);
+        SchemaResponse response = restTemplate.getForObject(this.getUrl(), SchemaResponse.class);
         return response;
     }
+    
 }
