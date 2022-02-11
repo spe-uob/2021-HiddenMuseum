@@ -41,16 +41,26 @@
                 </a>
             </li>
         </ul>
+        <ul>
+            <li th:each="i : ${#numbers.sequence(1, pages)}">
+                <a class="pagenum" th:text="${i}"></a>
+            </li>
+        </ul>
     </main>
 
     <script type="text/javascript">
         function onLoad() {
             const query = window.location.search;
             const params = new URLSearchParams(query);
+
             const search_box = document.getElementById("q");
             search_box.value = params.get("q");
-            const nhits = document.getElementById("nhits");
-            nhits.value = params.get("nhits");
+
+            for (const a of document.getElementsByClassName("pagenum")) {
+                const url = new URL(window.location.href);
+                url.searchParams.set("page", a.innerHTML - 1);
+                a.href = url;
+            }
         }
 
         function removeParam(key, sourceURL) {
