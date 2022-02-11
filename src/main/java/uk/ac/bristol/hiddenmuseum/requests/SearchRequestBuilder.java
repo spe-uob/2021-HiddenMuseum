@@ -1,17 +1,12 @@
 package uk.ac.bristol.hiddenmuseum.requests;
 
-import org.json.simple.JSONObject;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import static java.lang.System.out;
-import static java.lang.System.*;
 import java.util.HashMap;
 
 /**
  * Creates requests to search the database
  */
-public class SearchRequestBuilder implements RequestBuilder {
+public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
 
     private final String base;
     private final String dataset;

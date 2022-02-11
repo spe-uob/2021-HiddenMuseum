@@ -27,11 +27,11 @@
             </form>
         </div>
         <div style="display: flex; justify-content: space-between;">
-            <a id="10" name="10" class="10" href="/">10</a>
+            <a class="nhits" href="/">10</a>
             <p> </p>
-            <a id="25" name="25" class="10" href="/">25</a>
+            <a class="nhits" href="/">25</a>
             <p> </p>
-            <a id="50" name="50" class="10" href="/">50</a>
+            <a class="nhits" href="/">50</a>
         </div>
         <ul>
             <li th:each="record : ${response.records}">
@@ -41,39 +41,34 @@
                 </a>
             </li>
         </ul>
+        <ul>
+            <li th:each="i : ${#numbers.sequence(1, pages)}">
+                <a class="pagenum" th:text="${i}"></a>
+            </li>
+        </ul>
     </main>
 
     <script type="text/javascript">
         function onLoad() {
             const query = window.location.search;
             const params = new URLSearchParams(query);
+
             const search_box = document.getElementById("q");
             search_box.value = params.get("q");
-            const nhits = document.getElementById("nhits");
-            nhits.value = params.get("nhits");
-        }
 
-        function removeParam(key, sourceURL) {
-            var rtn = sourceURL.split("?")[0],
-                param,
-                params_arr = [],
-                queryString = (sourceURL.indexOf("?") !== -1) ? sourceURL.split("?")[1] : "";
-            if (queryString !== "") {
-                params_arr = queryString.split("&");
-                for (var i = params_arr.length - 1; i >= 0; i -= 1) {
-                    param = params_arr[i].split("=")[0];
-                    if (param === key) {
-                        params_arr.splice(i, 1);
-                    }
-                }
-                if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
+            for (const a of document.getElementsByClassName("pagenum")) {
+                const url = new URL(window.location.href);
+                url.searchParams.set("page", a.innerHTML - 1);
+                a.href = url;
             }
-            return rtn;
-        }
 
-        document.getElementById("10").href = removeParam("nhits", window.location.href) + "&nhits=10";
-        document.getElementById("25").href = removeParam("nhits", window.location.href) + "&nhits=25";
-        document.getElementById("50").href = removeParam("nhits", window.location.href) + "&nhits=50";
+            for (const a of document.getElementsByClassName("nhits")) {
+                const url = new URL(window.location.href);
+                url.searchParams.set("nhits", a.innerHTML);
+                url.searchParams.set("page", 0);
+                a.href = url;
+            }
+        }
 
         window.onload = onLoad();
     </script>
