@@ -14,9 +14,6 @@ public class IndexController {
     /**
      * Request handler for the home page of the web app
      *
-     * @param medium
-     * @param objectType
-     * @param artist
      * @param name
      * @param model
      * @return
