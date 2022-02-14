@@ -23,5 +23,12 @@ public class CSVController {
         String csv = csvBuilder.getCSV(q);
         return csv;
     }
+
+    @RequestMapping("/exportItem")
+    public String getCSVItem(@RequestParam(defaultValue = "", required = false) String q) {
+        CSVBuilder csvBuilder = new CSVBuilder();
+        String csv = csvBuilder.getCSVItem(q);
+        return csv;
+    }
 }
 

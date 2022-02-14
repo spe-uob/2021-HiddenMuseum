@@ -30,6 +30,13 @@ public class CSVBuilder {
         return response.records;
     }
 
+    public SearchRecord getRecord(String query) {
+        LookupRequestBuilder lrq = new LookupRequestBuilder("https://opendata.bristol.gov.uk/",
+                "open-data-gallery-3-european-old-masters", query);
+        SearchRecord record = lrq.sendRequest();
+        return record;
+    }
+
     //tab is a delimiter for this CSV
     public String getCSV(String query)  {
         List<String> fieldList = getFields();
@@ -47,7 +54,22 @@ public class CSVBuilder {
         }
 
         return csv.toString();
+    }
 
+    //for the item lookup
+    public String getCSVItem(String query)  {
+        List<String> fieldList = getFields();
+        StringBuilder csv = new StringBuilder();
+        for(String field : fieldList)   {
+            csv.append(field);
+            csv.append("\t");
+        }
+        SearchRecord data = getRecord(query);
+            for (String field : fieldList) {
+                csv.append(data.fields.getOrDefault(field, "DATA UNAVAILABLE"));
+                csv.append("\t");
+            }
+        return csv.toString();
 
     }
 }

@@ -34,7 +34,7 @@ public class LookupController {
         model.addAttribute("exportJSON", url);
 
         //add the CSV url
-        String exportCSV = "/export?q=" + response.fields.getOrDefault("title_of_object", "");
+        String exportCSV = "/exportItem?q=" + response.recordid;
         model.addAttribute("exportCSV", exportCSV);
 
         return "item";
