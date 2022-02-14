@@ -40,8 +40,15 @@ public class SearchController {
         var response = srq.sendRequest();
         model.addAttribute("response", response);
 
-        String exportUrl = srq.getUrl();
-        model.addAttribute("exportJSON", exportUrl);
+        //setting up to export as JSON
+        String exportJSON = srq.getUrl();
+        model.addAttribute("exportJSON", exportJSON);
+
+        //setting up to export as CSV
+        String exportCSV = "/export?q=" + q;
+        model.addAttribute("exportCSV", exportCSV);
+
+
 
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
