@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class CSVBuilder {
+public class CSVService {
 
-    public List<String> getFields() {
+    public static List<String> getFields() {
         SchemaRequestBuilder srb = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/",
                 "open-data-gallery-3-european-old-masters");
         SchemaResponse response = srb.sendRequest();
@@ -21,7 +21,7 @@ public class CSVBuilder {
         return fields;
     }
 
-    public List<SearchRecord> getRecords(String query) {
+    public static List<SearchRecord> getRecords(String query) {
         List<SearchRecord> records = new ArrayList<>();
         SearchRequestBuilder srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/",
                 "open-data-gallery-3-european-old-masters");
@@ -31,7 +31,7 @@ public class CSVBuilder {
         return response.records;
     }
 
-    public SearchRecord getRecord(String query) {
+    public static SearchRecord getRecord(String query) {
         LookupRequestBuilder lrq = new LookupRequestBuilder("https://opendata.bristol.gov.uk/",
                 "open-data-gallery-3-european-old-masters", query);
         SearchRecord record = lrq.sendRequest();
@@ -39,7 +39,7 @@ public class CSVBuilder {
     }
 
     //tab is a delimiter for this CSV
-    public String getCSV(String query)  {
+    public static String getCSV(String query)  {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
         for (String field : fieldList) {
@@ -59,7 +59,7 @@ public class CSVBuilder {
     }
 
     //for the item lookup
-    public String getCSVItem(String query)  {
+    public static String getCSVItem(String query)  {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
         for (String field : fieldList) {

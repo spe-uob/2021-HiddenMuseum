@@ -48,8 +48,6 @@ public class SearchController {
         String exportCSV = "/export?q=" + q;
         model.addAttribute("exportCSV", exportCSV);
 
-
-
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
 
