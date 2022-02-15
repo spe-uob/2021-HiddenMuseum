@@ -12,11 +12,12 @@ public class CSVBuilder {
         SchemaRequestBuilder srb = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/",
                 "open-data-gallery-3-european-old-masters");
         SchemaResponse response = srb.sendRequest();
-        List<String> fields = new ArrayList<>();
 
+        List<String> fields = new ArrayList<>();
         for (SchemaField field : response.fields) {
             fields.add(field.name);
         }
+
         return fields;
     }
 
@@ -41,10 +42,11 @@ public class CSVBuilder {
     public String getCSV(String query)  {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
-        for(String field : fieldList)   {
+        for (String field : fieldList) {
             csv.append(field);
             csv.append("\t");
         }
+
         List<SearchRecord> data = getRecords(query);
         for (SearchRecord record : data) {
             for (String field : fieldList) {
@@ -60,15 +62,17 @@ public class CSVBuilder {
     public String getCSVItem(String query)  {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
-        for(String field : fieldList)   {
+        for (String field : fieldList) {
             csv.append(field);
             csv.append("\t");
         }
+
         SearchRecord data = getRecord(query);
-            for (String field : fieldList) {
-                csv.append(data.fields.getOrDefault(field, "DATA UNAVAILABLE"));
-                csv.append("\t");
-            }
+        for (String field : fieldList) {
+            csv.append(data.fields.getOrDefault(field, "DATA UNAVAILABLE"));
+            csv.append("\t");
+        }
+
         return csv.toString();
 
     }
