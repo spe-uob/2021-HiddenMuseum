@@ -1,10 +1,8 @@
 package uk.ac.bristol.hiddenmuseum.service;
 
 import uk.ac.bristol.hiddenmuseum.requests.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class CSVService {
 
@@ -43,16 +41,23 @@ public class CSVService {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
         for (String field : fieldList) {
-            csv.append(field);
-            csv.append("\t");
+            csv.append("\"");
+            csv.append(field.replaceAll("\"", "\"\""));
+            csv.append("\"");
+            csv.append(",");
         }
+
+        csv.append("\n");
 
         List<SearchRecord> data = getRecords(query);
         for (SearchRecord record : data) {
             for (String field : fieldList) {
-                csv.append(record.fields.getOrDefault(field, "DATA UNAVAILABLE"));
-                csv.append("\t");
+                csv.append("\"");
+                csv.append(record.fields.getOrDefault(field, "").toString().replaceAll("\"", "\"\""));
+                csv.append("\"");
+                csv.append(",");
             }
+            csv.append("\n");
         }
 
         return csv.toString();
@@ -63,14 +68,20 @@ public class CSVService {
         List<String> fieldList = getFields();
         StringBuilder csv = new StringBuilder();
         for (String field : fieldList) {
-            csv.append(field);
-            csv.append("\t");
+            csv.append("\"");
+            csv.append(field.replaceAll("\"", "\"\""));
+            csv.append("\"");
+            csv.append(",");
         }
 
-        SearchRecord data = getRecord(query);
+        csv.append("\n");
+
+        SearchRecord record = getRecord(query);
         for (String field : fieldList) {
-            csv.append(data.fields.getOrDefault(field, "DATA UNAVAILABLE"));
-            csv.append("\t");
+            csv.append("\"");
+            csv.append(record.fields.getOrDefault(field, "").toString().replaceAll("\"", "\"\""));
+            csv.append("\"");
+            csv.append(",");
         }
 
         return csv.toString();
