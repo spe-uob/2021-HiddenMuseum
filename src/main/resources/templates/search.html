@@ -39,7 +39,7 @@
                 <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
                     <span th:text="${record.fields.get('title_of_object')}"></span>
                     <span th:if="${record.fields.get('artist')}" th:text="'by ' + ${record.fields.get('artist')}"></span>
-                    <div class="hover"> <img src="https://cdn.tasteatlas.com/images/social/e9ef14798ff84fa1afc705b034c18554.jpg" alt="cheese"></div>
+                    <div class="hover"> <img src="https://cdn.tasteatlas.com/images/social/e9ef14798ff84fa1afc705b034c18554.jpg" alt="cheese" width="300px" height="300px"></div>
                 </a>
             </li>
         </ul>
