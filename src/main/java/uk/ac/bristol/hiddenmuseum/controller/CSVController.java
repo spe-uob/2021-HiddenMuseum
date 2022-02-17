@@ -10,19 +10,23 @@ import uk.ac.bristol.hiddenmuseum.service.CSVService;
  */
 @RestController
 public class CSVController {
-
     /**
      *
-     * Returns the page with the exported CSV
+     * gathers csv relating to the query given or just the empty string if none given.
      *
-     * @return appropriate error page
+     * @return appropriate csv file.
      */
     @RequestMapping("/export")
     public String getCSV(@RequestParam(defaultValue = "", required = false) String q) {
         String csv = CSVService.getCSV(q);
         return csv;
     }
-
+    /**
+     *
+     * gathers csv relating to the item given or just the empty string if none given.
+     *
+     * @return appropriate csv file.
+     */
     @RequestMapping("/exportItem")
     public String getCSVItem(@RequestParam(defaultValue = "", required = false) String q) {
         String csv = CSVService.getCSVItem(q);
