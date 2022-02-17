@@ -1,9 +1,9 @@
 package uk.ac.bristol.hiddenmuseum.controller;
 
-import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 
 /**
  * Controller for the index page of the program
@@ -30,3 +30,5 @@ public class IndexController {
     }
 
 }
+
+
