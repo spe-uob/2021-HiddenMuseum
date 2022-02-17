@@ -88,3 +88,24 @@
     border-bottom: 2px solid rgba(46, 49, 55, 255);
     ;
 }
+
+
+.link{
+    cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+
+.hover{
+    display: none;
+}
+
+.link:hover .hover {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    max-width: 300px;
+}
