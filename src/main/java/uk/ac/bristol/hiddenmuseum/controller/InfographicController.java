@@ -22,6 +22,8 @@ public class InfographicController {
         var response = srq.sendRequest();
         var listRecords = response.records;
         List<Integer> intDates = new ArrayList<Integer>();
+        ArrayList<ArrayList<String>>ListOfTitles = new ArrayList<ArrayList<String>>();
+        List<Integer> datesOfItems = new ArrayList<Integer>();
         HashMap<Integer,ArrayList<String>> AllTitlesWhenAtDate = new HashMap<>();
        
         /*find the highest and lowest dates*/
@@ -44,16 +46,14 @@ public class InfographicController {
                 if (Integer.parseInt(date) < low){
                     low = Integer.parseInt(date);
                 }
-                //if its not been added to the hash map add it and if there is already one just add it to the list
-                if (!(AllTitlesWhenAtDate.containsKey(Integer.parseInt(date)))){
-                    ArrayList<String> placeholder = new ArrayList<String>();
-                    placeholder.add(record.fields.get("title_of_object").toString());
-                    AllTitlesWhenAtDate.put(Integer.parseInt(date), placeholder);
+                //if its not been added to the lists add it and if there is already one just add it to the Strign list
+                if (!(datesOfItems.contains(Integer.parseInt(date)))){
+                    datesOfItems.add(Integer.parseInt(date));
+                    ListOfTitles.add(new ArrayList<String>());
+                    ListOfTitles.get(datesOfItems.size()-1).add(record.fields.get("title_of_object").toString());
                 }
                 else{
-                    ArrayList<String> placeholder = AllTitlesWhenAtDate.get(Integer.parseInt(date));
-                    placeholder.add(record.fields.get("title_of_object").toString());
-
+                    ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(date))).add(record.fields.get("title_of_object").toString());
                 }
             }
             System.out.println(date);
@@ -96,9 +96,11 @@ public class InfographicController {
 
         model.addAttribute("datesToInclude", datesToInclude);
         model.addAttribute("numOfDates",  numOfDates);
-        model.addAttribute("AllTitlesWhenAtDate", AllTitlesWhenAtDate);
+        model.addAttribute("ListOfTitles",ListOfTitles);
+        model.addAttribute("datesOfItems",datesOfItems);
         System.out.println(datesToInclude);
         System.out.println(numOfDates);
-        System.out.println(AllTitlesWhenAtDate);
+        System.out.println(ListOfTitles);
+        System.out.println(datesOfItems);
         return "infographics";
     }}
