@@ -95,5 +95,8 @@
 
 .link:hover .hover {
     display: block;
-    position: absolute;
+    position: fixed;
+    top: 300px;
+    right: 300px;
+    margin-right:125px;
 }
