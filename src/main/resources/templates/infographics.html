@@ -15,16 +15,17 @@
         <canvas id="myChart"></canvas>
     </div>
 </body>
-/*
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/ [];
     const numOfDates = /*[[${numOfDates}]]*/ [];
-
+    const MatchDateToTitle = /*[[${numOfDates}]]*/ [];
+    
     const data = {
         labels: datesToInclude,
         datasets: [{
-            label: 'Timeline',
+            label: 'Artworks by time',
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: numOfDates,
@@ -34,7 +35,14 @@
     const config = {
         type: 'bar',
         data: data,
-        options: {}
+        options: {
+            onClick: (event, activeElements) => {
+                console.log("getElementsAtEventForMode: %o",myChart.getElementsAtEventForMode(event, "point", {intersect: false}));
+                var whereAt = myChart.getElementsAtEventForMode(event, "point", {intersect: false});
+                console.log(whereAt[0].index);
+                console.log("===== </CLICK EVENT> =====");
+            }
+        }
     };
 </script>
 
