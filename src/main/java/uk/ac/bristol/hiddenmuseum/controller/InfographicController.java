@@ -16,6 +16,7 @@ public class InfographicController {
     @GetMapping("/infographics")
     public String Info(Model model){
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        srq.setLimit(999);
         var response = srq.sendRequest();
         var listRecords = response.records;
         List<String> dates = new ArrayList<String>();
@@ -23,8 +24,12 @@ public class InfographicController {
         
         /*convert the dates to integers*/
         for (int i=0;i<listRecords.size();i++ ){
-            dates.add(listRecords.get(i).fields.get("year_of_creation").toString());
-        }
+            try {
+                dates.add(listRecords.get(i).fields.get("year_of_creation").toString());}
+             catch (Exception e) {
+                //TODO: handle exception
+           
+        }}
         /*find the highest and lowest dates*/
         
         Integer high = 0;
@@ -39,6 +44,28 @@ public class InfographicController {
                 if (Integer.parseInt(date) < low){
                     low = Integer.parseInt(date);
                 }
+            }
+            System.out.println(date);
+            String[] arrofDate = date.split(" ");
+            System.out.println(arrofDate[0]);
+            try {
+                System.out.println(arrofDate[1]);
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+            try {
+                if (arrofDate[1].length()==4 && (arrofDate[0].equals("about")||arrofDate[0].equals("About") ||arrofDate[0].equals("After") ||arrofDate[0].equals("after"))){
+                    System.out.println("hello");
+                    intDates.add(Integer.parseInt(arrofDate[1]));
+                    if (Integer.parseInt(arrofDate[1]) > high){
+                        high = Integer.parseInt(arrofDate[1]);
+                    }
+                    if (Integer.parseInt(arrofDate[1]) < low){
+                        low = Integer.parseInt(arrofDate[1]);
+                    }
+                }
+            } catch (Exception e) {
+                //ignore as it just means it doesnt have an alternate date form
             }
         }
         /*make a list of all the numbers from highest to lowest and instantiate the frequency of each date as 0*/
