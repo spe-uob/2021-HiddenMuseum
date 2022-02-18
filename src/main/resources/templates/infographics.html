@@ -20,7 +20,8 @@
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/ [];
     const numOfDates = /*[[${numOfDates}]]*/ [];
-    const MatchDateToTitle = /*[[${numOfDates}]]*/ [];
+    var hashmap = new Map();
+    hashmap = /*${AllTitlesWhenAtDate}*/ {};
     
     const data = {
         labels: datesToInclude,
@@ -41,6 +42,7 @@
                 var whereAt = myChart.getElementsAtEventForMode(event, "point", {intersect: false});
                 console.log(whereAt[0].index);
                 console.log("===== </CLICK EVENT> =====");
+                console.log(hashmap[whereAt[0].index+datesToInclude[0]])
             }
         }
     };
