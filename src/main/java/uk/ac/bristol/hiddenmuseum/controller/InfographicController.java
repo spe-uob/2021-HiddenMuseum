@@ -22,9 +22,8 @@ public class InfographicController {
         var response = srq.sendRequest();
         var listRecords = response.records;
         List<Integer> intDates = new ArrayList<Integer>();
-        ArrayList<ArrayList<String>>ListOfTitles = new ArrayList<ArrayList<String>>();
+        ArrayList<String>ListOfTitles = new ArrayList<String>();
         List<Integer> datesOfItems = new ArrayList<Integer>();
-        HashMap<Integer,ArrayList<String>> AllTitlesWhenAtDate = new HashMap<>();
        
         /*find the highest and lowest dates*/
         
@@ -49,11 +48,19 @@ public class InfographicController {
                 //if its not been added to the lists add it and if there is already one just add it to the Strign list
                 if (!(datesOfItems.contains(Integer.parseInt(date)))){
                     datesOfItems.add(Integer.parseInt(date));
-                    ListOfTitles.add(new ArrayList<String>());
-                    ListOfTitles.get(datesOfItems.size()-1).add(record.fields.get("title_of_object").toString());
+                    try {
+                        ListOfTitles.add(record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 }
                 else{
-                    ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(date))).add(record.fields.get("title_of_object").toString());
+                    String x = ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(date)));
+                    try {
+                        ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(date)),x +" | "+ record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        //TODO: handle exception
+                    }
                 }
             }
             System.out.println(date);

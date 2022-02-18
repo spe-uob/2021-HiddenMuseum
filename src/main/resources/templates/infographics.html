@@ -14,14 +14,15 @@
     <div>
         <canvas id="myChart"></canvas>
     </div>
+    <p id="Title"> hello</p>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/ [];
     const numOfDates = /*[[${numOfDates}]]*/ [];
-    var hashmap = new Map();
-    hashmap = /*${AllTitlesWhenAtDate}*/ {};
+    const datesOfItems = /*[[${datesOfItems}]]*/ [];
+    const ListOfTitles = /*[[${ListOfTitles}]]*/ [];
     
     const data = {
         labels: datesToInclude,
@@ -30,6 +31,7 @@
             backgroundColor: 'rgb(255, 99, 132)',
             borderColor: 'rgb(255, 99, 132)',
             data: numOfDates,
+            barThickness: 2,
         }]
     };
 
@@ -38,11 +40,15 @@
         data: data,
         options: {
             onClick: (event, activeElements) => {
-                console.log("getElementsAtEventForMode: %o",myChart.getElementsAtEventForMode(event, "point", {intersect: false}));
+                console.log("getElementsAtEventForMode: %o",myChart.getElementsAtEventForMode(event, "nearest", {intersect: false}));
                 var whereAt = myChart.getElementsAtEventForMode(event, "point", {intersect: false});
-                console.log(whereAt[0].index);
+                try {
+                    console.log(whereAt[0].index);
                 console.log("===== </CLICK EVENT> =====");
-                console.log(hashmap[whereAt[0].index+datesToInclude[0]])
+                document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index+datesToInclude[0])]
+                } catch (error) {
+                    
+                }
             }
         }
     };
