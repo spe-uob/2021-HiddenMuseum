@@ -6,9 +6,10 @@ An advanced search tool for searching collections at the **Bristol Museum & Art 
 
 1. [Overview](#overview)
 2. [Setup](#setup)
-3. [License](#license)
-4. [Contributing](#contributing)
-5. [Ethics](#ethics)
+3. [Deployment](#Deployment)
+4. [License](#license)
+5. [Contributing](#contributing)
+6. [Ethics](#ethics)
 
 ## Overview
 
@@ -53,7 +54,64 @@ $ ./mvnw spring-boot:run
 
 Go to [localhost:8080](https://localhost:8080/) and you should see it running.
 
+## Deployment
 
+This project is deployed using AWS EC2 t2.micro instances. Here is a guide to set up
+the AWS instance ready for deployment.
+
+Access your instance using:
+```bash
+$ ssh ec2-user@<instance public ipv4 address> -i <path to AWS pem file> 
+```
+
+Next install Java 11 on Amazon linux.
+
+```bash
+$ sudo amazon-linux-extras install java-openjdk11
+```
+
+Check that you have the correct active version of Java.
+```bash
+$ java -version
+
+openjdk version "11.0.7" 2020-04-14 LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.7+10-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode, sharing)
+```
+
+If you do not receive this output run:
+
+```bash
+$ alternatives --config java
+```
+Then type in the number associated with Java 11.
+
+Next follow this guide to install the correct version of Maven (3.6.3)
+[Maven installation guide](https://blog.ruanbekker.com/blog/2021/07/12/install-java-11-and-maven-on-ubuntu-linux/)
+
+Check your maven version installed successfully.
+```bash
+$ mvn -version
+Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
+Maven home: /opt/maven
+Java version: 11.0.11, vendor: Ubuntu, runtime: /usr/lib/jvm/java-11-openjdk-amd64
+Default locale: en, platform encoding: UTF-8
+OS name: "linux", version: "5.4.0-1041-aws", arch: "amd64", family: "unix"
+```
+
+Clone this repository:
+
+```bash
+$ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
+```
+
+[Run](#Running with Docker) the project.
+
+It should now be accessible publically at the URL:
+
+```
+<Public IPv4 DNS of your AWS instance>:8080
+```
 ## License
 
 This project uses the MIT License. It may be redistributed under different terms and without source code.
