@@ -30,6 +30,9 @@ This project is specifically done at the request of, and with the involvement of
 
 Build the project with Maven (if `./mvnw` fails, install Apache Maven and use `mvn` instead)
 ```bash
+$ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
+...
+$ cd 2021-HiddenMuseum
 $ ./mvnw clean package
 ```
 
@@ -37,12 +40,12 @@ $ ./mvnw clean package
 
 Put the `.jar` into a Docker Image
 ```bash
-$ docker build --build-arg JAR_FILE=path/to/jar/file -t <username>/<image> .
+$ docker build --build-arg JAR_FILE=path/to/jar/file -t <image-name> .
 ```
 
 Run the Docker Container
 ```bash
-$ docker run -p 8080:8080 <username>/<image>
+$ docker run -p 8080:8080 <image-name>
 ```
 
 ### Running without Docker (e.g. for development)
