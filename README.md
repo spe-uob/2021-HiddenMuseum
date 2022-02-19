@@ -59,39 +59,35 @@ Go to [localhost:8080](https://localhost:8080/) and you should see it running.
 
 ## Deployment
 
-This project is deployed using AWS EC2 t2.micro instances. Here is a guide to set up the AWS instance ready for deployment.
+We deploy on AWS EC2 t2.micro instances with the following process.
 
-Access your instance using:
+Access the AWS instance
 ```bash
-$ ssh ec2-user@<instance public ipv4 address> -i <path to AWS pem file> 
+$ ssh ec2-user@<instance-public-ipv4-address> -i path/to/AWS/pem/file
 ```
 
-Next install Java 11 on Amazon linux.
+Install Java 11
 ```bash
 $ sudo amazon-linux-extras install java-openjdk11
-```
-
-Check that you have the correct active version of Java.
-```bash
+...
 $ java -version
-
 openjdk version "11.0.7" 2020-04-14 LTS
 OpenJDK Runtime Environment 18.9 (build 11.0.7+10-LTS)
 OpenJDK 64-Bit Server VM 18.9 (build 11.0.7+10-LTS, mixed mode, sharing)
 ```
 
+<!--- commented out because it is unclear what exactly this is doing
 If you do not receive this output run:
 ```bash
 $ alternatives --config java
 ```
 
 Then type in the number associated with Java 11.
+-->
 
-Next follow this guide to install the correct version of Maven (3.6.3)
-[Maven installation guide](https://blog.ruanbekker.com/blog/2021/07/12/install-java-11-and-maven-on-ubuntu-linux/)
-
-Check your maven version installed successfully.
+[Install Maven](https://blog.ruanbekker.com/blog/2021/07/12/install-java-11-and-maven-on-ubuntu-linux/)
 ```bash
+...
 $ mvn -version
 Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
 Maven home: /opt/maven
@@ -100,15 +96,26 @@ Default locale: en, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-1041-aws", arch: "amd64", family: "unix"
 ```
 
-Clone this repository:
+[Install Docker](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
 ```bash
-$ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
+...
+$ docker info
+... output that isn't an error
 ```
 
-[Run](#building) the project. It should now be accessible publically at the URL:
+[Build and run](#building) the project
+```bash
+$ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
+...
+$ cd 2021-HiddenMuseum
+$ ./mvnw clean package
+...
+$ docker build --build-arg JAR_FILE=path/to/jar/file -t <image-name> .
+...
+$ docker run -p 8080:8080 <image-name>
 ```
-<Public IPv4 DNS of your AWS instance>:8080
-```
+
+Access your AWS instance's public IP address in a browser and it should be running.
 
 ## License
 
