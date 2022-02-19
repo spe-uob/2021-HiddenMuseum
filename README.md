@@ -66,6 +66,8 @@ Go to [localhost:8080](https://localhost:8080/) and you should see it running.
 
 We deploy on AWS EC2 t2.micro instances with the following process.
 
+### Setup
+
 Access the AWS instance
 ```bash
 $ ssh ec2-user@<instance-public-ipv4-address> -i path/to/AWS/pem/file
@@ -107,6 +109,8 @@ OS name: "linux", version: "5.4.0-1041-aws", arch: "amd64", family: "unix"
 $ docker info
 ... output that isn't an error
 ```
+
+### Running
 
 [Build and run](#building) the project
 ```bash
