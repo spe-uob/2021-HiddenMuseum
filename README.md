@@ -66,7 +66,7 @@ Access the AWS instance
 $ ssh ec2-user@<instance-public-ipv4-address> -i path/to/AWS/pem/file
 ```
 
-Install Java 11
+Install Java 11 and check it installed successfully
 ```bash
 $ sudo amazon-linux-extras install java-openjdk11
 ...
@@ -85,9 +85,9 @@ $ alternatives --config java
 Then type in the number associated with Java 11.
 -->
 
-[Install Maven](https://blog.ruanbekker.com/blog/2021/07/12/install-java-11-and-maven-on-ubuntu-linux/)
+[Install Maven](https://blog.ruanbekker.com/blog/2021/07/12/install-java-11-and-maven-on-ubuntu-linux/) and check it installed successfully
 ```bash
-...
+... install maven
 $ mvn -version
 Apache Maven 3.6.3 (cecedd343002696d0abb50b32b541b8a6ba2883f)
 Maven home: /opt/maven
@@ -96,9 +96,9 @@ Default locale: en, platform encoding: UTF-8
 OS name: "linux", version: "5.4.0-1041-aws", arch: "amd64", family: "unix"
 ```
 
-[Install Docker](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html)
+[Install Docker](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/docker-basics.html) and check it installed successfully
 ```bash
-...
+... install docker
 $ docker info
 ... output that isn't an error
 ```
