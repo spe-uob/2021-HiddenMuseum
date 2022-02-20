@@ -137,7 +137,7 @@ This project uses the MIT License. It may be redistributed under different terms
 
 Contribution guidelines are currently work in progress, check back soon.
 
-We have a simple guide on how to use `git` with this project though: [read more...](/GITGUIDE.md)
+However, [we have a simple guide](/GITGUIDE.md) on how to use `git` with this project.
 
 
 ## Ethics
