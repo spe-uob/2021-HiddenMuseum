@@ -14,9 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
+     * Authorizes any http requests by default.
+     *
      * @param http incoming http connection
      *
-     * Authorizes any http requests by default.
+     *
      *
      */
 
