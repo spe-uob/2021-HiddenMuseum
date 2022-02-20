@@ -101,6 +101,9 @@
     margin-right:125px;
 }
 
-.description    {
+.description {
     font-size: 12px;
+}
+.hiddenBullet {
+    list-style-type: none;
 }

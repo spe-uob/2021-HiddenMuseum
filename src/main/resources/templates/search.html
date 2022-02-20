@@ -42,7 +42,7 @@
             <p> </p>
             <a class="nhits" href="/">50</a>
         </div>
-        <ul>
+        <ul class="hiddenBullet">
             <li th:each="record : ${response.records}">
                 <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
                     <span th:text="${record.fields.get('title_of_object')}"></span>
@@ -57,7 +57,7 @@
                 <p class="description" th:text="${record.fields.getOrDefault('label', 'Description unavailable.')}"></p>
             </li>
         </ul>
-        <ul>
+        <ul class="hiddenBullet">
             <li th:each="i : ${#numbers.sequence(1, pages)}">
                 <a class="pagenum" th:text="${i}"></a>
             </li>
