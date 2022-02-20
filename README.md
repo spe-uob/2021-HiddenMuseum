@@ -51,7 +51,7 @@ Access the web app in the following ways:
 
 - [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - the Java 11 JDK
-- [Apache Maven](https://maven.apache.org/).
+- [Apache Maven](https://maven.apache.org/)
 
 ### Building
 
