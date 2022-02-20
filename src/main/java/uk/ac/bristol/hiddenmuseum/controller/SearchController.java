@@ -51,6 +51,8 @@ public class SearchController {
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
 
+        model.addAttribute("query", q);
+
         return "search";
     }
 

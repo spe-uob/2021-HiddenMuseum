@@ -17,7 +17,14 @@
         <a class="go-home btn btn-secondary btn-lg" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
         <a class="go-home btn btn-secondary btn-lg" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
         <hr class="hr-class">
-        <p th:text="${response.nhits} + ' hits'"></p>
+        <p>
+            <th:block th:if="${response.nhits!= 1}" th:text="${response.nhits} + ' results found for '"/>
+            <b th:if="${response.nhits!= 1}" th:text="${query}"></b>
+        </p>
+        <p>
+            <th:block th:if="${response.nhits == 1}" th:text="${response.nhits} + ' result found for '"/>
+            <b th:if="${response.nhits== 1}" th:text="${query}"></b>
+        </p>
         <div id="search-box" action="search">
             <form class="form" action="/search">
                 <div class="input-group mb-3">
