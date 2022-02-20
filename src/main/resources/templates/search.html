@@ -54,6 +54,7 @@
                             alt="image of object">
                     </div>
                 </a>
+                <p class="description" th:text="${record.fields.getOrDefault('label', 'Description unavailable.')}"></p>
             </li>
         </ul>
         <ul>
