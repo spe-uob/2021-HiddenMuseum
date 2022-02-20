@@ -13,9 +13,9 @@
 
 <body>
     <main class="content">
-        <a class="go-home" href="/">Go Home</a>
-        <a class="go-home" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
-        <a class="go-home" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+        <a class="go-home btn btn-secondary btn-lg" href="/">Go Home</a>
+        <a class="go-home btn btn-secondary btn-lg" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
+        <a class="go-home btn btn-secondary btn-lg" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
         <hr class="hr-class">
         <p th:text="${response.nhits} + ' hits'"></p>
         <div id="search-box" action="search">
