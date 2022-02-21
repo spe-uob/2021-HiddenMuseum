@@ -52,7 +52,11 @@ public class InfographicController {
                                        */
 
                 intDates.add(Integer.parseInt(date));
-                linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(date));
+                try {
+                    linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(date));
+                } catch (Exception e) {
+                    linksToItems.put("", Integer.parseInt(date));
+                }
                 if (Integer.parseInt(date) > high) {
                     high = Integer.parseInt(date);
                 }
@@ -86,7 +90,11 @@ public class InfographicController {
                 if (arrofDate[1].length() == 4 && (arrofDate[0].equals("about") || arrofDate[0].equals("About")
                         || arrofDate[0].equals("After") || arrofDate[0].equals("after"))) {
                     intDates.add(Integer.parseInt(arrofDate[1]));
-                    linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(arrofDate[1]));
+                    try {
+                        linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(arrofDate[1]));
+                    } catch (Exception e) {
+                        linksToItems.put("", Integer.parseInt(arrofDate[1]));
+                    }
                     if (Integer.parseInt(arrofDate[1]) > high) {
                         high = Integer.parseInt(arrofDate[1]);
                     }
@@ -148,24 +156,7 @@ public class InfographicController {
         }
         //sort elements by values  
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-               new LinkedList<Map.Entry<String, Integer> >(linksToItems.entrySet());
- 
-        // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
-            public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
-                return (o1.getValue()).compareTo(o2.getValue());
-            }
-        });
-         
-        // put data from sorted list to both lists
-        for (Map.Entry<String, Integer> aa : list) {
-            usedDates.add(aa.getValue());
-            ids.add(aa.getKey());
-        }
-
+        
 
         // adding the data to the model and outputting it for developmental purposes
         model.addAttribute("datesToInclude", datesToInclude);
