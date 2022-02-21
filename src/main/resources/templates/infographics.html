@@ -31,8 +31,10 @@
         newlink = document.createElement('a');
         newlink.setAttribute('href','/');
         newlink.name = "link" + i;
-        newlink.innerHTML = 'hello' + i
+        newlink.innerHTML = 'link' + i;
+        newlink.setAttribute('class','hidden');
         container.appendChild(newlink);
+        container.appendChild(document.createElement("br"));
     }
     
     const data = {
@@ -61,6 +63,7 @@
                 for (var i =0;i<children.length;i++){
                     var linkChild = children[i];
                     linkChild.setAttribute('href','/search');
+                    linkChild.setAttribute('class','shown');
                 }
                 container.get
                 } catch (error) {

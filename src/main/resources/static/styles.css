@@ -95,3 +95,11 @@
       border-bottom: 2px solid rgba(46, 49, 55, 255);
       ;
   }
+
+  .hidden{
+      display: none;
+  }
+
+  .shown{
+      display: block;
+  }
