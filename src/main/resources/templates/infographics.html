@@ -26,6 +26,7 @@
     const ListOfTitles = /*[[${ListOfTitles}]]*/ [];
     const ids = /*[[${ids}]]*/ [];
     const usedDates = /*[[${usedDates}]]*/ [];
+    const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/ [];
 
     const numOFLinksMax = Math.max.apply(Math,numOfDates);
     var container = document.getElementById("container");
@@ -61,11 +62,28 @@
                     console.log(whereAt[0].index);
                 console.log("===== </CLICK EVENT> =====");
                 document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index+datesToInclude[0])]
+                var indexOfIdList = 0;
+                for (var i=0;i<usedDates.length;i++){
+                    if (usedDates[i]=whereAt[0].index+datesToInclude[0]){
+                        indexOfIdList = i;
+                    }
+                }
+                var totalRecordBefore = 0; //how many records in total before the frist one in this clump
+                var sizeOfNextClump = 0; //how many records are there in the next group
+                for (var i =0;i<indexOfIdList;i++){
+                    totalRecordBefore = totalRecordBefore + numOfDatesNonZero[i]
+                    sizeOfNextClump = numOfDatesNonZero[i+1]
+                }
                 var children = container.children;
                 for (var i =0;i<children.length;i++){
                     var linkChild = children[i];
-                    linkChild.setAttribute('href','/search');
+                    linkChild.setAttribute('href','/');
+                    linkChild.setAttribute('class','hidden');
+                }
+                for (var i=0;i<sizeOfNextClump-1;i++){
+                    var linkChild = children[i];
                     linkChild.setAttribute('class','shown');
+                    linkChild.setAttribute('href','/item/open-data-gallery-3-european-old-masters/'+ ids[i+totalRecordBefore]);
                 }
                 container.get
                 } catch (error) {
