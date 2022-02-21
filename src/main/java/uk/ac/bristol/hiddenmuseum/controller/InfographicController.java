@@ -34,7 +34,7 @@ public class InfographicController {
             try {
                 date = record.fields.get("year_of_creation").toString();
             } catch (Exception e) {
-                //ignore
+                //ignore as it just means it doesn't have year_of_creation
             }
             if (date.length()==4){ /*only add if its just the 4 numbers, other formats exist like "about 1970" but those are ignored*/
             
@@ -45,13 +45,13 @@ public class InfographicController {
                 if (Integer.parseInt(date) < low){
                     low = Integer.parseInt(date);
                 }
-                //if its not been added to the lists add it and if there is already one just add it to the Strign list
+                //if its not been added to the lists add it and if there is already one just add it to the String list
                 if (!(datesOfItems.contains(Integer.parseInt(date)))){
                     datesOfItems.add(Integer.parseInt(date));
                     try {
                         ListOfTitles.add(record.fields.get("title_of_object").toString());
                     } catch (Exception e) {
-                        //TODO: handle exception
+                        //ignore as it just means it doesn't have title_of_object
                     }
                 }
                 else{
@@ -59,18 +59,12 @@ public class InfographicController {
                     try {
                         ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(date)),x +" | "+ record.fields.get("title_of_object").toString());
                     } catch (Exception e) {
-                        //TODO: handle exception
+                        //ignore as it just means it doesn't have title_of_object
                     }
                 }
             }
-            System.out.println(date);
+            //split the date by ' ' so if the date for instance is "about 1984" then it'll become "about" and "1984" and we just ignore about
             String[] arrofDate = date.split(" ");
-            System.out.println(arrofDate[0]);
-            try {
-                System.out.println(arrofDate[1]);
-            } catch (Exception e) {
-                //ignore as it just means it doesnt have an alternate date form
-            }
             try {
                 // Add some of alternate dates that start with either about or after
                 if (arrofDate[1].length()==4 && (arrofDate[0].equals("about")||arrofDate[0].equals("About") ||arrofDate[0].equals("After") ||arrofDate[0].equals("after"))){
@@ -82,6 +76,23 @@ public class InfographicController {
                     if (Integer.parseInt(arrofDate[1]) < low){
                         low = Integer.parseInt(arrofDate[1]);
                     }
+                    //if its not been added to the lists add it and if there is already one just add it to the String list
+                if (!(datesOfItems.contains(Integer.parseInt(arrofDate[1])))){
+                    datesOfItems.add(Integer.parseInt(arrofDate[1]));
+                    try {
+                        ListOfTitles.add(record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        //ignore as it just means it doesn't have title_of_object
+                    }
+                }
+                else{
+                    String x = ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(arrofDate[1])));
+                    try {
+                        ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(arrofDate[1])),x +" | "+ record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        //ignore as it just means it doesn't have title_of_object
+                    }
+                }
                 }
             } catch (Exception e) {
                 //ignore as it just means it doesnt have an alternate date form
@@ -101,6 +112,7 @@ public class InfographicController {
             numOfDates.set(date-low, numOfDates.get(date-low)+1);
         }
 
+        //adding the data to the model and outputting it for developmental purposes
         model.addAttribute("datesToInclude", datesToInclude);
         model.addAttribute("numOfDates",  numOfDates);
         model.addAttribute("ListOfTitles",ListOfTitles);
