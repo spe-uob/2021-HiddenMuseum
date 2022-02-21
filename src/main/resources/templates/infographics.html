@@ -15,6 +15,7 @@
         <canvas id="myChart"></canvas>
     </div>
     <p id="Title"> hello</p>
+    <div id="container"></div>
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -23,6 +24,16 @@
     const numOfDates = /*[[${numOfDates}]]*/ [];
     const datesOfItems = /*[[${datesOfItems}]]*/ [];
     const ListOfTitles = /*[[${ListOfTitles}]]*/ [];
+
+    const numOFLinksMax = Math.max.apply(Math,numOfDates);
+    var container = document.getElementById("container");
+    for (i=0;i<numOFLinksMax;i++){
+        newlink = document.createElement('a');
+        newlink.setAttribute('href','/');
+        newlink.name = "link" + i;
+        newlink.innerHTML = 'hello' + i
+        container.appendChild(newlink);
+    }
     
     const data = {
         labels: datesToInclude,
@@ -46,6 +57,12 @@
                     console.log(whereAt[0].index);
                 console.log("===== </CLICK EVENT> =====");
                 document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index+datesToInclude[0])]
+                var children = container.children;
+                for (var i =0;i<children.length;i++){
+                    var linkChild = children[i];
+                    linkChild.setAttribute('href','/search');
+                }
+                container.get
                 } catch (error) {
                     
                 }
