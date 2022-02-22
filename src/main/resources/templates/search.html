@@ -60,11 +60,11 @@
         </ul>
         <ul class="hiddenBullet pageButtons">
             <li>
-                <a class="pagenum prev" th:text="'Previous'" ></a>
+                <a class="pagenum" id="prev" th:value="${pageNumber}" th:text="'Previous'" ></a>
             </li>
             <li th:text="'You are on page ' + ${pageNumber}"></li>
             <li>
-                <a class="pagenum next" th:text="'Next'"></a>
+                <a class="pagenum" id="next" th:value="${pageNumber}" th:maxValue="${pages}" th:text="'Next'"></a>
             </li>
         </ul>
         <ul class="hiddenBullet pageNumber">
@@ -82,18 +82,29 @@
             const search_box = document.getElementById("q");
             search_box.value = params.get("q");
 
-            for (const a of document.getElementsByClassName("pagenum")) {
-                const url = new URL(window.location.href);
-                url.searchParams.set("page", a.innerHTML - 1);
-                a.href = url;
+            //page previous navigation button
+            const previous = document.getElementById("prev");
+            const prevUrl = new URL(window.location.href);
+            if(previous.value > 0)  {
+                let newVal = (previous.value - 1).toString();
+                prevUrl.searchParams.set("page", newVal);
+                previous.href = prevUrl;
+            }
+            else    {
+                previous.style.visibility = "hidden";
             }
 
-            /*for (const a of document.getElementsByClassName("prev")) {
-                const url = new URL(window.location.href);
-                url.searchParams.set()
-                a.href = url;
+            //page next navigation button
+            const next = document.getElementById("next");
+            const nextUrl = new URL(window.location.href);
+            if(next.value < next.maxValue) {
+                let newVal = (next.value + 1).toString();
+                nextUrl.searchParams.set("page", next.value + 1);
+                next.href = nextUrl;
             }
-             */
+            else    {
+                next.style.visibility = "hidden";
+            }
 
             for (const a of document.getElementsByClassName("nhits")) {
                 const url = new URL(window.location.href);
@@ -101,7 +112,6 @@
                 url.searchParams.set("page", 0);
                 a.href = url;
             }
-
         }
 
         window.onload = onLoad();
