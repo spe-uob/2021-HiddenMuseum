@@ -82,6 +82,11 @@
             const search_box = document.getElementById("q");
             search_box.value = params.get("q");
 
+            for (const a of document.getElementsByClassName("pagenum")) {
+                const url = new URL(window.location.href);
+                url.searchParams.set("page", a.innerHTML - 1);
+                a.href = url;
+            }
             //page previous navigation button
             const previous = document.getElementById("prev");
             const prevUrl = new URL(window.location.href);
