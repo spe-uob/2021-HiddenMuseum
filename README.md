@@ -26,23 +26,20 @@ Follow this section to get up and running quickly.
 
 ### Requirements
 
-- [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - [Docker](https://www.docker.com/)
 
 ### Running
 
 Do the following commands to start an instance of the web app:
 ```bash
-$ git clone https://github.com/spe-uob/2021-HiddenMuseum.git
-$ cd 2021-HiddenMuseum
-$ docker build -t hiddenmuseum .
-$ docker run -p 8080:8080 hiddenmuseum . --server.port=8080
+$ docker pull ghcr.io/spe-uob/2021-hiddenmuseum:dev
+$ docker run -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum:dev . --server.port=8080
 ```
 
 This clones the repository, builds the project, and runs it in a Docker container on port 8080. To change ports, change the range given on the `-p` flag, and the port given with the `--server.port` flag.
 
 Access the web app in the following ways:
-+ If you are running it locally, go to [localhost:8080](http://localhost:8080), where you should see it running.
++ If you are running it locally, go to [localhost:8080](https://localhost:8080), where you should see it running.
 + If you are running on a cloud instance, e.g. on an AWS EC2 instance, type the public IPv4 address of the instance into your browser, and use port 8080 (unless if you changed it).
 
 ## Manual Setup
