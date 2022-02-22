@@ -136,3 +136,24 @@
 .dropdown-container:hover .dropdown-items  {
     display: block;
 }
+.pageButtons {
+    text-align: center;
+}
+.pageButtons li {
+      display: inline-block;
+      width: fit-content;
+      color: blue;
+      text-decoration: none;
+  }
+.pageNumber li {
+    display: inline-block;
+    width: fit-content;
+    color: blue;
+    text-decoration: none;
+}
+.pageNumber a:hover  {
+    color: #4D7A97;
+}
+.pageNumber  {
+    text-align: center;
+}

@@ -53,6 +53,8 @@ public class SearchController {
 
         model.addAttribute("query", q);
 
+        model.addAttribute("pageNumber", page + 1);
+
         return "search";
     }
 

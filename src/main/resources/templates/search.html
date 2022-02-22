@@ -36,7 +36,7 @@
             </form>
         </div>
         <div class="dropdown-container">
-            <button class="dropdown-btn">Items per page</button>
+            <button class="dropdown-btn ">Items per page</button>
             <div class="dropdown-items">
                 <a class="nhits" href="/">10</a>
                 <a class="nhits" href="/">25</a>
@@ -55,10 +55,19 @@
                             alt="image of object">
                     </div>
                 </a>
-                <p class="description" th:text="${record.fields.getOrDefault('label', 'Description unavailable.')}"></p>
+                <p class="description" th:text="${#strings.abbreviate(record.fields.getOrDefault('label', 'Description unavailable.'), 160)}"></p>
             </li>
         </ul>
-        <ul class="hiddenBullet">
+        <ul class="hiddenBullet pageButtons">
+            <li>
+                <a class="pagenum prev" th:text="'Previous'" ></a>
+            </li>
+            <li th:text="'You are on page ' + ${pageNumber}"></li>
+            <li>
+                <a class="pagenum next" th:text="'Next'"></a>
+            </li>
+        </ul>
+        <ul class="hiddenBullet pageNumber">
             <li th:each="i : ${#numbers.sequence(1, pages)}">
                 <a class="pagenum" th:text="${i}"></a>
             </li>
@@ -79,12 +88,20 @@
                 a.href = url;
             }
 
+            /*for (const a of document.getElementsByClassName("prev")) {
+                const url = new URL(window.location.href);
+                url.searchParams.set()
+                a.href = url;
+            }
+             */
+
             for (const a of document.getElementsByClassName("nhits")) {
                 const url = new URL(window.location.href);
                 url.searchParams.set("nhits", a.innerHTML);
                 url.searchParams.set("page", 0);
                 a.href = url;
             }
+
         }
 
         window.onload = onLoad();
