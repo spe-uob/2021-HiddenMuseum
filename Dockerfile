@@ -6,4 +6,5 @@ RUN mvn package
 # FROM gcr.io/distroless/java11-debian11
 FROM adoptopenjdk/openjdk11:alpine-jre
 COPY --from=build /target/hiddenmuseum.jar app.jar
+COPY --from=build /src/main/resources /src/main/resources
 ENTRYPOINT ["java", "-jar", "/app.jar"]
