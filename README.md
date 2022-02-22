@@ -79,7 +79,7 @@ Go to [localhost:8080](http://localhost:8080), where you should see it running.
 
 ## Documentation
 
-Find the javadocs [here](https://automatic-couscous-af1e8f89.pages.github.io/).
+Find the javadocs [here](https://spe-uob.github.io/2021-HiddenMuseum/).
 
 ## License
 
