@@ -35,12 +35,13 @@
                 </div>
             </form>
         </div>
-        <div style="display: flex; justify-content: space-between;">
-            <a class="nhits" href="/">10</a>
-            <p> </p>
-            <a class="nhits" href="/">25</a>
-            <p> </p>
-            <a class="nhits" href="/">50</a>
+        <div class="dropdown-container">
+            <button class="dropdown-btn">Items per page</button>
+            <div class="dropdown-items">
+                <a class="nhits" href="/">10</a>
+                <a class="nhits" href="/">25</a>
+                <a class="nhits" href="/">50</a>
+            </div>
         </div>
         <ul class="hiddenBullet">
             <li th:each="record : ${response.records}">

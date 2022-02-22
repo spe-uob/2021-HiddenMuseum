@@ -107,3 +107,32 @@
 .hiddenBullet {
     list-style-type: none;
 }
+.dropdown-btn {
+    color: white;
+    background-color: darkgray;
+    padding: 16px;
+    min-width: 160px;
+    border: none;
+  }
+.dropdown-container  {
+    left: 80%;
+    right: 0;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-items  {
+    display: none;
+    position: absolute;
+    background-color: lightgrey;
+    min-width: 160px;
+    z-index: 1;
+}
+.dropdown-items a {
+    color: black;
+    padding: 16px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-container:hover .dropdown-items  {
+    display: block;
+}
