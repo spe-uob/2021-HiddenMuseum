@@ -1,12 +1,11 @@
 package uk.ac.bristol.hiddenmuseum.requests;
 
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 /**
  * Creates requests to lookup individual records
  */
-public class LookupRequestBuilder implements RequestBuilder {
+public class LookupRequestBuilder implements RequestBuilder<SearchRecord> {
 
     private final String base;
     private final String dataset;

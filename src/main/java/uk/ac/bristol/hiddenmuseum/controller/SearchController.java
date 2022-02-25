@@ -3,21 +3,14 @@ package uk.ac.bristol.hiddenmuseum.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import uk.ac.bristol.hiddenmuseum.requests.LookupRequestBuilder;
-import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
-import uk.ac.bristol.hiddenmuseum.service.DemoService;
-//import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-//import org.json.simple.JSONValue;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
+
+//import org.json.simple.JSONArray;
+//import org.json.simple.JSONValue;
 //import org.springframework.web.bind.annotation.RestController;
 //import org.springframework.web.servlet.ModelAndView;
-import uk.ac.bristol.hiddenmuseum.service.FieldImpl;
-import java.util.HashMap;
-import java.util.*;
 
 /**
  * Controller for searching the database
@@ -37,13 +30,31 @@ public class SearchController {
     public String search(
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
+            @RequestParam(defaultValue = "0", required = false) int page,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
         srq.setLimit(nhits);
+        srq.setOffset(nhits * page);
+
         var response = srq.sendRequest();
-        model.addAttribute("prevSearch", q);
         model.addAttribute("response", response);
+
+        //setting up to export as JSON
+        String exportJSON = srq.getUrl();
+        model.addAttribute("exportJSON", exportJSON);
+
+        //setting up to export as CSV
+        String exportCSV = "/export?q=" + q;
+        model.addAttribute("exportCSV", exportCSV);
+
+        int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
+        model.addAttribute("pages", pages);
+
+        model.addAttribute("query", q);
+
+        model.addAttribute("pageNumber", page);
+
         return "search";
     }
 
