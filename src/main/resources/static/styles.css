@@ -213,3 +213,6 @@ h2    {
     max-height: 100;
 }
 
+.btn-secondary{
+    background-color: #53565A !important;
+}
