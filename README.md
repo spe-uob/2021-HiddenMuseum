@@ -1,5 +1,7 @@
 # Hidden Museum
 
+[![Build Status](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/docker-publish.yml)
+
 An advanced search tool for searching collections at the **Bristol Museum & Art Gallery**.
 
 ## Table of Contents
