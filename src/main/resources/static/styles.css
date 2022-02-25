@@ -164,6 +164,7 @@ h2    {
 .dropdown-container  {
     left: 0%;
     right: 0;
+    padding-bottom: 15px;
     position: relative;
     display: inline-block;
 }
