@@ -1,45 +1,76 @@
+@import url(https://db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book);
+@font-face {font-family: "ITCAvantGardeGothicW05-Book"; src:
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.eot"); src:
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.eot?#iefix") format("embedded-opentype"),
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.woff2") format("woff2"),
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.woff") format("woff"),
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.ttf") format("truetype"),
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.svg#ITCAvantGardeGothicW05-Book") format("svg"); }
+@import url(//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN);
+@font-face {font-family: "D-DIN"; src: url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.eot"); src:
+        url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.eot?#iefix") format("embedded-opentype"),
+        url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.woff2") format("woff2"),
+        url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.woff") format("woff"),
+        url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.ttf") format("truetype"),
+        url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.svg#D-DIN") format("svg"); }
   #title {
     text-align: center;
     font-size: 48px;
   }
-  h1   {
+  * {
+      font-family: "ITCAvantGardeGothicW05-Book", Arial, sans-serif;
+  }
+  body {
+      font-size: 14pt;
+      font-family: "D-DIN", Arial, sans-serif;
+  }
+
+  .textContent {
+      font-family: "D-DIN", Arial, sans-serif !important;
+  }
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:active { text-decoration: none; }
+
+h1   {
       text-align: center;
   }
-  h2    {
+h2    {
       text-align: center;
-  }
-  .go-home  {
+}
+.go-home  {
       text-align: center;
       font-size: 36px;
-  }
-  .relative {
+}
+.relative {
       position: relative;
       text-align: center;
-  }
+}
 
-  .hr-class{
+.hr-class{
     color: rgba(46,49,55,255);
     size: 20px;
-  }
+}
 
-  #search-box   {
+#search-box   {
     margin: 0 auto;
       max-width: 80%;
-  }
-  #search-bar   {
+}
+#search-bar   {
       width: 80%;
       bottom: 0;
       margin-bottom: 0
   }
-  #search-button   {
+#search-button   {
       margin-top: 0;
       display: inline;
   }
-  #temporary    {
+#temporary    {
       text-align: center;
-  }
+}
 
-  .contents {
+.contents {
     text-align: left;
     padding: 0 18px;
     display: none;
@@ -104,7 +135,7 @@
 }
 
 .description {
-    font-size: 12px;
+    font-size: 0.9rem;
 }
 .hiddenBullet {
     list-style-type: none;
@@ -173,3 +204,4 @@
     right: 0;
     bottom: 0;
 }
+

@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <title>Search results</title>
     <script src="https://use.fontawesome.com/639e5b5645.js"></script>
-
+    <link href="//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
+    <link href="//db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
+          rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -17,15 +19,15 @@
         <a class="go-home btn btn-secondary btn-lg" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
         <a class="go-home btn btn-secondary btn-lg" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
         <hr class="hr-class">
-        <p>
+        <p class="textContent">
             <th:block th:if="${response.nhits!= 1}" th:text="${response.nhits} + ' results found for '"/>
             <b th:if="${response.nhits!= 1}" th:text="${query}"></b>
         </p>
-        <p>
+        <p class="textContent">
             <th:block th:if="${response.nhits == 1}" th:text="${response.nhits} + ' result found for '"/>
             <b th:if="${response.nhits== 1}" th:text="${query}"></b>
         </p>
-        <div id="search-box" action="search">
+        <div class="textContent" id="search-box" action="search">
             <form class="form" action="/search">
                 <div class="input-group mb-3">
                     <input id="q" name="q" class="form-control" type="text" placeholder="Search">
@@ -43,7 +45,7 @@
                 <a class="nhits" href="/">50</a>
             </div>
         </div>
-        <ul class="hiddenBullet">
+        <ul class="hiddenBullet textContent">
             <li th:each="record : ${response.records}">
                 <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
                     <span th:text="${record.fields.get('title_of_object')}"></span>
@@ -55,10 +57,10 @@
                             alt="image of object">
                     </div>
                 </a>
-                <p class="description" th:text="${#strings.abbreviate(record.fields.getOrDefault('label', 'Description unavailable.'), 160)}"></p>
+                <p class="description textContent" th:text="${#strings.abbreviate(record.fields.getOrDefault('label', 'Description unavailable.'), 160)}"></p>
             </li>
         </ul>
-        <ul class="hiddenBullet pageButtons">
+        <ul class="hiddenBullet pageButtons textContent">
             <li>
                 <a class="pagenum" id="prev" th:data-value="${pageNumber - 1}">Prev</a>
             </li>
@@ -67,7 +69,7 @@
                 <a class="pagenum" id="next" th:data-value="${pageNumber + 1}" th:data-maxvalue="${pages}">Next</a>
             </li>
         </ul>
-        <ul class="hiddenBullet pageNumber">
+        <ul class="hiddenBullet pageNumber textContent">
             <li th:each="i : ${#numbers.sequence(1, pages)}">
                 <a class="pagenum" th:text="${i}"></a>
             </li>
