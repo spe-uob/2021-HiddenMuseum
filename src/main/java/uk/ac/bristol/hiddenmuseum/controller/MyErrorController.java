@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class MyErrorController implements ErrorController {
 
     /**
-     * Request handler for invalid HTTP requests<br />
+     * Request handler for invalid HTTP requests<br>
      * Returns the correct error page depending on what the error is
      *
      * @param request faulty HTTP request
