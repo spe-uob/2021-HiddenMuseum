@@ -2,6 +2,7 @@ package uk.ac.bristol.hiddenmuseum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * Hidden Museum web app
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @see <a href="https://github.com/spe-uob/2021-HiddenMuseum">spe-uob/2021-HiddenMuseum</a>
  */
 @SpringBootApplication
+@PropertySource("classpath:/application.properties")
 public class HiddenMuseum {
 
     /**
@@ -17,7 +19,9 @@ public class HiddenMuseum {
      * @param args command line arguments
      */
     public static void main(String[] args) {
-        SpringApplication.run(HiddenMuseum.class, args);
+        SpringApplication app = new SpringApplication(HiddenMuseum.class);
+        app.setAdditionalProfiles("ssl");
+        app.run(args);
     }
 
 }

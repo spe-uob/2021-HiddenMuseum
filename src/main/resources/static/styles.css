@@ -103,3 +103,20 @@
   .shown{
       display: block;
   }
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid rgba(46, 49, 55, 255);
+    ;
+}
+
+.hover{
+    display: none;
+}
+
+.link:hover .hover {
+    display: block;
+    position: fixed;
+    top: 300px;
+    right: 300px;
+    margin-right:125px;
+}
+
