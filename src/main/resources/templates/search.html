@@ -110,7 +110,7 @@
             //page next navigation button
             const next = document.getElementById("next");
             const nextUrl = new URL(window.location.href);
-            if (Number(next.dataset.value) <= next.dataset.maxvalue) {
+            if (Number(next.dataset.value) < next.dataset.maxvalue) {
                 nextUrl.searchParams.set("page", next.dataset.value);
                 next.href = nextUrl;
             }
