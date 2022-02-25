@@ -62,16 +62,16 @@
         </ul>
         <ul class="hiddenBullet pageButtons textContent">
             <li>
-                <a class="pagenum" id="prev" th:data-value="${pageNumber - 1}">Prev</a>
+                <a class="pagenum textContent" id="prev" th:data-value="${pageNumber - 1}">Prev</a>
             </li>
-            <li th:text="'You are on page ' + ${pageNumber + 1}"></li>
+            <li class="black textContent" th:text="'Page ' + ${pageNumber + 1}"></li>
             <li>
-                <a class="pagenum" id="next" th:data-value="${pageNumber + 1}" th:data-maxvalue="${pages}">Next</a>
+                <a class="pagenum textContent" id="next" th:data-value="${pageNumber + 1}" th:data-maxvalue="${pages}">Next</a>
             </li>
         </ul>
-        <ul class="hiddenBullet pageNumber textContent">
+        <ul class="hiddenBullet pageNumber  textContent">
             <li th:each="i : ${#numbers.sequence(1, pages)}">
-                <a class="pagenum" th:text="${i}"></a>
+                <a class="pagenum textContent" th:text="${i}"></a>
             </li>
         </ul>
     </main>
