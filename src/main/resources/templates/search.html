@@ -48,8 +48,13 @@
                 <a class="nhits" href="/">25</a>
                 <a class="nhits" href="/">50</a>
             </div>
-            <a class="go-home btn btn-secondary btn-lg" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
-            <a class="go-home btn btn-secondary btn-lg" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+        </div>
+        <div class="dropdown-container">
+            <button class="dropdown-btn ">Export Data</button>
+            <div class="dropdown-items">
+                <a class="" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
+                <a class="" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+            </div>
         </div>
         <ul class="hiddenBullet textContent">
             <li th:each="record : ${response.records}">
