@@ -24,6 +24,8 @@ This project is specifically done at the request of, and with the involvement of
 
 Follow this section to get up and running quickly.
 
+For a guide on how you would deploy this web app for production, see our [Example Deployment with Nginx on a Linux Server](/example-deployment.md) guide.
+
 ### Requirements
 
 - [Docker](https://www.docker.com/)
