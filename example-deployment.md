@@ -69,6 +69,7 @@ Add the following to the file
 ```conf
 server {
 	listen 80;
+	listen [::]:80;
 
 	location / {
 		proxy_pass http://localhost:8080;
