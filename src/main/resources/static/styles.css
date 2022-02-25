@@ -204,8 +204,12 @@ h2    {
     right: 0;
     bottom: 0;
 }
-
 .black  {
     color: black !important;
+}
+.BristolMuseum{
+    background-color: #d6005a;
+    width: 100%;
+    max-height: 100;
 }
 
