@@ -88,3 +88,7 @@ We can then restart the Nginx service, and the web app should be accessible in a
 ```sh
 $ sudo systemctl restart nginx
 ```
+
+## 5. Installing SSL Certificates (Recommended)
+
+*This part is under construction, and will be written at a later date. In the meantime, see the [Nginx docs](https://docs.nginx.com/nginx/admin-guide/security-controls/terminating-ssl-http/). If you need free, open source, automatically renewable CA-signed SSL certificates, check out [Let's Encrypt](https://letsencrypt.org/), a non-profit aiming to make HTTPS more accessible.*
