@@ -1,14 +1,15 @@
-# Hidden Museum
+# Hidden Museum 
+
+An advanced search tool for searching collections at the **Bristol Museum & Art Gallery**.
 
 [![docker-publish](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/docker-publish.yml)
 [![pages-build-deployment](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/spe-uob/2021-HiddenMuseum/actions/workflows/pages/pages-build-deployment)
+![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/spe-uob/2021-HiddenMuseum)
 
 ![GitHub issues](https://img.shields.io/github/issues/spe-uob/2021-HiddenMuseum)
 ![GitHub closed issues](https://img.shields.io/github/issues-closed/spe-uob/2021-HiddenMuseum)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/spe-uob/2021-HiddenMuseum)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/spe-uob/2021-HiddenMuseum)
-
-An advanced search tool for searching collections at the **Bristol Museum & Art Gallery**.
 
 ## Table of Contents
 
