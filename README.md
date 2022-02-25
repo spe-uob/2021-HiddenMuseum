@@ -11,6 +11,7 @@ An advanced search tool for searching collections at the **Bristol Museum & Art 
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/spe-uob/2021-HiddenMuseum)
 ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/spe-uob/2021-HiddenMuseum)
 
+
 ## Table of Contents
 
 1. [Overview](#overview)
@@ -21,6 +22,7 @@ An advanced search tool for searching collections at the **Bristol Museum & Art 
 6. [Contributing](#contributing)
 7. [Ethics](#ethics)
 
+
 ## Overview
 
 Our goal is to produce a web app that allows for intuitive searching of datasets using the OpenData API.
@@ -28,6 +30,7 @@ Our goal is to produce a web app that allows for intuitive searching of datasets
 This project is specifically done at the request of, and with the involvement of, the Bristol&nbsp;Museum & Arts&nbsp;Gallery.
 
 **Hidden Museum** is developed in Java using the Spring Boot framework. The datasets we use are hosted by Bristol City Council, and are accessed with the OpenData API. The frontend is largely handled by Thymeleaf templates. *We are yet to decide on a CSS framework to use (and may not use one) depending on our needs.*
+
 
 ## Quickstart
 
@@ -52,6 +55,7 @@ This clones the repository, builds the project, and runs it in a Docker containe
 Access the web app in the following ways:
 + If you are running it locally, go to [localhost:8080](https://localhost:8080), where you should see it running.
 + If you are running on a cloud instance, e.g. on an AWS EC2 instance, type the public IPv4 address of the instance into your browser, and use port 8080 (unless if you changed it).
+
 
 ## Manual Setup
 
@@ -88,9 +92,11 @@ $ java -jar ./target/hiddenmuseum.jar --server.port=8080
 
 Go to [localhost:8080](http://localhost:8080), where you should see it running.
 
+
 ## Documentation
 
-Find the javadocs [here](https://spe-uob.github.io/2021-HiddenMuseum/).
+Find the javaocs [here](https://spe-uob.github.io/2021-HiddenMuseum/).
+
 
 ## License
 
@@ -103,7 +109,7 @@ This project uses the MIT License. It may be redistributed under different terms
 
 Contribution guidelines are currently work in progress, check back soon.
 
-However, [we have a simple guide](/GITGUIDE.md) on how to use `git` with this project.
+However, [we have a simple guide](/GITGUIDE.md) on how to use `git` with this project, [also available in Chinese](/GITGUIDE_zh.md).
 
 
 ## Ethics
