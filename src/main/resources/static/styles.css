@@ -65,7 +65,7 @@
     font-size: 0.9em;
     font-family: sans-serif;
     color: rgba(46, 49, 55, 255);
-    min-width: 600px;
+    min-width: 60%;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -158,4 +158,18 @@
 }
 .pageNumber  {
     text-align: center;
+}
+.objImg {
+    z-index: 2;
+    align-content: center;
+
+}
+
+.imgDiv {
+    display: inline;
+    position: absolute;
+    top: 10%;
+    left: 70%;
+    right: 0;
+    bottom: 0;
 }

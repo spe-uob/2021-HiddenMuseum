@@ -40,9 +40,9 @@
                         </div>
                     </div>
                 </div>
-                <div th:case="'image_of_object'">
+                <div class="imgDiv" th:case="'image_of_object'">
 
-                    <img th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'" alt="image of object" id="right">
+                    <img class="objImg"  th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'" alt="image of object" id="right">
                     <br>
                 </div>
                 <div th:case="*"></div>
