@@ -43,8 +43,8 @@ For a guide on how you would deploy this web app for production, see our [Exampl
 
 Do the following commands to start an instance of the web app:
 ```bash
-$ docker pull ghcr.io/spe-uob/2021-hiddenmuseum:dev
-$ docker run -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum:dev . --server.port=8080
+$ docker pull ghcr.io/spe-uob/2021-hiddenmuseum
+$ docker run -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum . --server.port=8080
 ```
 
 This clones the repository, builds the project, and runs it in a Docker container on port 8080. To change ports, change the range given on the `-p` flag, and the port given with the `--server.port` flag.

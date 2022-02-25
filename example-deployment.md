@@ -40,13 +40,13 @@ $ sudo systemctl start docker
 ## 3. Install and Run the Hidden Museum Web App
 
 ```sh
-$ docker pull ghcr.io/spe-uob/2021-hiddenmuseum:dev
+$ docker pull ghcr.io/spe-uob/2021-hiddenmuseum
 ```
 
 We'll be running the web app on port 8080, with SSL disabled. The `--restart always` flag means Docker will automatically restart this container, unless if it is stopped manually.
 
 ```sh
-$ docker run -d --restart always -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum:dev . --server.port=8080 --server.ssl.enabled=false
+$ docker run -d --restart always -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum . --server.port=8080 --server.ssl.enabled=false
 ```
 
 Now, the web app is running. All that is required is a way to access it.
