@@ -20,6 +20,14 @@
         </a>
     </div>
     <div class="dropdown-container">
+        <button class="dropdown-btn ">Navigation</button>
+        <div class="dropdown-items">
+            <a href="/search" class="pagenum textContent">Back to search</a>
+            <a href="/infographics" class="pagenum textContent">Infographics</a>
+        </div>
+    </div>
+
+    <div class="dropdown-container">
         <button class="dropdown-btn ">Export Data</button>
         <div class="dropdown-items">
             <a class="" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
