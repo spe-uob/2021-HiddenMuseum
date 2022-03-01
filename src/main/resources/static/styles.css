@@ -238,3 +238,8 @@ h2    {
     width: 100%;
     z-index: 3;
 }
+
+.info-break {
+    size: 1000px;
+}
+
