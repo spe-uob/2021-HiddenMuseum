@@ -97,14 +97,17 @@ h2    {
       margin: 25px 0;
       font-size: 0.9em;
       font-family: sans-serif;
-      color: rgba(46, 49, 55, 255);
       min-width: 600px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   }
+.styled-table thead tr {
+    background-color: #d6005a;
+    color: #ffffff !important;
+    text-align: left;
+}
   
   .styled-table th,
   .styled-table td {
-      color: rgba(46, 49, 55, 255);
       max-width: 800px;
       padding: 12px 15px;
   }
@@ -118,8 +121,7 @@ h2    {
   }
   
   .styled-table tbody tr:last-of-type {
-      border-bottom: 2px solid rgba(46, 49, 55, 255);
-      ;
+      border-bottom: thin solid #d6005a;
   }
 
   .hidden{
@@ -129,10 +131,6 @@ h2    {
   .shown{
       display: block;
   }
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid rgba(46, 49, 55, 255);
-    ;
-}
 
 .hover{
     display: none;

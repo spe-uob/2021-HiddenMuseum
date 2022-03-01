@@ -41,22 +41,34 @@
                         <br>
                         <div class="left">
                             <table class="styled-table">
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Info</th>
-                                </tr>
-                                <div th:each="field : ${response.fields}">
-                                    <tbody>
-                                        <tr>
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <div th:each="field : ${response.fields}">
+                                        <div th:switch="${field.key}">
+                                        <tr th:case="'link_to_additional_information'">
                                             <td th:with="prettyField=${field.key}"  th:text="${prettyField.replaceAll('_', ' ')}"></td>
-                                            <td th:if="${field.value != ''}" th:text="${field.value}"></td>
-                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td>
+                                            <td><a th:text="${field.value}"  th:href="${field.value}"></a></td>
                                         </tr>
-                                    </tbody>
-                                </div>
+                                        <tr th:case="*">
+                                            <td th:with="prettyField=${field.key}"  th:text="${prettyField.replaceAll('_', ' ')}"></td>
+                                            <!-- looks like this is not needed since I could not find empty field values.
+                                            <td th:if="${field.value != ''}" th:text="${field.value}"></td>
+                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td> -->
+                                            <td th:text="${field.value}"></td>
+                                        </tr>
+                                        </div>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
+
+
                 </div>
                 <div class="imgDiv" th:case="'image_of_object'">
                     <br>
