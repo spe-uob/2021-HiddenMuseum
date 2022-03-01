@@ -17,6 +17,14 @@
       text-align: center;
       font-size: 48px;
   }
+
+#search-button   {
+    background-color: #d6005a;
+}
+
+i   {
+    color: white;
+}
   * {
       font-family: "ITCAvantGardeGothicW05-Book", Arial, sans-serif;
   }
