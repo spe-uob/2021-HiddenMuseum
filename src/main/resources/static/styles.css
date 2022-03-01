@@ -225,10 +225,16 @@ h2    {
 .BristolMuseum{
     background-color: #d6005a;
     width: 100%;
-    max-height: 100;
+    max-height: 100px;
 }
 
 .btn-secondary{
     background-color: #53565A !important;
 }
 
+.stay {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
+}
