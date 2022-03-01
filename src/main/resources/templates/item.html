@@ -43,7 +43,7 @@
                                 <div th:each="field : ${response.fields}">
                                     <tbody>
                                         <tr>
-                                            <td th:text="${field.key}"></td>
+                                            <td th:with="prettyField=${field.key}"  th:text="${prettyField.replaceAll('_', ' ')}"></td>
                                             <td th:text="${field.value}"></td>
                                         </tr>
                                     </tbody>
