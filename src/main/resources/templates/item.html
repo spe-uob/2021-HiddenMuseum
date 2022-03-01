@@ -51,11 +51,11 @@
                                     <div th:each="field : ${response.fields}">
                                         <div th:switch="${field.key}">
                                         <tr th:case="'link_to_additional_information'">
-                                            <td th:with="prettyField=${field.key}"  th:text="${#strings.capitalize(prettyField.replaceAll('_', ' '))}"></td>
+                                            <td th:with="prettyField=${field.key.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"></td>
                                             <td><a th:text="${field.value}"  th:href="${field.value}"></a></td>
                                         </tr>
                                         <tr th:case="*">
-                                            <td th:with="prettyField=${field.key}"  th:text="${prettyField.replaceAll('_', ' ')}"></td>
+                                            <td th:text="${#strings.capitalize(field.key.replaceAll('_', ' '))}"></td>
                                             <!-- looks like this is not needed since I could not find empty field values.
                                             <td th:if="${field.value != ''}" th:text="${field.value}"></td>
                                             <td th:if="${field.value == ''}" th:text="Information unavailable"></td> -->
