@@ -1,0 +1,1 @@
+{"Painting":"","Vase":"","Sculpture":"","Drawing/Watercolour":"","Photograph":"","CommunionCup&PatenCover":"","Ewer/Bowl":"","Flagon":"","TimeBasedMedia":""}
