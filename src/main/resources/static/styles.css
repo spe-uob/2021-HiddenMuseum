@@ -160,6 +160,7 @@ h2    {
     padding: 16px;
     min-width: 160px;
     border: none;
+    z-index: 3;
   }
 .dropdown-container  {
     left: 0%;
@@ -167,13 +168,14 @@ h2    {
     padding-bottom: 15px;
     position: relative;
     display: inline-block;
+    z-index: 3;
 }
 .dropdown-items  {
     display: none;
     position: absolute;
     background-color: lightgrey;
     min-width: 160px;
-    z-index: 1;
+    z-index: 3;
 }
 .dropdown-items a {
     color: black;
@@ -241,5 +243,10 @@ h2    {
 
 .info-break {
     size: 1000px;
+}
+
+.navBut a {
+    color: white !important;
+    text-decoration: none !important;
 }
 

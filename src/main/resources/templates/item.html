@@ -18,16 +18,19 @@
         <a  href="/">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1" alt="Bristol museum logo" height="100">
         </a>
-        <a href="/search" class="pagenum textContent">Back to search</a>
-        <a href="/infographics" class="pagenum textContent">Infographics</a>
-    </div>
-    <div class="dropdown-container">
-        <button class="dropdown-btn ">Export Data</button>
-        <div class="dropdown-items">
-            <a class="" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
-            <a class="" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+        <button class="dropdown-btn navBut"><a href="/search"> Back to search</a></button>
+        <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+        <div class="dropdown-container">
+            <button class="dropdown-btn ">Export Data</button>
+            <div class="dropdown-items">
+                <a download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
+                <a download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+            </div>
         </div>
     </div>
+    <br>
+    <br>
+    <hr class="hr-class">
     <br>
     <div style="width: 100%; overflow:auto;">
         <div th:each="field : ${response.fields}">
@@ -46,7 +49,8 @@
                                     <tbody>
                                         <tr>
                                             <td th:with="prettyField=${field.key}"  th:text="${prettyField.replaceAll('_', ' ')}"></td>
-                                            <td th:text="${field.value}"></td>
+                                            <td th:if="${field.value != ''}" th:text="${field.value}"></td>
+                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td>
                                         </tr>
                                     </tbody>
                                 </div>
