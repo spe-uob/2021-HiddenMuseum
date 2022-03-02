@@ -144,6 +144,10 @@ h2    {
     display: none;
 }
 
+.link   {
+    color: #d6005a;
+}
+
 .link:hover .hover {
     display: block;
     position: fixed;

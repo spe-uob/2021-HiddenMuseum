@@ -62,7 +62,7 @@
         <ul class="hiddenBullet textContent">
             <li th:each="record : ${response.records}">
                 <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
-                    <span th:text="${record.fields.get('title_of_object')}"></span>
+                    <b th:text="${record.fields.get('title_of_object')}"></b>
                     <span th:if="${record.fields.get('artist')}"
                         th:text="'by ' + ${record.fields.get('artist')}"></span>
                     <div class="hover">
