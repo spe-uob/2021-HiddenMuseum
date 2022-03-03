@@ -23,58 +23,48 @@
     <h1 id="title">Hidden Museums Web Search Tool</h1>
     <main class="content">
         <div id="search-box" action="search">
-            <form class="form" action="/search">
+            <form class="form" action="/search" onsubmit="cleanURL()">
                 <div class="input-group mb-3">
                     <input id="q" name="q" class="form-control" type="text" placeholder="Search">
                     <button id="search-button" class="btn btn-primary" type="submit">
 						<i class="fa fa-search"></i>
 					</button>
                 </div>
+                <table class="table" id="filters">
+                    <tr>
+                        <th scope="col">Filter</th>
+                        <th scope="col">Input</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <select id="refineField" name="refineField" class="Filter1">
+                                <option th:each="i : ${fieldList}" th:value="${i}"
+                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
+                                        th:selected='${i=="medium"}'>
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="refineQ" name="refineQ" class="form-control Filter1" type="text" placeholder="Input">
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
 
-        <table class="table" id="filters">
-            <tr>
-                <th scope="col">Filter</th>
-                <th scope="col">Input</th>
-            </tr>
-            <tr>
-                <td>
-                    <select id="field1" name="field1">
-						<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" th:selected='${i=="medium"}'>
-						</option>
-					</select>
-                </td>
-                <td>
-                    <input id="Input1" name="Input1" class="form-control" type="text" placeholder="Input">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <select id="field2" name="field2">
-						<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}" th:selected='${i=="medium"}'>
-						</option>
-					</select>
-                </td>
-                <td>
-                    <input id="Input2" name="Input2" class="form-control" type="text" placeholder="Input">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <select id="field3" name="field3">
-						<option selected disabled hidden style='display: none' value=''></option>
-						<option th:each="i : ${fieldList}" th:value="${i}" th:text="${i}"></option>
-					</select>
-                </td>
-                <td>
-                    <input id="Input3" name="Input3" class="form-control" type="text" placeholder="Input">
-                </td>
-            </tr>
-        </table>
+
         <a href="/infographics" >infographics</a>
     </main>
-
 </body>
+<script>
+    function cleanURL() {
+        let inputs = document.getElementsByClassName("Filter1");
+        console.log(inputs)
+            if (inputs[1].value.length === 0 && inputs[1].type !== 'submit') {
+                inputs[0].disabled = true;
+                inputs[1].disabled = true;
+            }
+    }
+</script>
 
 </html>
