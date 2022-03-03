@@ -35,7 +35,7 @@
                         <th scope="col">Filter</th>
                         <th scope="col">Input</th>
                     </tr>
-                    <tr>
+                    <tr class="Refine">
                         <td>
                             <select id="refineField" name="refineField" class="Filter1">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
@@ -46,6 +46,19 @@
                         </td>
                         <td>
                             <input id="refineQ" name="refineQ" class="form-control Filter1" type="text" placeholder="Input">
+                        </td>
+                    </tr>
+                    <tr class="Exclude">
+                        <td>
+                            <select id="excludeField" name="excludeField" class="Filter1">
+                                <option th:each="i : ${fieldList}" th:value="${i}"
+                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
+                                        th:selected='${i=="medium"}'>
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input id="excludeQ" name="excludeQ" class="form-control Filter1" type="text" placeholder="Input">
                         </td>
                     </tr>
                 </table>
