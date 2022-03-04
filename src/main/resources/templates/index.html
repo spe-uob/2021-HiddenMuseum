@@ -38,7 +38,7 @@
                     </tr>
                     <tr class="Refine">
                         <td>
-                            <select id="refineField" name="refineField" class="Filter1">
+                            <select class="Filter1">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
                                         th:selected='${i=="medium"}'>
@@ -46,18 +46,18 @@
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refine" value="refineBy" onclick="refine1()">
+                            <input type="radio" id="refineBy" name="option1" value="refineBy" onclick="toRefine(1)">
                             <label for="refine">Refine</label><br>
-                            <input type="radio" id="exclude" value="excludeBy" onclick="exclude1()">
+                            <input type="radio" id="excludeBy" name="option1" value="excludeBy" onclick="toExclude(1)">
                             <label for="exclude">Exclude</label><br>
                         </td>
                         <td>
-                            <input id="refineQ" name="refineQ" class="form-control Filter1" type="text" placeholder="Input">
+                            <input class="form-control Filter1" type="text" placeholder="Input">
                         </td>
                     </tr>
                     <tr class="Exclude">
                         <td>
-                            <select id="excludeField" name="excludeField" class="Filter2">
+                            <select class="Filter2">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
                                         th:selected='${i=="medium"}'>
@@ -65,13 +65,13 @@
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refine" name="option" value="refineBy">
+                            <input type="radio" id="refine" name="option2" value="refineBy" onclick="toRefine(2)">
                             <label for="refine">Refine</label><br>
-                            <input type="radio" id="exclude" name="option" value="excludeBy">
+                            <input type="radio" id="exclude" name="option2" value="excludeBy" onclick="toExclude(2)">
                             <label for="exclude">Exclude</label><br>
                         </td>
                         <td>
-                            <input id="excludeQ" name="excludeQ" class="form-control Filter2" type="text" placeholder="Input">
+                            <input class="form-control Filter2" type="text" placeholder="Input">
                         </td>
                     </tr>
                 </table>
@@ -97,15 +97,19 @@
             inputs2[1].disabled = true;
         }
     }
-    function refine1()  {
-        let inputs = document.getElementsByClassName("Filter1");
+    function toRefine(i)  {
+        let className = "Filter" + i.toString();
+        console.log(className);
+        let inputs = document.getElementsByClassName(className);
         inputs[0].id = "refineField";
         inputs[0].name = "refineField";
         inputs[1].id = "refineQ";
         inputs[1].name = "refineQ";
     }
-    function exclude1()  {
-        let inputs = document.getElementsByClassName("Filter1");
+    function toExclude(i)  {
+        let className = "Filter" + i.toString();
+        console.log(className);
+        let inputs = document.getElementsByClassName(className);
         inputs[0].id = "excludeField";
         inputs[0].name = "excludeField";
         inputs[1].id = "excludeQ";
