@@ -31,11 +31,22 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
+            @RequestParam(defaultValue = "", required = false) String refineField,
+            @RequestParam(defaultValue = "", required = false) String refineQ,
+            @RequestParam(defaultValue = "", required = false) String excludeField,
+            @RequestParam(defaultValue = "", required = false) String excludeQ,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
+        if (!refineField.equals("") && !refineQ.equals("")) {
+            srq.refineBy(refineField, refineQ);
+        }
+        if (!excludeField.equals("") && !excludeQ.equals("")) {
+            srq.exclude(excludeField, excludeQ);
+        }
+
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
