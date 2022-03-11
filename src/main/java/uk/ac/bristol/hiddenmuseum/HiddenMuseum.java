@@ -10,7 +10,7 @@ import org.springframework.context.annotation.PropertySource;
  * @see <a href="https://github.com/spe-uob/2021-HiddenMuseum">spe-uob/2021-HiddenMuseum</a>
  */
 @SpringBootApplication
-@PropertySource("classpath:/application.properties")
+//@PropertySource("classpath:/application.properties")
 public class HiddenMuseum {
 
     /**
