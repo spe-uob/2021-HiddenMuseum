@@ -56,9 +56,11 @@
                                         </tr>
                                         <tr th:case="*">
                                             <td th:text="${#strings.capitalize(field.key.replaceAll('_', ' '))}"></td>
-                                            <!-- looks like this is not needed since I could not find empty field values.
+                                            <!--
+                                            looks like this is not needed since I could not find empty field values.
                                             <td th:if="${field.value != ''}" th:text="${field.value}"></td>
-                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td> -->
+                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td>
+                                            -->
                                             <td th:text="${field.value}"></td>
                                         </tr>
                                         </div>
