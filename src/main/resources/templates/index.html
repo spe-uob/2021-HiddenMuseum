@@ -51,12 +51,13 @@
                                         th:selected='${i=="medium"}'>
                                 </option>
                             </select>
+
                         </td>
                         <td>
-                            <input type="radio" id="refineBy" name="values" value="refineBy">
-                            <label for="refine">Refine</label><br>
-                            <input type="radio" id="excludeBy" name="values" value="excludeBy">
-                            <label for="exclude">Exclude</label><br>
+                            <select name="values">
+                                <option value="refineBy">Refine</option>
+                                <option value="excludeBy">Exclude</option>
+                            </select>
                         </td>
                         <td>
                             <input class="form-control" type="text" name="values" placeholder="Input">
@@ -64,7 +65,7 @@
                         <td><input type="button" class="Filter1" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
                 </table>
-                <input type="button" onclick="createRow()">Add Filter</input>
+                <input type="button" value="Add Filter" onclick="createRow()"></input>
             </form>
 
         </div>
@@ -94,12 +95,10 @@
         let dropdown = row.insertCell(0);
         dropdown.innerHTML = DROPDOWN_CONTENT;
         let option = row.insertCell(1);
-        let idRef = "\"refineBy" + filterNum.toString() + "\"";
-        let idExc = "\"exclude" + filterNum.toString() + "\"";
-        option.innerHTML = "<input type=\"radio\" id=" + idRef + " name=\"values\" value=\"refineBy\">\n" +
-            "                            <label for=" + idRef +">Refine</label><br>\n" +
-            "                            <input type=\"radio\" id=" + idExc + " name=\"values\" value=\"excludeBy\">\n" +
-            "                            <label for=" + idExc + ">Exclude</label><br>";
+        option.innerHTML = "<select name=\"values\">\n" +
+            "                                <option value=\"refineBy\">Refine</option>\n" +
+            "                                <option value=\"excludeBy\">Exclude</option>\n" +
+            "                            </select>"
         let input = row.insertCell(2);
         input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         let remove = row.insertCell(3);
