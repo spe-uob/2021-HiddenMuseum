@@ -63,26 +63,6 @@
                         </td>
                         <td><input type="button" class="Filter1" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
-                    <tr class="Exclude">
-                        <td>
-                            <select class="Filter2">
-                                <option th:each="i : ${fieldList}" th:value="${i}"
-                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
-                                        th:selected='${i=="medium"}'>
-                                </option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="radio" id="refine" name="values" value="refineBy" onclick="toRefine(2)">
-                            <label for="refine">Refine</label><br>
-                            <input type="radio" id="exclude" name="values" value="excludeBy" onclick="toExclude(2)">
-                            <label for="exclude">Exclude</label><br>
-                        </td>
-                        <td>
-                            <input class="form-control Filter2" type="text" placeholder="Input">
-                        </td>
-                        <td><input type="button" value="Remove Filter" onclick=""/></td>
-                    </tr>
                 </table>
                 <input type="button" onclick="createRow()">Add Filter</input>
             </form>
@@ -95,12 +75,15 @@
     //global variable that says the number of rows in the table
     let NUM_ROWS = 1;
 
+    //global variable that defines the dropdown menu in the filters. NECESSARY because applying thymeleaf things
+    //at runtime does not work. also you could delete the original filter, so this must be stored!
+    let DROPDOWN_CONTENT = document.getElementById("dropdown").innerHTML;
+
     //remove a row from the table
     function removeRow(item) {
-        let row = document.getElementsByClassName(item.className);
-        while(row.length > 0){
-            row[0].parentNode.removeChild(row[0]);
-        }
+        let i = item.parentNode.parentNode.rowIndex;
+        console.log(i);
+        document.getElementById("filters").deleteRow(i);
         NUM_ROWS--;
     }
     //add a new working filter to the table
@@ -108,7 +91,7 @@
         let table = document.getElementById("filters");
         let row = table.insertRow(NUM_ROWS + 1);
         let dropdown = row.insertCell(0);
-        dropdown.innerHTML = document.getElementById("dropdown").innerHTML;
+        dropdown.innerHTML = DROPDOWN_CONTENT;
         let option = row.insertCell(1);
         option.innerHTML = "<input type=\"radio\" id=\"refineBy\" name=\"values\" value=\"refineBy\">\n" +
             "                            <label for=\"refine\">Refine</label><br>\n" +
