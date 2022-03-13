@@ -41,13 +41,16 @@ public class SearchController {
         srq.setOffset(nhits * page);
 
         //iterate through values string here and set the srq.
+        //0,1,2 -> 3,4,5  ->
         int len = values.size();
-        for(int i = 0; ((3*i)) < len; i++ )
-        if(values.get((3*i)+1).equals("refineBy"))  {
-            srq.refineBy(values.get(3*i), values.get((3*i)+2));
-        }
-        else    {
-            srq.exclude(values.get(3*i), values.get((3*i)+2));
+        System.out.println(values);
+        for(int i = 0; ((3*i)) < len; i++) {
+            System.out.println(i);
+            if (values.get((3 * i) + 1).equals("refineBy")) {
+                srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
+            } else {
+                srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
+            }
         }
 
 

@@ -72,7 +72,8 @@
     </main>
 </body>
 <script>
-    //global variable that says the number of rows in the table
+    //global variable that says the number of rows in the table. just so each new row gets a unique ID for buttons. Int overflow possible
+    //eventually but no issues can be caused other than buttons not working!
     let NUM_ROWS = 1;
 
     //global variable that defines the dropdown menu in the filters. NECESSARY because applying thymeleaf things
@@ -84,23 +85,24 @@
         let i = item.parentNode.parentNode.rowIndex;
         console.log(i);
         document.getElementById("filters").deleteRow(i);
-        NUM_ROWS--;
     }
     //add a new working filter to the table
     function createRow()    {
+        let filterNum = NUM_ROWS + 1;
         let table = document.getElementById("filters");
-        let row = table.insertRow(NUM_ROWS + 1);
+        let row = table.insertRow(filterNum);
         let dropdown = row.insertCell(0);
         dropdown.innerHTML = DROPDOWN_CONTENT;
         let option = row.insertCell(1);
-        option.innerHTML = "<input type=\"radio\" id=\"refineBy\" name=\"values\" value=\"refineBy\">\n" +
-            "                            <label for=\"refine\">Refine</label><br>\n" +
-            "                            <input type=\"radio\" id=\"excludeBy\" name=\"values\" value=\"excludeBy\">\n" +
-            "                            <label for=\"exclude\">Exclude</label><br>";
+        let idRef = "\"refineBy" + filterNum.toString() + "\"";
+        let idExc = "\"exclude" + filterNum.toString() + "\"";
+        option.innerHTML = "<input type=\"radio\" id=" + idRef + " name=\"values\" value=\"refineBy\">\n" +
+            "                            <label for=" + idRef +">Refine</label><br>\n" +
+            "                            <input type=\"radio\" id=" + idExc + " name=\"values\" value=\"excludeBy\">\n" +
+            "                            <label for=" + idExc + ">Exclude</label><br>";
         let input = row.insertCell(2);
         input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         let remove = row.insertCell(3);
-        let filterNum = NUM_ROWS + 1;
         let className = "\"Filter" + filterNum.toString();
         remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
             " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
