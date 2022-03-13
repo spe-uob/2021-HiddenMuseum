@@ -44,7 +44,7 @@
                         <th scope="col"></th>
                     </tr>
                     <tr class="Filter1">
-                        <td>
+                        <td id="dropdown">
                             <select name="values">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
@@ -84,19 +84,46 @@
                         <td><input type="button" value="Remove Filter" onclick=""/></td>
                     </tr>
                 </table>
+                <input type="button" onclick="createRow()">Add Filter</input>
             </form>
+
         </div>
         <a href="/infographics" >infographics</a>
     </main>
 </body>
 <script>
+    //global variable that says the number of rows in the table
+    let NUM_ROWS = 1;
 
+    //remove a row from the table
     function removeRow(item) {
         let row = document.getElementsByClassName(item.className);
         while(row.length > 0){
             row[0].parentNode.removeChild(row[0]);
         }
+        NUM_ROWS--;
     }
+    //add a new working filter to the table
+    function createRow()    {
+        let table = document.getElementById("filters");
+        let row = table.insertRow(NUM_ROWS + 1);
+        let dropdown = row.insertCell(0);
+        dropdown.innerHTML = document.getElementById("dropdown").innerHTML;
+        let option = row.insertCell(1);
+        option.innerHTML = "<input type=\"radio\" id=\"refineBy\" name=\"values\" value=\"refineBy\">\n" +
+            "                            <label for=\"refine\">Refine</label><br>\n" +
+            "                            <input type=\"radio\" id=\"excludeBy\" name=\"values\" value=\"excludeBy\">\n" +
+            "                            <label for=\"exclude\">Exclude</label><br>";
+        let input = row.insertCell(2);
+        input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
+        let remove = row.insertCell(3);
+        let filterNum = NUM_ROWS + 1;
+        let className = "\"Filter" + filterNum.toString();
+        remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
+            " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
+        NUM_ROWS++;
+    }
+
 </script>
 
 </html>
