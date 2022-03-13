@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
+import java.util.Arrays;
 import java.util.List;
 
 //import org.json.simple.JSONArray;
@@ -19,7 +20,7 @@ import java.util.List;
  */
 @Controller
 public class SearchController {
-
+    public static final List<String> defaultList = Arrays.asList("", "", "");
     /**
      * Request handler for search requests
      *
@@ -33,7 +34,7 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam List<String> values,
+            @RequestParam (defaultValue = "" ,required = false) List<String> values,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
@@ -47,9 +48,14 @@ public class SearchController {
         for(int i = 0; ((3*i)) < len; i++) {
             System.out.println(i);
             if (values.get((3 * i) + 1).equals("refineBy")) {
-                srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
+                if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
+                    srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
+                }
+
             } else {
-                srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
+                if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
+                    srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
+                }
             }
         }
 
