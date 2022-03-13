@@ -51,7 +51,6 @@
                                         th:selected='${i=="medium"}'>
                                 </option>
                             </select>
-
                         </td>
                         <td>
                             <select name="values">
@@ -67,14 +66,12 @@
                 </table>
                 <input type="button" value="Add Filter" onclick="createRow()"></input>
             </form>
-
         </div>
         <a href="/infographics" >infographics</a>
     </main>
 </body>
 <script>
-    //global variable that says the number of rows in the table. just so each new row gets a unique ID for buttons. Int overflow possible
-    //eventually but no issues can be caused other than buttons not working!
+    //global variable that says the number of rows in the table. just so each new row gets a unique ID. Necessary in previous versions.
     let NUM_ROWS = 1;
 
     //global variable that defines the dropdown menu in the filters. NECESSARY because applying thymeleaf things
@@ -107,7 +104,5 @@
             " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
         NUM_ROWS++;
     }
-
 </script>
-
 </html>

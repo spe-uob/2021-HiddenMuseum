@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
-import java.util.Arrays;
 import java.util.List;
 
 //import org.json.simple.JSONArray;
@@ -20,7 +19,6 @@ import java.util.List;
  */
 @Controller
 public class SearchController {
-    public static final List<String> defaultList = Arrays.asList("", "", "");
     /**
      * Request handler for search requests
      *
@@ -42,7 +40,6 @@ public class SearchController {
         srq.setOffset(nhits * page);
 
         //iterate through values string here and set the srq.
-        //0,1,2 -> 3,4,5  ->
         int len = values.size();
         System.out.println(values);
         for(int i = 0; ((3*i)) < len; i++) {
@@ -58,7 +55,6 @@ public class SearchController {
                 }
             }
         }
-
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
