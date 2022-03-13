@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
+import java.util.List;
+
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONValue;
 //import org.springframework.web.bind.annotation.RestController;
@@ -31,20 +33,21 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam(defaultValue = "", required = false) String refineField,
-            @RequestParam(defaultValue = "", required = false) String refineQ,
-            @RequestParam(defaultValue = "", required = false) String excludeField,
-            @RequestParam(defaultValue = "", required = false) String excludeQ,
+            @RequestParam List<String> values,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
-        if (!refineField.equals("") && !refineQ.equals("")) {
-            srq.refineBy(refineField, refineQ);
+
+        //iterate through values string here and set the srq.
+        int len = values.size();
+        for(int i = 0; ((3*i)) < len; i++ )
+        if(values.get((3*i)+1).equals("refineBy"))  {
+            srq.refineBy(values.get(3*i), values.get((3*i)+2));
         }
-        if (!excludeField.equals("") && !excludeQ.equals("")) {
-            srq.exclude(excludeField, excludeQ);
+        else    {
+            srq.exclude(values.get(3*i), values.get((3*i)+2));
         }
 
 

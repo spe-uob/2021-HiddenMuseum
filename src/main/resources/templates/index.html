@@ -41,10 +41,11 @@
                         <th scope="col">Filter</th>
                         <th scope="col">Option</th>
                         <th scope="col">Input</th>
+                        <th scope="col"></th>
                     </tr>
-                    <tr class="Refine">
+                    <tr class="Filter1">
                         <td>
-                            <select class="Filter1">
+                            <select name="values">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
                                         th:selected='${i=="medium"}'>
@@ -52,14 +53,15 @@
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refineBy" name="option1" value="refineBy" onclick="toRefine(1)">
+                            <input type="radio" id="refineBy" name="values" value="refineBy">
                             <label for="refine">Refine</label><br>
-                            <input type="radio" id="excludeBy" name="option1" value="excludeBy" onclick="toExclude(1)">
+                            <input type="radio" id="excludeBy" name="values" value="excludeBy">
                             <label for="exclude">Exclude</label><br>
                         </td>
                         <td>
-                            <input class="form-control Filter1" type="text" placeholder="Input">
+                            <input class="form-control" type="text" name="values" placeholder="Input">
                         </td>
+                        <td><input type="button" class="Filter1" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
                     <tr class="Exclude">
                         <td>
@@ -71,55 +73,29 @@
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refine" name="option2" value="refineBy" onclick="toRefine(2)">
+                            <input type="radio" id="refine" name="values" value="refineBy" onclick="toRefine(2)">
                             <label for="refine">Refine</label><br>
-                            <input type="radio" id="exclude" name="option2" value="excludeBy" onclick="toExclude(2)">
+                            <input type="radio" id="exclude" name="values" value="excludeBy" onclick="toExclude(2)">
                             <label for="exclude">Exclude</label><br>
                         </td>
                         <td>
                             <input class="form-control Filter2" type="text" placeholder="Input">
                         </td>
+                        <td><input type="button" value="Remove Filter" onclick=""/></td>
                     </tr>
                 </table>
             </form>
         </div>
-
-
         <a href="/infographics" >infographics</a>
     </main>
 </body>
 <script>
-    function cleanURL() {
-        let inputs = document.getElementsByClassName("Filter1");
-        console.log(inputs)
-            if (inputs[1].value.length === 0 && inputs[1].type !== 'submit') {
-                inputs[0].disabled = true;
-                inputs[1].disabled = true;
-            }
-        let inputs2 = document.getElementsByClassName("Filter2");
-        console.log(inputs2)
-        if (inputs2[1].value.length === 0 && inputs2[1].type !== 'submit') {
-            inputs2[0].disabled = true;
-            inputs2[1].disabled = true;
+
+    function removeRow(item) {
+        let row = document.getElementsByClassName(item.className);
+        while(row.length > 0){
+            row[0].parentNode.removeChild(row[0]);
         }
-    }
-    function toRefine(i)  {
-        let className = "Filter" + i.toString();
-        console.log(className);
-        let inputs = document.getElementsByClassName(className);
-        inputs[0].id = "refineField";
-        inputs[0].name = "refineField";
-        inputs[1].id = "refineQ";
-        inputs[1].name = "refineQ";
-    }
-    function toExclude(i)  {
-        let className = "Filter" + i.toString();
-        console.log(className);
-        let inputs = document.getElementsByClassName(className);
-        inputs[0].id = "excludeField";
-        inputs[0].name = "excludeField";
-        inputs[1].id = "excludeQ";
-        inputs[1].name = "excludeQ";
     }
 </script>
 
