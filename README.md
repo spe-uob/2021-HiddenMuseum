@@ -50,7 +50,7 @@ $ docker pull ghcr.io/spe-uob/2021-hiddenmuseum
 $ docker run -p 8080:8080 ghcr.io/spe-uob/2021-hiddenmuseum . --server.port=8080
 ```
 
-This clones the repository, builds the project, and runs it in a Docker container on port 8080. To change ports, change the range given on the `-p` flag, and the port given with the `--server.port` flag.
+This pulls the Docker image, and runs it in a Docker container on port 8080. To change ports, change the range given on the `-p` flag, and the port given with the `--server.port` flag.
 
 Access the web app in the following ways:
 + If you are running it locally, go to [localhost:8080](https://localhost:8080), where you should see it running.
