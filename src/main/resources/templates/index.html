@@ -17,10 +17,16 @@
 
 <body id="home">
     <div class="BristolMuseum">
-        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1" alt="Bristol museum logo" height="100">
+        <a href="/">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1"
+                 alt="Bristol museum logo" height="100">
+        </a>
+        <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+        <button class="dropdown-btn navBut"><a href="/search">Search</a></button>
+        <button class="dropdown-btn navBut"><a href="/about">About</a></button>
     </div>
     <br>
-    <h1 id="title">Hidden Museums Web Search Tool</h1>
+    <h1 id="title">Hidden Museums Advanced Search Tool</h1>
     <main class="content">
         <div id="search-box" action="search">
             <form class="form" action="/search" onsubmit="cleanURL()">
@@ -35,10 +41,11 @@
                         <th scope="col">Filter</th>
                         <th scope="col">Option</th>
                         <th scope="col">Input</th>
+                        <th scope="col"></th>
                     </tr>
-                    <tr class="Refine">
-                        <td>
-                            <select class="Filter1">
+                    <tr class="Filter1">
+                        <td id="dropdown">
+                            <select name="values">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
                                         th:selected='${i=="medium"}'>
@@ -46,75 +53,56 @@
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refineBy" name="option1" value="refineBy" onclick="toRefine(1)">
-                            <label for="refine">Refine</label><br>
-                            <input type="radio" id="excludeBy" name="option1" value="excludeBy" onclick="toExclude(1)">
-                            <label for="exclude">Exclude</label><br>
-                        </td>
-                        <td>
-                            <input class="form-control Filter1" type="text" placeholder="Input">
-                        </td>
-                    </tr>
-                    <tr class="Exclude">
-                        <td>
-                            <select class="Filter2">
-                                <option th:each="i : ${fieldList}" th:value="${i}"
-                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
-                                        th:selected='${i=="medium"}'>
-                                </option>
+                            <select name="values">
+                                <option value="refineBy">Refine</option>
+                                <option value="excludeBy">Exclude</option>
                             </select>
                         </td>
                         <td>
-                            <input type="radio" id="refine" name="option2" value="refineBy" onclick="toRefine(2)">
-                            <label for="refine">Refine</label><br>
-                            <input type="radio" id="exclude" name="option2" value="excludeBy" onclick="toExclude(2)">
-                            <label for="exclude">Exclude</label><br>
+                            <input class="form-control" type="text" name="values" placeholder="Input">
                         </td>
-                        <td>
-                            <input class="form-control Filter2" type="text" placeholder="Input">
-                        </td>
+                        <td><input type="button" class="Filter1" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
                 </table>
+                <input type="button" value="Add Filter" onclick="createRow()"></input>
             </form>
         </div>
-
-
         <a href="/infographics" >infographics</a>
     </main>
 </body>
 <script>
-    function cleanURL() {
-        let inputs = document.getElementsByClassName("Filter1");
-        console.log(inputs)
-            if (inputs[1].value.length === 0 && inputs[1].type !== 'submit') {
-                inputs[0].disabled = true;
-                inputs[1].disabled = true;
-            }
-        let inputs2 = document.getElementsByClassName("Filter2");
-        console.log(inputs2)
-        if (inputs2[1].value.length === 0 && inputs2[1].type !== 'submit') {
-            inputs2[0].disabled = true;
-            inputs2[1].disabled = true;
-        }
+    //global variable that says the number of rows in the table. just so each new row gets a unique ID. Necessary in previous versions.
+    let NUM_ROWS = 1;
+
+    //global variable that defines the dropdown menu in the filters. NECESSARY because applying thymeleaf things
+    //at runtime does not work. also you could delete the original filter, so this must be stored!
+    let DROPDOWN_CONTENT = document.getElementById("dropdown").innerHTML;
+
+    //remove a row from the table
+    function removeRow(item) {
+        let i = item.parentNode.parentNode.rowIndex;
+        console.log(i);
+        document.getElementById("filters").deleteRow(i);
     }
-    function toRefine(i)  {
-        let className = "Filter" + i.toString();
-        console.log(className);
-        let inputs = document.getElementsByClassName(className);
-        inputs[0].id = "refineField";
-        inputs[0].name = "refineField";
-        inputs[1].id = "refineQ";
-        inputs[1].name = "refineQ";
-    }
-    function toExclude(i)  {
-        let className = "Filter" + i.toString();
-        console.log(className);
-        let inputs = document.getElementsByClassName(className);
-        inputs[0].id = "excludeField";
-        inputs[0].name = "excludeField";
-        inputs[1].id = "excludeQ";
-        inputs[1].name = "excludeQ";
+    //add a new working filter to the table
+    function createRow()    {
+        let filterNum = NUM_ROWS + 1;
+        let table = document.getElementById("filters");
+        let row = table.insertRow(filterNum);
+        let dropdown = row.insertCell(0);
+        dropdown.innerHTML = DROPDOWN_CONTENT;
+        let option = row.insertCell(1);
+        option.innerHTML = "<select name=\"values\">\n" +
+            "                                <option value=\"refineBy\">Refine</option>\n" +
+            "                                <option value=\"excludeBy\">Exclude</option>\n" +
+            "                            </select>"
+        let input = row.insertCell(2);
+        input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
+        let remove = row.insertCell(3);
+        let className = "\"Filter" + filterNum.toString();
+        remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
+            " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
+        NUM_ROWS++;
     }
 </script>
-
 </html>
