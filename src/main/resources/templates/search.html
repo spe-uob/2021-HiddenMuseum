@@ -21,6 +21,7 @@
                      alt="Bristol museum logo" height="100">
             </a>
             <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+            <button class="dropdown-btn navBut"><a href="/about">About</a></button>
             <div class="dropdown-container">
                 <button class="dropdown-btn ">Items per page</button>
                 <div class="dropdown-items">
@@ -41,27 +42,57 @@
         <br>
         <br>
         <hr class="hr-class">
-        <p class="textContent">
-            <th:block th:if="${response.nhits!= 1}" th:text="${response.nhits} + ' results found for '"/>
-            <b th:if="${response.nhits!= 1}" th:text="${query}"></b>
-        </p>
-        <p class="textContent">
-            <th:block th:if="${response.nhits == 1}" th:text="${response.nhits} + ' result found for '"/>
-            <b th:if="${response.nhits== 1}" th:text="${query}"></b>
-        </p>
-        <div class="textContent" id="search-box" action="search">
-            <form class="form" action="/search">
+        <div id="search-box" action="search">
+            <form class="form" action="/search" onsubmit="cleanURL()">
                 <div class="input-group mb-3">
                     <input id="q" name="q" class="form-control" type="text" placeholder="Search">
-                    <button id="search-button" class="btn " type="submit">
+                    <button id="search-button" class="btn btn-primary" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+                <table class="table" id="filters">
+                    <tr>
+                        <th scope="col">Filter</th>
+                        <th scope="col">Option</th>
+                        <th scope="col">Input</th>
+                        <th scope="col"></th>
+                    </tr>
+                    <tr class="Filter1">
+                        <td id="dropdown">
+                            <select name="values">
+                                <option th:each="i : ${fieldList}" th:value="${i}"
+                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
+                                        th:selected='${i=="medium"}'>
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="values">
+                                <option value="refineBy">Refine</option>
+                                <option value="excludeBy">Exclude</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input class="form-control" type="text" name="values" placeholder="Input">
+                        </td>
+                        <td><input type="button" class="Filter1 btn btn-danger" value="Remove Filter" onclick="removeRow(this)"/></td>
+                    </tr>
+                </table>
+                <input type="button" class="btn btn-success" value="Add Filter" onclick="createRow()"></input>
             </form>
         </div>
+        <br>
         <ul class="hiddenBullet textContent">
+            <li><p class="textContent">
+                <th:block th:if="${response.nhits!= 1}" th:text="${response.nhits} + ' results found for '"/>
+                <b th:if="${response.nhits!= 1}" th:text="${query}"></b>
+            </p>
+                <p class="textContent">
+                    <th:block th:if="${response.nhits == 1}" th:text="${response.nhits} + ' result found for '"/>
+                    <b th:if="${response.nhits== 1}" th:text="${query}"></b>
+                </p></li>
             <li th:each="record : ${response.records}">
-                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid}">
+                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid} + '?q=' + ${query} + ${values}">
                     <b th:text="${record.fields.get('title_of_object')}"></b>
                     <span th:if="${record.fields.get('artist')}"
                         th:text="'by ' + ${record.fields.get('artist')}"></span>
@@ -91,6 +122,44 @@
     </main>
 
     <script type="text/javascript">
+        //global variable that says the number of rows in the table. just so each new row gets a unique ID. Necessary in previous versions.
+        let NUM_ROWS = 0;
+
+        //global variable that defines the dropdown menu in the filters. NECESSARY because applying thymeleaf things
+        //at runtime does not work. also you could delete the original filter, so this must be stored!
+        const DROPDOWN_CONTENT = document.getElementById("dropdown").innerHTML;
+
+        //remove a row from the table
+        function removeRow(item) {
+            let i = item.parentNode.parentNode.rowIndex;
+            console.log(i);
+            document.getElementById("filters").deleteRow(i);
+            NUM_ROWS--;
+        }
+        //add a new working filter to the table
+        function createRow(field="medium", options="refineBy", value="")    {
+            let filterNum = NUM_ROWS + 1;
+            console.log(field, options, value)
+            let table = document.getElementById("filters");
+            let row = table.insertRow(filterNum);
+            let dropdown = row.insertCell(0);
+            dropdown.innerHTML = DROPDOWN_CONTENT;
+            dropdown.firstElementChild.value = field;
+            let option = row.insertCell(1);
+            option.innerHTML = "<select name=\"values\">\n" +
+                "                                <option value=\"refineBy\" >Refine</option>\n" +
+                "                                <option value=\"excludeBy\" >Exclude</option>\n" +
+                "                            </select>"
+            option.firstChild.value = options;
+            let input = row.insertCell(2);
+            input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
+            input.firstChild.value = value;
+            let remove = row.insertCell(3);
+            let className = "\"Filter" + filterNum.toString() + " btn btn-danger\"";
+            remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
+                " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
+            NUM_ROWS++;
+        }
         function onLoad() {
             const query = window.location.search;
             const params = new URLSearchParams(query);
@@ -132,6 +201,27 @@
                 url.searchParams.set("page", 0);
                 a.href = url;
             }
+            document.getElementById("filters").deleteRow(1);
+            let i = 0;
+            let field = "";
+            let options = "";
+            let value = "";
+            for (const param of params.getAll("values"))    {
+                console.log(i);
+                i++;
+                if (i === 1)    {
+                    field = param;
+                }
+                else if (i === 2)   {
+                    options = param;
+                }
+                else if (i === 3)   {
+                    value = param;
+                    createRow(field, options, value);
+                    i = 0;
+                }
+            }
+
         }
 
         window.onload = onLoad();
