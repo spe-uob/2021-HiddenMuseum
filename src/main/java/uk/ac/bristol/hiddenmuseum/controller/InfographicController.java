@@ -96,11 +96,12 @@ public class InfographicController {
                         low = (dateFound);
                     }
                     ;
-                }// adding the link to a hashmap and the titles to a list
+                } // adding the link to a hashmap and the titles to a list
                 try {
-                    linksToItems.put(record.fields.get("recordid").toString(),(dateFound));
+                    linksToItems.put(record.recordid.toString(), (dateFound));
+                    System.out.println(record.recordid.toString());;
                 } catch (Exception e) {
-                    linksToItems.put("",(dateFound));
+                    linksToItems.put("", (dateFound));
                 }
                 if (!(datesOfItems.contains((dateFound)))) {
                     datesOfItems.add((dateFound));
@@ -152,27 +153,35 @@ public class InfographicController {
         }
 
         // put data to both lists
-        for ( Integer aa:numOfDatesNonZero) {
-            usedDates.add(aa);
-            for (Map.Entry<String,Integer> a : linksToItems.entrySet())
-            if (a.getValue() == aa){
-                ids.add(a.getKey());
-            }
-        }
+        for (Integer aa : numOfDatesNonZero) {
+            usedDates.add(aa);}
+        
 
-        // adding the data to the model and outputting it for developmental purposes
-        model.addAttribute("datesToInclude", datesToInclude);
-        model.addAttribute("numOfDates", numOfDates);
-        model.addAttribute("ListOfTitles", ListOfTitles);
-        model.addAttribute("datesOfItems", datesOfItems);
-        model.addAttribute("usedDates", usedDates);
-        model.addAttribute("ids", ids);
-        // System.out.println(datesToInclude);
-        // System.out.println(numOfDates);
-        // System.out.println(ListOfTitles);
-        /// System.out.println(datesOfItems);
-        // System.out.println(usedDates);
-        // System.out.println(ids);
-        return "infographics";
+        //for (Integer aa : datesOfItems){
+            for (Map.Entry<String, Integer> a : linksToItems.entrySet()){
+                //System.out.println(a.getValue());
+                ArrayList<Integer> idsDates = new ArrayList<Integer>();
+                var temp = 9999;
+                for (var i = 0; i<idsDates.size();i++ ){
+                    
+                }
+                if (datesOfItems.contains(a.getValue())){
+
+                    ids.add(a.getKey());
+                //System.out.println(ids.get(0));
+            // adding the data to the model and outputting it for developmental purposes
+            model.addAttribute("datesToInclude", datesToInclude);
+            model.addAttribute("numOfDates", numOfDates);
+            model.addAttribute("ListOfTitles", ListOfTitles);
+            model.addAttribute("datesOfItems", datesOfItems);
+            model.addAttribute("usedDates", usedDates);
+            model.addAttribute("ids", ids);
+            // System.out.println(datesToInclude);
+            //System.out.println(numOfDates);
+            // System.out.println(ListOfTitles);
+            //System.out.println(datesOfItems);
+            // System.out.println(usedDates);
+            // System.out.println(ids);
+            return "infographics";
+        }
     }
-}

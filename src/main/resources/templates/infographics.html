@@ -39,7 +39,7 @@
         newlink.setAttribute('href', '/');
         newlink.name = "link" + i;
         newlink.innerHTML = 'link' + i;
-        newlink.setAttribute('class','shown');
+        newlink.setAttribute('class', 'hidden');
         container.appendChild(newlink);
         container.appendChild(document.createElement("br"));
     }
@@ -88,20 +88,37 @@
                     document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])]
                     var indexOfIdList = 0;
                     for (var i = 0; i < usedDates.length; i++) {
-                        if (usedDates[i] == whereAt[0].index + datesToInclude[0]) {
-                            indexOfIdList = i;
+                        //console.log("hello")
+                        //numOfDates.indexOf(whereAt[0].index + datesToInclude[0])
+                        //usedDates.length
+                        //console.log(numOfDates[0])
+                        var num = whereAt[0].index
+                        if (usedDates[i] == numOfDates[num]) {
+                            console.log("bruh")
+                            var z = num
+                            for (var j = 0; j < num-1; j++) {
+                                //console.log(z)
+                                if (numOfDates[num - j] == 0) {
+                                    z = z - 1
+                                }
+                               // console.log(z)
+                            }
+                            if (z == i) {
+                                console.log("bitch")
+                                indexOfIdList = i;
+                            }
+
                         }
                     }
+                    
                     var totalRecordBefore = 0; //how many records in total before the frist one in this clump
                     var sizeOfNextClump = 0; //how many records are there in the next group
-                    console.log(numOfDatesNonZero)
-                    console.log(indexOfIdList)
-                    console.log(usedDates)
                     for (var i = 0; i < indexOfIdList; i++) {
-                        totalRecordBefore = totalRecordBefore + numOfDatesNonZero[i]
-                        console.log(numOfDatesNonZero)
-                        sizeOfNextClump = numOfDatesNonZero[i + 1]
+                        totalRecordBefore = totalRecordBefore + usedDates[i]
+                        console.log(totalRecordBefore)
+                        sizeOfNextClump = usedDates[i]
                     }
+                    console.log("Cheese")
                     var children = container.children;
                     for (var i = 0; i < children.length; i++) {
                         var linkChild = children[i];
@@ -109,10 +126,13 @@
                         linkChild.setAttribute('class', 'hidden');
                         console.log(sizeOfNextClump)
                     }
-                    for (var i = 0; i < sizeOfNextClump -1 ; i++) {
+                    console.log("Cheese")
+                    for (var i = 0; i < sizeOfNextClump ; i++) {
+                        console.log("Cheese")
                         var linkChild = children[i];
                         linkChild.setAttribute('class', 'shown');
-                        //linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + totalRecordBefore]);
+                        console.log(ids[0])
+                        linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + totalRecordBefore]);
                     }
                     container.get
                 } catch (error) {
