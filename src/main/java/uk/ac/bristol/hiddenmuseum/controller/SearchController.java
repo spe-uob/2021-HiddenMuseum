@@ -73,6 +73,15 @@ public class SearchController {
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
 
+        //format values so that we can get the back to search working properly
+        String newValues = "";
+        for (String value : values) {
+            newValues += "&values=";
+            newValues += value;
+        }
+
+        model.addAttribute("values", newValues);
+
         model.addAttribute("query", q);
 
         model.addAttribute("pageNumber", page);
