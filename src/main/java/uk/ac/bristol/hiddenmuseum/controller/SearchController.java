@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.List;
@@ -55,6 +56,11 @@ public class SearchController {
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
+        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var schResponse = scrq.sendRequest();
+        var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
+
+        model.addAttribute("fieldList", fieldList);
 
         //setting up to export as JSON
         String exportJSON = srq.getUrl();
