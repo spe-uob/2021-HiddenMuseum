@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.thymeleaf.exceptions.ParserInitializationException;
 import org.yaml.snakeyaml.tokens.TagTuple;
-import java.util.Collections;  
-import java.util.Comparator;  
-import java.util.HashMap;  
-import java.util.LinkedHashMap;  
-import java.util.LinkedList;  
-import java.util.List;  
-import java.util.Map;  
-import java.util.Map.Entry;  
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -37,6 +37,10 @@ public class InfographicController {
         ArrayList<String> ListOfTitles = new ArrayList<String>();
         List<Integer> datesOfItems = new ArrayList<Integer>();
         HashMap<String, Integer> linksToItems = new HashMap<>();
+        List<Integer> datesOfItemsAD = new ArrayList<Integer>();
+        List<Integer> datesOfItemsBC = new ArrayList<Integer>();
+        List<Integer> linksToItemsAD = new ArrayList<Integer>();
+        List<Integer> linksToItemsBC = new ArrayList<Integer>();
         /* find the highest and lowest dates */
 
         Integer high = -9999;
@@ -48,24 +52,70 @@ public class InfographicController {
             } catch (Exception e) {
                 // ignore as it just means it doesn't have year_of_creation
             }
-            Pattern pattern = Pattern.compile("[0-9]+");
+            Pattern pattern = Pattern.compile("[0-9]+"); // pattern match to get a date
             Matcher matcher = pattern.matcher(date);
             boolean matchFound = matcher.find();
-            
-            if (matchFound){
-                System.out.println(matcher.group()); 
+
+            if (matchFound) {
+                String dateFound = matcher.group();
+                // pattern match to find if its ad or bc
                 Pattern AD = Pattern.compile("AD", Pattern.CASE_INSENSITIVE);
                 Pattern BC = Pattern.compile("BC", Pattern.CASE_INSENSITIVE);
                 Matcher matcherAD = AD.matcher(date);
                 Matcher matcherBC = BC.matcher(date);
-                if (matcherAD.find()){
-
+                if (matcherAD.find()) {
+                    intDates.add(Integer.parseInt(dateFound));
+                    datesOfItemsAD.add(Integer.getInteger(dateFound));
+                    if (high < Integer.getInteger(dateFound)) {
+                        high = Integer.getInteger(dateFound);
+                    }
+                    if (low > Integer.getInteger(dateFound)) {
+                        low = Integer.getInteger(dateFound);
+                    }
+                    ;
+                } else if (matcherBC.find()) {
+                    intDates.add(Integer.parseInt(dateFound) * -1);
+                    datesOfItemsBC.add(Integer.getInteger(dateFound));
+                    if (low > Integer.getInteger(dateFound) * -1) {
+                        low = Integer.getInteger(dateFound) * -1; // minus 1 cus its bc
+                    }
+                    ;
+                    if (high < Integer.getInteger(dateFound) * -1) {
+                        high = Integer.getInteger(dateFound) * -1;
+                    }
+                    ;
+                } else {
+                    // presume AD if no period specified
+                    intDates.add(Integer.parseInt(dateFound));
+                    datesOfItemsAD.add(Integer.getInteger(dateFound));
+                    if (high < Integer.getInteger(dateFound)) {
+                        high = Integer.getInteger(dateFound);
+                    }
+                    if (low > Integer.getInteger(dateFound)) {
+                        low = Integer.getInteger(dateFound);
+                    }
+                    ;
                 }
-                else if (matcherAD.find()){
-                    
+                try {
+                    linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(dateFound));
+                } catch (Exception e) {
+                    linksToItems.put("", Integer.parseInt(dateFound));
                 }
-                else{
-
+                if (!(datesOfItems.contains(Integer.parseInt(dateFound)))) {
+                    datesOfItems.add(Integer.parseInt(dateFound));
+                    try {
+                        ListOfTitles.add(record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        // ignore as it just means it doesn't have title_of_object
+                    }
+                } else {
+                    String x = ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(dateFound)));
+                    try {
+                        ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(dateFound)),
+                                x + " | " + record.fields.get("title_of_object").toString());
+                    } catch (Exception e) {
+                        // ignore as it just means it doesn't have title_of_object
+                    }
                 }
             }
             if (date.length() == 4) { /*
@@ -176,16 +226,14 @@ public class InfographicController {
                 numOfDatesNonZero.add(num);
             }
         }
-        //sort elements by values  
+        // sort elements by values
         // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-               new LinkedList<Map.Entry<String, Integer> >(linksToItems.entrySet());
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(linksToItems.entrySet());
 
         // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
+                    Map.Entry<String, Integer> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
             }
         });
@@ -203,12 +251,12 @@ public class InfographicController {
         model.addAttribute("datesOfItems", datesOfItems);
         model.addAttribute("usedDates", usedDates);
         model.addAttribute("ids", ids);
-        //System.out.println(datesToInclude);
-        //System.out.println(numOfDates);
-        //System.out.println(ListOfTitles);
-        ///System.out.println(datesOfItems);
-        //System.out.println(usedDates);
-        //System.out.println(ids);
+        // System.out.println(datesToInclude);
+        // System.out.println(numOfDates);
+        // System.out.println(ListOfTitles);
+        /// System.out.println(datesOfItems);
+        // System.out.println(usedDates);
+        // System.out.println(ids);
         return "infographics";
     }
 }
