@@ -41,14 +41,11 @@ public class SearchController {
 
         //iterate through values string here and set the srq.
         int len = values.size();
-        System.out.println(values);
         for(int i = 0; ((3*i)) < len; i++) {
-            System.out.println(i);
             if (values.get((3 * i) + 1).equals("refineBy")) {
                 if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
                     srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
                 }
-
             } else {
                 if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
                     srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
