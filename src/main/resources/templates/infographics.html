@@ -39,7 +39,7 @@
         newlink.setAttribute('href', '/');
         newlink.name = "link" + i;
         newlink.innerHTML = 'link' + i;
-        newlink.setAttribute('class', 'hidden');
+        newlink.setAttribute('class','shown');
         container.appendChild(newlink);
         container.appendChild(document.createElement("br"));
     }
@@ -88,14 +88,18 @@
                     document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])]
                     var indexOfIdList = 0;
                     for (var i = 0; i < usedDates.length; i++) {
-                        if (usedDates[i] = whereAt[0].index + datesToInclude[0]) {
+                        if (usedDates[i] == whereAt[0].index + datesToInclude[0]) {
                             indexOfIdList = i;
                         }
                     }
                     var totalRecordBefore = 0; //how many records in total before the frist one in this clump
                     var sizeOfNextClump = 0; //how many records are there in the next group
+                    console.log(numOfDatesNonZero)
+                    console.log(indexOfIdList)
+                    console.log(usedDates)
                     for (var i = 0; i < indexOfIdList; i++) {
                         totalRecordBefore = totalRecordBefore + numOfDatesNonZero[i]
+                        console.log(numOfDatesNonZero)
                         sizeOfNextClump = numOfDatesNonZero[i + 1]
                     }
                     var children = container.children;
@@ -103,11 +107,12 @@
                         var linkChild = children[i];
                         linkChild.setAttribute('href', '/');
                         linkChild.setAttribute('class', 'hidden');
+                        console.log(sizeOfNextClump)
                     }
-                    for (var i = 0; i < sizeOfNextClump - 1; i++) {
+                    for (var i = 0; i < sizeOfNextClump -1 ; i++) {
                         var linkChild = children[i];
                         linkChild.setAttribute('class', 'shown');
-                        linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + totalRecordBefore]);
+                        //linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + totalRecordBefore]);
                     }
                     container.get
                 } catch (error) {
