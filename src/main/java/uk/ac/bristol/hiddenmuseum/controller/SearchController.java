@@ -5,10 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
-
-import java.util.List;
 
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONValue;
@@ -20,6 +17,7 @@ import java.util.List;
  */
 @Controller
 public class SearchController {
+
     /**
      * Request handler for search requests
      *
@@ -33,34 +31,25 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam (defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "", required = false) String refineField,
+            @RequestParam(defaultValue = "", required = false) String refineQ,
+            @RequestParam(defaultValue = "", required = false) String excludeField,
+            @RequestParam(defaultValue = "", required = false) String excludeQ,
             Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
-
-        //iterate through values string here and set the srq.
-        int len = values.size();
-        for(int i = 0; ((3*i)) < len; i++) {
-            if (values.get((3 * i) + 1).equals("refineBy")) {
-                if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
-                    srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
-                }
-            } else {
-                if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
-                    srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
-                }
-            }
+        if (!refineField.equals("") && !refineQ.equals("")) {
+            srq.refineBy(refineField, refineQ);
         }
+        if (!excludeField.equals("") && !excludeQ.equals("")) {
+            srq.exclude(excludeField, excludeQ);
+        }
+
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
-        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
-        var schResponse = scrq.sendRequest();
-        var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
-
-        model.addAttribute("fieldList", fieldList);
 
         //setting up to export as JSON
         String exportJSON = srq.getUrl();
@@ -72,15 +61,6 @@ public class SearchController {
 
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
-
-        //format values so that we can get the back to search working properly
-        String newValues = "";
-        for (String value : values) {
-            newValues += "&values=";
-            newValues += value;
-        }
-
-        model.addAttribute("values", newValues);
 
         model.addAttribute("query", q);
 
