@@ -16,6 +16,8 @@ import java.util.LinkedList;
 import java.util.List;  
 import java.util.Map;  
 import java.util.Map.Entry;  
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
@@ -37,7 +39,7 @@ public class InfographicController {
         HashMap<String, Integer> linksToItems = new HashMap<>();
         /* find the highest and lowest dates */
 
-        Integer high = 0;
+        Integer high = -9999;
         Integer low = 9999;
         for (SearchRecord record : listRecords) {
             String date = "";
@@ -45,6 +47,26 @@ public class InfographicController {
                 date = record.fields.get("year_of_creation").toString();
             } catch (Exception e) {
                 // ignore as it just means it doesn't have year_of_creation
+            }
+            Pattern pattern = Pattern.compile("[0-9]+");
+            Matcher matcher = pattern.matcher(date);
+            boolean matchFound = matcher.find();
+            
+            if (matchFound){
+                System.out.println(matcher.group()); 
+                Pattern AD = Pattern.compile("AD", Pattern.CASE_INSENSITIVE);
+                Pattern BC = Pattern.compile("BC", Pattern.CASE_INSENSITIVE);
+                Matcher matcherAD = AD.matcher(date);
+                Matcher matcherBC = BC.matcher(date);
+                if (matcherAD.find()){
+
+                }
+                else if (matcherAD.find()){
+                    
+                }
+                else{
+
+                }
             }
             if (date.length() == 4) { /*
                                        * only add if its just the 4 numbers, other formats exist like "about 1970" but
@@ -181,12 +203,12 @@ public class InfographicController {
         model.addAttribute("datesOfItems", datesOfItems);
         model.addAttribute("usedDates", usedDates);
         model.addAttribute("ids", ids);
-        System.out.println(datesToInclude);
-        System.out.println(numOfDates);
-        System.out.println(ListOfTitles);
-        System.out.println(datesOfItems);
-        System.out.println(usedDates);
-        System.out.println(ids);
+        //System.out.println(datesToInclude);
+        //System.out.println(numOfDates);
+        //System.out.println(ListOfTitles);
+        ///System.out.println(datesOfItems);
+        //System.out.println(usedDates);
+        //System.out.println(ids);
         return "infographics";
     }
 }
