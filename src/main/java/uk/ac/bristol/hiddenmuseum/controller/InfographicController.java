@@ -99,7 +99,7 @@ public class InfographicController {
                 } // adding the link to a hashmap and the titles to a list
                 try {
                     linksToItems.put(record.recordid.toString(), (dateFound));
-                    System.out.println(record.recordid.toString());;
+                    System.out.println(record.recordid.toString());
                 } catch (Exception e) {
                     linksToItems.put("", (dateFound));
                 }
@@ -154,36 +154,49 @@ public class InfographicController {
 
         // put data to both lists
         for (Integer aa : numOfDatesNonZero) {
-            usedDates.add(aa);}
-        
-
-        //for (Integer aa : datesOfItems){
-            for (Map.Entry<String, Integer> a : linksToItems.entrySet()){
-                //System.out.println(a.getValue());
-                ArrayList<Integer> idsDates = new ArrayList<Integer>();
-                
-                var temp =( a.getValue());
-                
-                for (var i = 0; i<idsDates.size();i++ ){
-                    if (idsDates.get(i) > temp){
-                        idsDates.add(i, a.getValue()); // this is the bit that needs fixing 
-                        ids.add(i,a.getKey());}} // crrently works but links are jsut in wrong places
-                    }
-                
-                //System.out.println(ids.get(0));
-            // adding the data to the model and outputting it for developmental purposes
-            model.addAttribute("datesToInclude", datesToInclude);
-            model.addAttribute("numOfDates", numOfDates);
-            model.addAttribute("ListOfTitles", ListOfTitles);
-            model.addAttribute("datesOfItems", datesOfItems);
-            model.addAttribute("usedDates", usedDates);
-            model.addAttribute("ids", ids);
-            // System.out.println(datesToInclude);
-            //System.out.println(numOfDates);
-            // System.out.println(ListOfTitles);
-            //System.out.println(datesOfItems);
-            // System.out.println(usedDates);
-            // System.out.println(ids);
-            return "infographics";
+            usedDates.add(aa);
         }
+
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(linksToItems.entrySet());
+
+        // 2. Sort list with Collections.sort(), provide a custom Comparator
+        // Try switch the o1 o2 position for a different order
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1,
+                    Map.Entry<String, Integer> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+
+        // 3. Loop the sorted list and put it into a new insertion order Map
+        // LinkedHashMap
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+        
+        // for (Integer aa : datesOfItems){
+        for (Map.Entry<String, Integer> a : sortedMap.entrySet()) {
+            // System.out.println(a.getValue());
+            if (datesOfItems.contains(a.getValue())) {
+                ids.add(a.getKey());
+
+            }
+        }
+        // System.out.println(ids.get(0));
+        // adding the data to the model and outputting it for developmental purposes
+        model.addAttribute("datesToInclude", datesToInclude);
+        model.addAttribute("numOfDates", numOfDates);
+        model.addAttribute("ListOfTitles", ListOfTitles);
+        model.addAttribute("datesOfItems", datesOfItems);
+        model.addAttribute("usedDates", usedDates);
+        model.addAttribute("ids", ids);
+         System.out.println(datesToInclude);
+         System.out.println(numOfDates);
+         System.out.println(ListOfTitles);
+         System.out.println(datesOfItems);
+         System.out.println(usedDates);
+         System.out.println(ids);
+        return "infographics";
     }
+}
