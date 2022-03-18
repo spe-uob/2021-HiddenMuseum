@@ -1,14 +1,11 @@
 @import url(https://db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book);
-@font-face {
-    font-family: "ITCAvantGardeGothicW05-Book"; src:
+@font-face {font-family: "ITCAvantGardeGothicW05-Book"; src:
         url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.eot"); src:
         url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.eot?#iefix") format("embedded-opentype"),
         url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.woff2") format("woff2"),
         url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.woff") format("woff"),
         url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.ttf") format("truetype"),
-        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.svg#ITCAvantGardeGothicW05-Book") format("svg");
-}
-
+        url("//db.onlinewebfonts.com/t/8e59fdbc7a7fdb1bab1b12af14615047.svg#ITCAvantGardeGothicW05-Book") format("svg"); }
 @import url(//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN);
 @font-face {font-family: "D-DIN"; src: url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.eot"); src:
         url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.eot?#iefix") format("embedded-opentype"),
@@ -16,11 +13,10 @@
         url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.woff") format("woff"),
         url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.ttf") format("truetype"),
         url("//db.onlinewebfonts.com/t/97294bc26984beb9185137b039854f9b.svg#D-DIN") format("svg"); }
-
-#title {
-    text-align: center;
-    font-size: 48px;
-}
+  #title {
+      text-align: center;
+      font-size: 48px;
+  }
 
 #search-button   {
     background-color: #d6005a;
@@ -29,48 +25,35 @@
 i   {
     color: white;
 }
+  * {
+      font-family: "ITCAvantGardeGothicW05-Book", Arial, sans-serif;
+  }
+  body {
+      font-size: 14pt;
+      font-family: "D-DIN", Arial, sans-serif;
+  }
 
-* {
-    font-family: "ITCAvantGardeGothicW05-Book", Arial, sans-serif;
-}
-
-body {
-    font-size: 14pt;
-    font-family: "D-DIN", Arial, sans-serif;
-}
-.textContent {
-    font-family: "D-DIN", Arial, sans-serif !important;
-}
-
-a:link {
-    text-decoration: none;
-}
-
-a:visited {
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-a:active {
-    text-decoration: none;
-}
+  .textContent {
+      font-family: "D-DIN", Arial, sans-serif !important;
+  }
+a:link { text-decoration: none; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: underline; }
+a:active { text-decoration: none; }
 
 h1   {
-    text-align: center;
-}
+      text-align: center;
+  }
 h2    {
-    text-align: center;
+      text-align: center;
 }
 .go-home  {
-    text-align: center;
-    font-size: 36px;
+      text-align: center;
+      font-size: 36px;
 }
 .relative {
-    position: relative;
-    text-align: center;
+      position: relative;
+      text-align: center;
 }
 
 .hr-class{
@@ -80,83 +63,82 @@ h2    {
 
 #search-box   {
     margin: 0 auto;
-    max-width: 80%;
+      max-width: 80%;
 }
 #search-bar   {
-    width: 80%;
-    bottom: 0;
-    margin-bottom: 0
-}
+      width: 80%;
+      bottom: 0;
+      margin-bottom: 0
+  }
   
-#search-button {
+  #search-button {
       margin-top: 0;
       display: inline;
-}
+  }
   
-#temporary {
-    text-align: center;
-}
-
-.contents {
-    text-align: left;
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-}
+  #temporary {
+      text-align: center;
+  }
   
-.left {
-    color: rgba(46, 49, 55, 255);
-    float: left;
-    width: 80%;
-}
+  .contents {
+      text-align: left;
+      padding: 0 18px;
+      display: none;
+      overflow: hidden;
+      background-color: #f1f1f1;
+  }
   
-.right {
-    float: right;
-    margin: 0 0 0 15px;
-}
+  .left {
+      color: rgba(46, 49, 55, 255);
+      float: left;
+      width: 80%;
+  }
   
-.styled-table {
-    float: left;
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 600px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
+  .right {
+      float: right;
+      margin: 0 0 0 15px;
+  }
+  
+  .styled-table {
+      float: left;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.9em;
+      font-family: sans-serif;
+      min-width: 600px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  }
 .styled-table thead tr {
     background-color: #d6005a;
     color: #ffffff !important;
     text-align: left;
 }
+  
+  .styled-table th,
+  .styled-table td {
+      max-width: 800px;
+      padding: 12px 15px;
+  }
+  
+  .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+  }
+  
+  .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+  }
+  
+  .styled-table tbody tr:last-of-type {
+      border-bottom: thin solid #d6005a;
+  }
 
-.styled-table th,
-.styled-table td {
-    max-width: 800px;
-    padding: 12px 15px;
-}
+  .hidden{
+      display: none;
+  }
 
-.styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: thin solid #d6005a;
-}
-
-.hidden{
-    display: none;
-}
-
-.shown{
-    display: block;
-}
+  .shown{
+      display: block;
+  }
 
 .hover{
     display: none;
@@ -179,11 +161,9 @@ h2    {
 .description {
     font-size: 0.9rem;
 }
-
 .hiddenBullet {
     list-style-type: none;
 }
-
 .dropdown-btn {
     color: white;
     background-color: darkgray;
@@ -191,8 +171,7 @@ h2    {
     min-width: 160px;
     border: none;
     z-index: 3;
-}
-
+  }
 .dropdown-container  {
     left: 0%;
     right: 0;
@@ -201,7 +180,6 @@ h2    {
     display: inline-block;
     z-index: 3;
 }
-
 .dropdown-items  {
     display: none;
     position: absolute;
@@ -209,44 +187,36 @@ h2    {
     min-width: 160px;
     z-index: 3;
 }
-
 .dropdown-items a {
     color: black;
     padding: 16px 16px;
     text-decoration: none;
     display: block;
 }
-
 .dropdown-container:hover .dropdown-items  {
     display: block;
 }
-
 .pageButtons {
     text-align: center;
 }
-
 .pageButtons li {
       display: inline-block;
       width: fit-content;
       color: blue;
       text-decoration: none;
-}
-
+  }
 .pageNumber li {
     display: inline-block;
     width: fit-content;
     color: blue;
     text-decoration: none;
 }
-
 .pageNumber a:hover  {
     color: #4D7A97;
 }
-
 .pageNumber  {
     text-align: center;
 }
-
 .objImg {
     z-index: 2;
     align-content: center;
@@ -261,11 +231,9 @@ h2    {
     right: 0;
     bottom: 0;
 }
-
 .black  {
     color: black !important;
 }
-
 .BristolMuseum{
     background-color: #d6005a;
     width: 100%;
