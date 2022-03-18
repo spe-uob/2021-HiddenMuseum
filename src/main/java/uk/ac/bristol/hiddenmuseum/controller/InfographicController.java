@@ -161,13 +161,15 @@ public class InfographicController {
             for (Map.Entry<String, Integer> a : linksToItems.entrySet()){
                 //System.out.println(a.getValue());
                 ArrayList<Integer> idsDates = new ArrayList<Integer>();
-                var temp = 9999;
+                
+                var temp =( a.getValue());
+                
                 for (var i = 0; i<idsDates.size();i++ ){
-                    
-                }
-                if (datesOfItems.contains(a.getValue())){
-
-                    ids.add(a.getKey());
+                    if (idsDates.get(i) > temp){
+                        idsDates.add(i, a.getValue()); // this is the bit that needs fixing 
+                        ids.add(i,a.getKey());}} // crrently works but links are jsut in wrong places
+                    }
+                
                 //System.out.println(ids.get(0));
             // adding the data to the model and outputting it for developmental purposes
             model.addAttribute("datesToInclude", datesToInclude);
