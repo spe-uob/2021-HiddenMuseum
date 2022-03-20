@@ -84,5 +84,41 @@ public class SearchRequestBuilderTest {
         SearchResponse response = searchRequestBuilder.sendRequest();
         assert response.nhits == 0;
     }
-
+    @Test
+    public void badInputRequestGetsNoResults()   {
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.refineBy("Medium", "oil on canvas");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&refine.Medium=oil on canvas");
+    }
+    @Test
+    public void goodInputRequestGetsCorrectResults()   {
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.refineBy("Medium", "Oil on canvas");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&refine.Medium=Oil on canvas");
+    }
+    @Test
+    public void ExcludeRequestGetsSameResults(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.exclude("Medium","Oil on canvas");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas");
+    }
+   // @Test
+   // public void CombinationsRequest(){
+   //     String base = "https://opendata.bristol.gov.uk";
+   //     String dataset = "open-data-gallery-3-european-old-masters";
+   //     SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+   //     searchRequestBuilder.exclude("Medium","Oil on canvas");
+   //     searchRequestBuilder.refineBy("Object","Painting");
+   //     String url = searchRequestBuilder.getUrl();
+   //     assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas"+"&refine.Object=Painting");
+   // }
 }
