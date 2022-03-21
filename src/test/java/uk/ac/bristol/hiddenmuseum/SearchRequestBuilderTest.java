@@ -140,14 +140,14 @@ public class SearchRequestBuilderTest {
        SearchResponse response = searchRequestBuilder.sendRequest();
        assert response.nhits == 115;
    }
-   // @Test
-  // public void ExcludeAndRefineFiltersRequest(){
-  //     String base = "https://opendata.bristol.gov.uk";
-   //    String dataset = "open-data-gallery-3-european-old-masters";
-  //     SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
-   //    searchRequestBuilder.exclude("medium","Oil on canvas");
-   //    searchRequestBuilder.refineBy("object","Painting");
-  //      SearchResponse response = searchRequestBuilder.sendRequest();
-   //     assert response.nhits == 0;
-  //  }
+//   @Test
+//   public void ExcludeAndRefineFiltersRequest(){
+//       String base = "https://opendata.bristol.gov.uk";
+//       String dataset = "open-data-gallery-3-european-old-masters";
+//       SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+//       searchRequestBuilder.exclude("medium","Oil on canvas");
+//       searchRequestBuilder.refineBy("object","Painting");
+//       SearchResponse response = searchRequestBuilder.sendRequest();
+//       assert response.nhits == 0;
+//    }
 }
