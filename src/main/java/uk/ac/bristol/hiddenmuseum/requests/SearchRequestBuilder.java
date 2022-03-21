@@ -107,6 +107,7 @@ public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
         output.append(this.offset);
 
         for (String key : this.refine.keySet()) {
+            //System.out.println("refine enter");
             output.append("&refine.");
             output.append(key);
             output.append("=");
@@ -114,6 +115,7 @@ public class SearchRequestBuilder implements RequestBuilder<SearchResponse> {
         }
 
         for (String key : this.excluded.keySet()) {
+            //System.out.println("exclude enter");
             output.append("&exclude.");
             output.append(key);
             output.append("=");
