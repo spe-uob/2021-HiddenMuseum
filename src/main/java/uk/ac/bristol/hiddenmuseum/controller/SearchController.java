@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.List;
@@ -41,14 +42,11 @@ public class SearchController {
 
         //iterate through values string here and set the srq.
         int len = values.size();
-        System.out.println(values);
         for(int i = 0; ((3*i)) < len; i++) {
-            System.out.println(i);
             if (values.get((3 * i) + 1).equals("refineBy")) {
                 if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
                     srq.refineBy(values.get(3 * i), values.get((3 * i) + 2));
                 }
-
             } else {
                 if(!values.get(3 * i).equals("") && !values.get((3 * i) + 2).equals(""))    {
                     srq.exclude(values.get(3 * i), values.get((3 * i) + 2));
@@ -58,6 +56,11 @@ public class SearchController {
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
+        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var schResponse = scrq.sendRequest();
+        var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
+
+        model.addAttribute("fieldList", fieldList);
 
         //setting up to export as JSON
         String exportJSON = srq.getUrl();
@@ -69,6 +72,15 @@ public class SearchController {
 
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
         model.addAttribute("pages", pages);
+
+        //format values so that we can get the back to search working properly
+        String newValues = "";
+        for (String value : values) {
+            newValues += "&values=";
+            newValues += value;
+        }
+
+        model.addAttribute("values", newValues);
 
         model.addAttribute("query", q);
 

@@ -61,13 +61,12 @@
                         <td>
                             <input class="form-control" type="text" name="values" placeholder="Input">
                         </td>
-                        <td><input type="button" class="Filter1" value="Remove Filter" onclick="removeRow(this)"/></td>
+                        <td><input type="button" class="Filter1 btn btn-danger" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
                 </table>
-                <input type="button" value="Add Filter" onclick="createRow()"></input>
+                <input type="button" class="btn btn-success" value="Add Filter" onclick="createRow()"></input>
             </form>
         </div>
-        <a href="/infographics" >infographics</a>
     </main>
 </body>
 <script>
@@ -83,6 +82,7 @@
         let i = item.parentNode.parentNode.rowIndex;
         console.log(i);
         document.getElementById("filters").deleteRow(i);
+        NUM_ROWS--;
     }
     //add a new working filter to the table
     function createRow()    {
@@ -99,7 +99,7 @@
         let input = row.insertCell(2);
         input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         let remove = row.insertCell(3);
-        let className = "\"Filter" + filterNum.toString();
+        let className = "\"Filter" + filterNum.toString() + " btn btn-danger\"";
         remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
             " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
         NUM_ROWS++;
