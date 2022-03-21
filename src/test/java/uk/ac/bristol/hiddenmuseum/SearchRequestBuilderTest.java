@@ -111,14 +111,24 @@ public class SearchRequestBuilderTest {
         String url = searchRequestBuilder.getUrl();
         assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas");
     }
-   // @Test
-   // public void CombinationsRequest(){
-   //     String base = "https://opendata.bristol.gov.uk";
-   //     String dataset = "open-data-gallery-3-european-old-masters";
-   //     SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
-   //     searchRequestBuilder.exclude("Medium","Oil on canvas");
-   //     searchRequestBuilder.refineBy("Object","Painting");
-   //     String url = searchRequestBuilder.getUrl();
-   //     assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas"+"&refine.Object=Painting");
-   // }
+    @Test
+    public void TwoRefineFiltersRequest(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.refineBy("Medium","Oil on canvas");
+        searchRequestBuilder.refineBy("Object","Painting");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&refine.Medium=Oil on canvas" + "&refine.Object=Painting");
+    }
+    @Test
+    public void TwoExcludeFiltersRequest(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.exclude("Medium","Oil on canvas");
+        searchRequestBuilder.exclude("Object","Painting");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas" + "&exclude.Object=Painting");
+    }
 }
