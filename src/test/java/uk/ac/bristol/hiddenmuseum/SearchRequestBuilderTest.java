@@ -131,4 +131,14 @@ public class SearchRequestBuilderTest {
         String url = searchRequestBuilder.getUrl();
         assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" + "&exclude.Medium=Oil on canvas" + "&exclude.Object=Painting");
     }
+    @Test
+    public void ExcludeAndRefineFiltersRequest(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.exclude("medium","Oil on canvas");
+        searchRequestBuilder.refineBy("object","Painting");
+        String url = searchRequestBuilder.getUrl();
+        assert url.equals(base + "/api/records/1.0/search/?dataset=" + dataset + "&q=" + "&rows=10" + "&start=0" +"exclude.medium=Oil on canvas" + "refine.object=Painting");
+    }
 }
