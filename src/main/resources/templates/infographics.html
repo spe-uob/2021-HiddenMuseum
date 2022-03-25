@@ -31,7 +31,7 @@
 <br>
 <br>
 <br>
-    <div>
+    <div id="chartWrapper">
         <canvas id="myChart"></canvas>
     </div>
     <p id="Title"></p>
@@ -76,6 +76,7 @@
         type: 'bar',
         data: data,
         options:    {
+            responsive: true,
             plugins: {
                 zoom:   {
                     pan:    {
