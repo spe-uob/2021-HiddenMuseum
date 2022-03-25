@@ -292,3 +292,8 @@ h2    {
     text-decoration: none !important;
 }
 
+#myChart    {
+    width: 75%;
+    height: 50%;
+}
+

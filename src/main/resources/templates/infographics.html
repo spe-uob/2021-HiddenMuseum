@@ -78,11 +78,22 @@
         options:    {
             plugins: {
                 zoom:   {
+                    pan:    {
+                        enabled: true,
+                        mode: 'x',
+                        modifierKey: 'ctrl'
+                    },
                     zoom:   {
+                        mode: 'x',
                         wheel: {
                             enabled: true
+                        },
+                        drag:   {
+                            enabled: true
+                        },
+                        pinch:  {
+                            enabled: true
                         }
-
                     }
                 }
             },
