@@ -5,11 +5,15 @@
     <meta charset="UTF-8">
     <title>Infographics</title>
     <script src="https://use.fontawesome.com/639e5b5645.js"></script>
+    <script src="path/to/chartjs/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="path/to/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
     <link href="//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
     <link href="//db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
           rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="/styles.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
 <body>
@@ -33,34 +37,37 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:inline="javascript">
-    const datesToInclude = /*[[${datesToInclude}]]*/ [];
-    const numOfDates = /*[[${numOfDates}]]*/ [];
-    const datesOfItems = /*[[${datesOfItems}]]*/ [];
-    const ListOfTitles = /*[[${ListOfTitles}]]*/ [];
-    const ids = /*[[${ids}]]*/ [];
-    const usedDates = /*[[${usedDates}]]*/ [];
-    const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/ [];
+    const datesToInclude = /*[[${datesToInclude}]]*/[];
+    const numOfDates = /*[[${numOfDates}]]*/[];
+    const datesOfItems = /*[[${datesOfItems}]]*/[];
+    const ListOfTitles = /*[[${ListOfTitles}]]*/[];
+    const ids = /*[[${ids}]]*/[];
+    const usedDates = /*[[${usedDates}]]*/[];
+    const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/[];
 
-    const numOFLinksMax = Math.max.apply(Math,numOfDates);
+    const numOFLinksMax = Math.max.apply(Math, numOfDates);
     var container = document.getElementById("container");
-    for (i=0;i<numOFLinksMax;i++){
+    for (i = 0; i < numOFLinksMax; i++) {
         newlink = document.createElement('a');
-        newlink.setAttribute('href','/');
+        newlink.setAttribute('href', '/');
         newlink.name = "link" + i;
         newlink.innerHTML = 'link' + i;
-        newlink.setAttribute('class','hidden');
+        newlink.setAttribute('class', 'shown');
         container.appendChild(newlink);
-        container.appendChild(document.createElement("br"));
     }
-    
+
     const data = {
         labels: datesToInclude,
         datasets: [{
-            label: 'Number of Artworks per year',
-            backgroundColor: 'rgb(255, 99, 132)',
+            label: 'Artworks by time',
             borderColor: 'rgb(255, 99, 132)',
             data: numOfDates,
             barThickness: 2,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+            ],
         }]
     };
 
@@ -68,39 +75,54 @@
         type: 'bar',
         data: data,
         options: {
-            onClick: (event, activeElements) => {
-                console.log("getElementsAtEventForMode: %o",myChart.getElementsAtEventForMode(event, "nearest", {intersect: false}));
-                var whereAt = myChart.getElementsAtEventForMode(event, "point", {intersect: false});
-                try {
-                    console.log(whereAt[0].index);
-                console.log("===== </CLICK EVENT> =====");
-                document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index+datesToInclude[0])]
-                var indexOfIdList = 0;
-                for (var i=0;i<usedDates.length;i++){
-                    if (usedDates[i]=whereAt[0].index+datesToInclude[0]){
-                        indexOfIdList = i;
+            plugins: {
+                zoom: {
+                    zoom: {
+                        wheel: {
+                            enabled: true,
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy',
                     }
                 }
-                var totalRecordBefore = 0; //how many records in total before the frist one in this clump
-                var sizeOfNextClump = 0; //how many records are there in the next group
-                for (var i =0;i<indexOfIdList;i++){
-                    totalRecordBefore = totalRecordBefore + numOfDatesNonZero[i]
-                    sizeOfNextClump = numOfDatesNonZero[i+1]
-                }
-                var children = container.children;
-                for (var i =0;i<children.length;i++){
-                    var linkChild = children[i];
-                    linkChild.setAttribute('href','/');
-                    linkChild.setAttribute('class','hidden');
-                }
-                for (var i=0;i<sizeOfNextClump-1;i++){
-                    var linkChild = children[i];
-                    linkChild.setAttribute('class','shown');
-                    linkChild.setAttribute('href','/item/open-data-gallery-3-european-old-masters/'+ ids[i+totalRecordBefore]);
-                }
-                container.get
-                } catch (error) {
+            },
+            layout: {
+                padding: 40,
+            },
+            onClick: (event, activeElements) => {
+                console.log("getElementsAtEventForMode: %o", myChart.getElementsAtEventForMode(event, "nearest", { intersect: false }));
+                var whereAt = myChart.getElementsAtEventForMode(event, "point", { intersect: false });
+                try {
+                    console.log(whereAt[0].index);
+                    console.log("===== </CLICK EVENT> =====");
+                    document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])]
+                    var indexOfIdList = 0;
+                    for (var i=0; i < whereAt[0].index; i++) {
+                        indexOfIdList += numOfDates[i];
+                    }
+
+                    console.log(indexOfIdList);
                     
+                    var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
+                    console.log(sizeOfThisClump);
+                    var children = container.children;
+                    console.log(container);
+                    console.log(children);
+                    for (var i = 0; i < children.length; i++) {
+                        var linkChild = children[i];
+                        linkChild.setAttribute('href', '/');
+                        linkChild.setAttribute('class', 'hidden');
+                    }
+                    for (var i = 0; i < sizeOfThisClump ; i++) {
+                        var linkChild = children[i];
+                        linkChild.setAttribute('class', 'shown');
+                        linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
+                    }
+                    container.get
+                } catch (error) {
+                    console.log(error)
                 }
             }
         }
