@@ -84,5 +84,70 @@ public class SearchRequestBuilderTest {
         SearchResponse response = searchRequestBuilder.sendRequest();
         assert response.nhits == 0;
     }
-
+    @Test
+    public void badInputRequestGetsNoResults()   {
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.refineBy("medium","oil on canvas");
+        SearchResponse response = searchRequestBuilder.sendRequest();
+        assert response.nhits == 0;
+    }
+    @Test
+    public void goodInputRequestGetsCorrectResults()   {
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.refineBy("medium","Oil on canvas");
+        SearchResponse response = searchRequestBuilder.sendRequest();
+        assert response.nhits == 32;
+    }
+    @Test
+    public void GoodExcludeRequestGetsSameResults(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.exclude("medium","Oil on canvas");
+        SearchResponse response = searchRequestBuilder.sendRequest();
+        assert response.nhits == 83;
+    }
+    @Test
+    public void BadExcludeRequestGetsResults(){
+        String base = "https://opendata.bristol.gov.uk";
+        String dataset = "open-data-gallery-3-european-old-masters";
+        SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+        searchRequestBuilder.exclude("medium","oil on canvas");
+        SearchResponse response = searchRequestBuilder.sendRequest();
+        assert response.nhits == 115;
+    }
+  //  @Test
+   // public void TwoRefineFiltersRequest(){
+     //   String base = "https://opendata.bristol.gov.uk";
+    //    String dataset = "open-data-gallery-3-european-old-masters";
+    //    SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+    //    searchRequestBuilder.refineBy("medium","oil on canvas");
+    //    searchRequestBuilder.refineBy("object","Painting");
+   //     SearchResponse response = searchRequestBuilder.sendRequest();
+   //     assert response.nhits == 115;
+   // }
+    @Test
+    public void TwoExcludeFiltersRequest(){
+       String base = "https://opendata.bristol.gov.uk";
+       String dataset = "open-data-gallery-3-european-old-masters";
+       SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+       searchRequestBuilder.exclude("Medium","Oil on canvas");
+       searchRequestBuilder.exclude("Object","Painting");
+       SearchResponse response = searchRequestBuilder.sendRequest();
+       assert response.nhits == 115;
+   }
+//   @Test
+//   public void ExcludeAndRefineFiltersRequest(){
+//       String base = "https://opendata.bristol.gov.uk";
+//       String dataset = "open-data-gallery-3-european-old-masters";
+//       SearchRequestBuilder searchRequestBuilder = new SearchRequestBuilder(base, dataset);
+//       searchRequestBuilder.exclude("medium","Oil on canvas");
+//       searchRequestBuilder.refineBy("object","Painting");
+//       SearchResponse response = searchRequestBuilder.sendRequest();
+//       assert response.nhits == 0;
+//    }
 }
