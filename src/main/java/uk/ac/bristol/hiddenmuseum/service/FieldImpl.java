@@ -8,7 +8,7 @@ import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 /**
  * @deprecated
- * Use {@link SearchRecord#fields} instead<br />
+ * Use {@link SearchRecord#fields} instead<br>
  * {@link SearchRecord} is returned by a {@link SearchRequestBuilder}
  */
 @Deprecated

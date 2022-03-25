@@ -5,8 +5,8 @@
     <link rel="stylesheet" type="text/css" href="/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
-    <link href="//db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
+    <link href="https://db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
+    <link href="https://db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
           rel="stylesheet" type="text/css"/>
     <meta charset="UTF-8">
     <title>Lookup result</title>
@@ -14,12 +14,24 @@
 </head>
 
 <body>
-    <div class="BristolMuseum">
-        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1" alt="Bristol museum logo" height="100">
-        <a class="go-home btn btn-secondary btn-lg" href="/">Go Home</a>
-        <a class="go-home btn btn-secondary btn-lg" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
-        <a class="go-home btn btn-secondary btn-lg" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+    <div class="BristolMuseum stay">
+        <a  href="/">
+            <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1" alt="Bristol museum logo" height="100">
+        </a>
+        <button class="dropdown-btn navBut"><a th:href="'/search' + '?q=' + ${q} + ${values}"> Back to search</a></button>
+        <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+        <button class="dropdown-btn navBut"><a href="/about">About</a></button>
+        <div class="dropdown-container">
+            <button class="dropdown-btn ">Export Data</button>
+            <div class="dropdown-items">
+                <a download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
+                <a download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+            </div>
+        </div>
     </div>
+    <br>
+    <br>
+    <hr class="hr-class">
     <br>
     <div style="width: 100%; overflow:auto;">
         <div th:each="field : ${response.fields}">
@@ -30,21 +42,36 @@
                         <br>
                         <div class="left">
                             <table class="styled-table">
-                                <tr>
-                                    <th>Field</th>
-                                    <th>Info</th>
-                                </tr>
-                                <div th:each="field : ${response.fields}">
-                                    <tbody>
-                                        <tr>
-                                            <td th:text="${field.key}"></td>
+                                <thead>
+                                    <tr>
+                                        <th>Field</th>
+                                        <th>Info</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <div th:each="field : ${response.fields}">
+                                        <div th:switch="${field.key}">
+                                        <tr th:case="'link_to_additional_information'">
+                                            <td th:with="prettyField=${field.key.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"></td>
+                                            <td><a th:text="${field.value}"  th:href="${field.value}"></a></td>
+                                        </tr>
+                                        <tr th:case="*">
+                                            <td th:text="${#strings.capitalize(field.key.replaceAll('_', ' '))}"></td>
+                                            <!--
+                                            looks like this is not needed since I could not find empty field values.
+                                            <td th:if="${field.value != ''}" th:text="${field.value}"></td>
+                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td>
+                                            -->
                                             <td th:text="${field.value}"></td>
                                         </tr>
-                                    </tbody>
-                                </div>
+                                        </div>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
                     </div>
+
+
                 </div>
                 <div class="imgDiv" th:case="'image_of_object'">
                     <br>
