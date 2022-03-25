@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <title>Infographics</title>
     <script src="https://use.fontawesome.com/639e5b5645.js"></script>
-    <script src="path/to/chartjs/dist/chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-    <script src="path/to/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js" integrity="sha512-UXumZrZNiOwnTcZSHLOfcTs0aos2MzBWHXOHOuB0J/R44QB0dwY5JgfbvljXcklVf65Gc4El6RjZ+lnwd2az2g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.2.1/chartjs-plugin-zoom.min.js" integrity="sha512-klQv6lz2YR+MecyFYMFRuU2eAl8IPRo6zHnsc9n142TJuJHS8CG0ix4Oq9na9ceeg1u5EkBfZsFcV3U7J51iew=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <link href="//db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
     <link href="//db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
           rel="stylesheet" type="text/css"/>
@@ -34,8 +37,6 @@
     <p id="Title"></p>
     <div id="container"></div>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/[];
     const numOfDates = /*[[${numOfDates}]]*/[];
@@ -74,17 +75,14 @@
     const config = {
         type: 'bar',
         data: data,
-        options: {
+        options:    {
             plugins: {
-                zoom: {
-                    zoom: {
+                zoom:   {
+                    zoom:   {
                         wheel: {
-                            enabled: true,
-                        },
-                        pinch: {
                             enabled: true
-                        },
-                        mode: 'xy',
+                        }
+
                     }
                 }
             },
@@ -104,7 +102,7 @@
                     }
 
                     console.log(indexOfIdList);
-                    
+
                     var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
                     console.log(sizeOfThisClump);
                     var children = container.children;
@@ -127,12 +125,9 @@
             }
         }
     };
-</script>
-
-
-<script>
     const myChart = new Chart(
         document.getElementById('myChart'),
         config
     );
+    Char
 </script>
