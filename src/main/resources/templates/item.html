@@ -10,6 +10,7 @@
           rel="stylesheet" type="text/css"/>
     <meta charset="UTF-8">
     <title>Lookup result</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/static/script.js"></script>
 </head>
 
@@ -85,6 +86,25 @@
             </div>
         </div>
     </div>
+
+<script>
+    var objImg = $('.objImg')
+    console.log(123)
+    var flag = false
+    objImg.on('click', function () {
+        console.log(123)
+        if (flag) {
+            objImg.css({
+                width: 'auto'
+            })
+        } else {
+            objImg.css({
+                width: '100%'
+            })
+        }
+        flag = !flag
+    })
+</script>
 </body>
 
 </html>
