@@ -34,7 +34,9 @@
     <div id="chartWrapper">
         <canvas id="myChart"></canvas>
     </div>
-    <p id="Title"></p>
+    <ul class="hiddenBullet" id="infoLinks">
+
+    </ul>
     <div id="container"></div>
 </body>
 <script th:inline="javascript">
@@ -107,7 +109,19 @@
                 try {
                     console.log(whereAt[0].index);
                     console.log("===== </CLICK EVENT> =====");
-                    document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])]
+                    //add a child to the list
+                    let titleChunk = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])];
+                    let titles = titleChunk.split("|");
+                    let list = document.getElementById("infoLinks");
+                    for (const title of titles) {
+                        let item = document.createElement("li");
+                        let link = document.createElement("a");
+                        link.innerText = title;
+                        link.setAttribute("href", "/");
+                        item.appendChild(link);
+                        list.appendChild(item);
+                    }
+
                     var indexOfIdList = 0;
                     for (var i=0; i < whereAt[0].index; i++) {
                         indexOfIdList += numOfDates[i];
@@ -116,21 +130,13 @@
                     console.log(indexOfIdList);
 
                     var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
-                    console.log(sizeOfThisClump);
-                    var children = container.children;
-                    console.log(container);
-                    console.log(children);
-                    for (var i = 0; i < children.length; i++) {
-                        var linkChild = children[i];
-                        linkChild.setAttribute('href', '/');
-                        linkChild.setAttribute('class', 'hidden');
-                    }
+                    console.log(sizeOfThisClump)
+                    var children = list.children;
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
-                        linkChild.setAttribute('class', 'shown');
-                        linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
+                        linkChild.children[0].setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
                     }
-                    container.get
+                    //container.get
                 } catch (error) {
                     console.log(error)
                 }
