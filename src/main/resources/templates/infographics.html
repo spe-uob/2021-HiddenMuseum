@@ -37,7 +37,6 @@
     <ul class="hiddenBullet" id="infoLinks">
 
     </ul>
-    <div id="container"></div>
 </body>
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/[];
@@ -49,15 +48,6 @@
     const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/[];
 
     const numOFLinksMax = Math.max.apply(Math, numOfDates);
-    var container = document.getElementById("container");
-    for (i = 0; i < numOFLinksMax; i++) {
-        newlink = document.createElement('a');
-        newlink.setAttribute('href', '/');
-        newlink.name = "link" + i;
-        newlink.innerHTML = 'link' + i;
-        newlink.setAttribute('class', 'shown');
-        container.appendChild(newlink);
-    }
 
     const data = {
         labels: datesToInclude,
@@ -113,6 +103,7 @@
                     let titleChunk = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])];
                     let titles = titleChunk.split("|");
                     let list = document.getElementById("infoLinks");
+                    list.innerHTML = '';
                     for (const title of titles) {
                         let item = document.createElement("li");
                         let link = document.createElement("a");
