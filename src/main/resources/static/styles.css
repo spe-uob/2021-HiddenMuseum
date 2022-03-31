@@ -292,3 +292,34 @@ h2    {
     text-decoration: none !important;
 }
 
+.popup .help {
+    width: 160px;
+    background-color: #555;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    padding: 8px 0;
+    z-index: 1 ;
+  }
+
+
+.popup .help::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .help .show {
+    visibility: visible;
+  }
+
+
+  .hide{
+    visibility: hidden;
+  }
