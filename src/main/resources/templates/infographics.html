@@ -63,7 +63,7 @@
             label: 'Artworks by time',
             borderColor: 'rgb(255, 99, 132)',
             data: numOfDates,
-            barThickness: 4,
+            barThickness: 6,
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
@@ -81,8 +81,7 @@
                 zoom:   {
                     pan:    {
                         enabled: true,
-                        mode: 'x',
-                        modifierKey: 'ctrl'
+                        mode: 'x'
                     },
                     zoom:   {
                         mode: 'x',
@@ -90,10 +89,8 @@
                             enabled: true
                         },
                         drag:   {
-                            enabled: true
-                        },
-                        pinch:  {
-                            enabled: true
+                            enabled: true,
+                            modifierKey: 'ctrl'
                         }
                     }
                 }
@@ -152,10 +149,10 @@
     }
 
     function myZoomIn()     {
-        myChart.zoom(1.1);
+        myChart.zoom(1.3);
     }
 
     function myZoomOut()    {
-        myChart.zoom(0.9);
+        myChart.zoom(0.7);
     }
 </script>
