@@ -317,9 +317,44 @@ h2    {
 
   .help .show {
     visibility: visible;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
   }
-
 
   .hide{
     visibility: hidden;
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s
   }
+
+  .l1{
+    left: 800px;
+    top: 215px;
+  }
+
+  .l2{
+    left: 600px;
+    top: 191px;
+  }
+
+  .l3{
+    top: 191px;
+  }
+
+  .l4{
+  }
+
+  .popupNoArrow .help {
+    width: 160px;
+    background-color: #555;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    padding: 8px 0;
+    z-index: 1 ;
+  }
+
+.l5{
+    top: 450px;
+}
