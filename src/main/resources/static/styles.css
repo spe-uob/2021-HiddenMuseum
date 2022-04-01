@@ -317,14 +317,10 @@ h2    {
 
   .help .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
   }
 
   .hide{
     visibility: hidden;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s
   }
 
   .l1{
@@ -338,14 +334,15 @@ h2    {
   }
 
   .l3{
+    left: 300px;
     top: 191px;
   }
 
   .l4{
+    width: 160px;
   }
 
   .popupNoArrow .help {
-    width: 160px;
     background-color: #555;
     color: rgb(255, 255, 255);
     text-align: center;
@@ -357,4 +354,9 @@ h2    {
 
 .l5{
     top: 450px;
+    width: 300px;
+}
+
+.l6{
+    top: 145px;
 }

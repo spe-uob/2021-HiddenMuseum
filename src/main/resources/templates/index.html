@@ -42,6 +42,9 @@
                         <i class="fa fa-search"></i>
                     </button>
                 </div>
+                <div class="popup">
+                    <span class="help hide l6">Main Search</span>
+                </div>
                 <table class="table" id="filters">
                     <tr>
                         <th scope="col">Filter</th>
@@ -83,7 +86,7 @@
                 <input type="button" class="btn btn-success" value="Add Filter" onclick="createRow()"></input>
             </form>
             <div class="popupNoArrow">
-                <span class="help hide l5">Put your case sensitive query here.</span>
+                <span class="help hide l5">The main search is 'Fuzzy' so any input in there is not case sensitive and will be compared to all fields simultaneously, use a Filter for a specific field.</span>
             </div>
         </div>
     </main>
@@ -124,13 +127,8 @@
         NUM_ROWS++;
     }
 
-    function helpPopup() {
-        const helps = document.getElementsByClassName("help");
-            for (let i = 0; i < helps.length; i++) {
-                helps[i].classList.toggle("show");
-                helps[i].classList.toggle("hide");
-            }
-        }
+</script>
+<script src="script.js">  
 </script>
 
 </html>
