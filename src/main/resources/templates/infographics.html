@@ -31,10 +31,17 @@
 <br>
 <br>
 <br>
+    <div class="zoomButtons">
+        <b>Zoom buttons</b>
+        <br>
+        <button  class="zoom" onclick="myZoomIn()"> + </button>
+        <button  class="zoom" onclick="myZoomOut()"> - </button>
+        <button  onclick="myResetZoom()">Reset Zoom</button>
+    </div>
+
     <div id="chartWrapper">
         <canvas id="myChart"></canvas>
     </div>
-    <button class="btn btn-primary" onclick="myResetZoom()">Reset Zoom</button>
     <ul class="hiddenBullet" id="infoLinks">
 
     </ul>
@@ -142,5 +149,13 @@
 
     function myResetZoom()    {
         myChart.resetZoom();
+    }
+
+    function myZoomIn()     {
+        myChart.zoom(1.1);
+    }
+
+    function myZoomOut()    {
+        myChart.zoom(0.9);
     }
 </script>

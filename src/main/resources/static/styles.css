@@ -297,3 +297,13 @@ h2    {
     height: 60%;
 }
 
+.zoomButtons    {
+    margin-left: 60%;
+    margin-bottom: 0;
+    margin-right: 33%;
+    background-color: lightgrey;
+}
+
+.zoom   {
+    width:40%
+}
