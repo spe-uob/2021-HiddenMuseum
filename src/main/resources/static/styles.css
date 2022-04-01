@@ -324,18 +324,18 @@ h2    {
   }
 
   .l1{
-    left: 800px;
-    top: 215px;
+    left: 55%;
+    top: 29%;
   }
 
   .l2{
-    left: 600px;
-    top: 191px;
+   left: 40%;
+    top: 26%;
   }
 
   .l3{
-    left: 300px;
-    top: 191px;
+    left: 18%;
+    top: 26%;
   }
 
   .l4{
@@ -353,10 +353,10 @@ h2    {
   }
 
 .l5{
-    top: 450px;
+    top: 60%;
     width: 300px;
 }
 
 .l6{
-    top: 145px;
+    top: 19%;
 }
