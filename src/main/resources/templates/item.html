@@ -10,6 +10,7 @@
           rel="stylesheet" type="text/css"/>
     <meta charset="UTF-8">
     <title>Lookup result</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script src="/static/script.js"></script>
 </head>
 
@@ -18,8 +19,9 @@
         <a  href="/">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1" alt="Bristol museum logo" height="100">
         </a>
-        <button class="dropdown-btn navBut"><a href="/search"> Back to search</a></button>
+        <button class="dropdown-btn navBut"><a th:href="'/search' + '?q=' + ${q} + ${values}"> Back to search</a></button>
         <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+        <button class="dropdown-btn navBut"><a href="/about">About</a></button>
         <div class="dropdown-container">
             <button class="dropdown-btn ">Export Data</button>
             <div class="dropdown-items">
@@ -56,9 +58,11 @@
                                         </tr>
                                         <tr th:case="*">
                                             <td th:text="${#strings.capitalize(field.key.replaceAll('_', ' '))}"></td>
-                                            <!-- looks like this is not needed since I could not find empty field values.
+                                            <!--
+                                            looks like this is not needed since I could not find empty field values.
                                             <td th:if="${field.value != ''}" th:text="${field.value}"></td>
-                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td> -->
+                                            <td th:if="${field.value == ''}" th:text="Information unavailable"></td>
+                                            -->
                                             <td th:text="${field.value}"></td>
                                         </tr>
                                         </div>
@@ -82,6 +86,25 @@
             </div>
         </div>
     </div>
+
+<script>
+    var objImg = $('.objImg')
+    console.log(123)
+    var flag = false
+    objImg.on('click', function () {
+        console.log(123)
+        if (flag) {
+            objImg.css({
+                width: 'auto'
+            })
+        } else {
+            objImg.css({
+                width: '100%'
+            })
+        }
+        flag = !flag
+    })
+</script>
 </body>
 
 </html>

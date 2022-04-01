@@ -19,6 +19,7 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 
 //Rewrite RestTemplate making application can send https
+@Deprecated
 @Configuration
 public class RestTemplateConfig {
     @Bean

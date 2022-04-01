@@ -4,16 +4,12 @@ package uk.ac.bristol.hiddenmuseum.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
-
 import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
+
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 
@@ -30,9 +26,13 @@ public class InfographicController {
         ArrayList<String> ListOfTitles = new ArrayList<String>();
         List<Integer> datesOfItems = new ArrayList<Integer>();
         HashMap<String, Integer> linksToItems = new HashMap<>();
+        List<Integer> datesOfItemsAD = new ArrayList<Integer>();
+        List<Integer> datesOfItemsBC = new ArrayList<Integer>();
+        List<Integer> linksToItemsAD = new ArrayList<Integer>();
+        List<Integer> linksToItemsBC = new ArrayList<Integer>();
         /* find the highest and lowest dates */
 
-        Integer high = 0;
+        Integer high = -9999;
         Integer low = 9999;
         for (SearchRecord record : listRecords) {
             String date = "";
@@ -41,82 +41,73 @@ public class InfographicController {
             } catch (Exception e) {
                 // ignore as it just means it doesn't have year_of_creation
             }
-            if (date.length() == 4) { /*
-                                       * only add if its just the 4 numbers, other formats exist like "about 1970" but
-                                       * those are ignored
-                                       */
+            Pattern pattern = Pattern.compile("[0-9]+"); // pattern match to get a date
+            Matcher matcher = pattern.matcher(date);
+            boolean matchFound = matcher.find();
 
-                intDates.add(Integer.parseInt(date));
+            if (matchFound) {
+                String justDate = matcher.group();
+                Integer dateFound = Integer.parseInt(justDate);
+                // pattern match to find if its ad or bc
+                Pattern AD = Pattern.compile("AD", Pattern.CASE_INSENSITIVE);
+                Pattern BC = Pattern.compile("BC", Pattern.CASE_INSENSITIVE);
+                Matcher matcherAD = AD.matcher(date);
+                Matcher matcherBC = BC.matcher(date);
+                if (matcherAD.find()) {
+                    intDates.add((dateFound));
+                    datesOfItemsAD.add((dateFound));
+                    if (high < (dateFound)) {
+                        high = (dateFound);
+                    }
+                    if (low > (dateFound)) {
+                        low = (dateFound);
+                    }
+                    ;
+                } else if (matcherBC.find()) {
+                    intDates.add((dateFound) * -1);
+                    datesOfItemsBC.add((dateFound));
+                    if (low > (dateFound) * -1) {
+                        low = (dateFound) * -1; // minus 1 cus its bc
+                    }
+                    ;
+                    if (high < (dateFound) * -1) {
+                        high = (dateFound) * -1;
+                    }
+                    ;
+                } else {
+                    // presume AD if no period specified
+                    intDates.add((dateFound));
+                    datesOfItemsAD.add((dateFound));
+                    if (high < (dateFound)) {
+                        high = (dateFound);
+                    }
+                    if (low > (dateFound)) {
+                        low = (dateFound);
+                    }
+                    ;
+                } // adding the link to a hashmap and the titles to a list
                 try {
-                    linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(date));
+                    linksToItems.put(record.recordid.toString(), (dateFound));
+                    System.out.println(record.recordid.toString());
                 } catch (Exception e) {
-                    linksToItems.put("", Integer.parseInt(date));
+                    linksToItems.put("", (dateFound));
                 }
-                if (Integer.parseInt(date) > high) {
-                    high = Integer.parseInt(date);
-                }
-                if (Integer.parseInt(date) < low) {
-                    low = Integer.parseInt(date);
-                }
-                // if its not been added to the lists add it and if there is already one just
-                // add it to the String list
-                if (!(datesOfItems.contains(Integer.parseInt(date)))) {
-                    datesOfItems.add(Integer.parseInt(date));
+                if (!(datesOfItems.contains((dateFound)))) {
+                    datesOfItems.add((dateFound));
                     try {
                         ListOfTitles.add(record.fields.get("title_of_object").toString());
                     } catch (Exception e) {
                         // ignore as it just means it doesn't have title_of_object
                     }
                 } else {
-                    String x = ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(date)));
+                    String x = ListOfTitles.get(datesOfItems.indexOf((dateFound)));
                     try {
-                        ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(date)),
+                        ListOfTitles.set(datesOfItems.indexOf((dateFound)),
                                 x + " | " + record.fields.get("title_of_object").toString());
                     } catch (Exception e) {
                         // ignore as it just means it doesn't have title_of_object
                     }
                 }
-            }
-            // split the date by ' ' so if the date for instance is "about 1984" then it'll
-            // become "about" and "1984" and we just ignore about
-            String[] arrofDate = date.split(" ");
-            try {
-                // Add some of alternate dates that start with either about or after
-                if (arrofDate[1].length() == 4 && (arrofDate[0].equals("about") || arrofDate[0].equals("About")
-                        || arrofDate[0].equals("After") || arrofDate[0].equals("after"))) {
-                    intDates.add(Integer.parseInt(arrofDate[1]));
-                    try {
-                        linksToItems.put(record.fields.get("recordid").toString(), Integer.parseInt(arrofDate[1]));
-                    } catch (Exception e) {
-                        linksToItems.put("", Integer.parseInt(arrofDate[1]));
-                    }
-                    if (Integer.parseInt(arrofDate[1]) > high) {
-                        high = Integer.parseInt(arrofDate[1]);
-                    }
-                    if (Integer.parseInt(arrofDate[1]) < low) {
-                        low = Integer.parseInt(arrofDate[1]);
-                    }
-                    // if its not been added to the lists add it and if there is already one just
-                    // add it to the String list
-                    if (!(datesOfItems.contains(Integer.parseInt(arrofDate[1])))) {
-                        datesOfItems.add(Integer.parseInt(arrofDate[1]));
-                        try {
-                            ListOfTitles.add(record.fields.get("title_of_object").toString());
-                        } catch (Exception e) {
-                            // ignore as it just means it doesn't have title_of_object
-                        }
-                    } else {
-                        String x = ListOfTitles.get(datesOfItems.indexOf(Integer.parseInt(arrofDate[1])));
-                        try {
-                            ListOfTitles.set(datesOfItems.indexOf(Integer.parseInt(arrofDate[1])),
-                                    x + " | " + record.fields.get("title_of_object").toString());
-                        } catch (Exception e) {
-                            // ignore as it just means it doesn't have title_of_object
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                // ignore as it just means it doesnt have an alternate date form
             }
         }
         /*
@@ -149,26 +140,39 @@ public class InfographicController {
                 numOfDatesNonZero.add(num);
             }
         }
-        //sort elements by values  
-        // Create a list from elements of HashMap
-        List<Map.Entry<String, Integer> > list =
-               new LinkedList<Map.Entry<String, Integer> >(linksToItems.entrySet());
 
-        // Sort the list
-        Collections.sort(list, new Comparator<Map.Entry<String, Integer> >() {
+        // put data to both lists
+        for (Integer aa : numOfDatesNonZero) {
+            usedDates.add(aa);
+        }
+
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(linksToItems.entrySet());
+
+        // 2. Sort list with Collections.sort(), provide a custom Comparator
+        // Try switch the o1 o2 position for a different order
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
             public int compare(Map.Entry<String, Integer> o1,
-                               Map.Entry<String, Integer> o2)
-            {
+                    Map.Entry<String, Integer> o2) {
                 return (o1.getValue()).compareTo(o2.getValue());
             }
         });
 
-        // put data from sorted list to both lists
-        for (Map.Entry<String, Integer> aa : list) {
-            usedDates.add(aa.getValue());
-            ids.add(aa.getKey());
+        // 3. Loop the sorted list and put it into a new insertion order Map
+        // LinkedHashMap
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
+        
+        // for (Integer aa : datesOfItems){
+        for (Map.Entry<String, Integer> a : sortedMap.entrySet()) {
+            // System.out.println(a.getValue());
+            if (datesOfItems.contains(a.getValue())) {
+                ids.add(a.getKey());
 
+            }
+        }
+        // System.out.println(ids.get(0));
         // adding the data to the model and outputting it for developmental purposes
         model.addAttribute("datesToInclude", datesToInclude);
         model.addAttribute("numOfDates", numOfDates);
@@ -176,12 +180,12 @@ public class InfographicController {
         model.addAttribute("datesOfItems", datesOfItems);
         model.addAttribute("usedDates", usedDates);
         model.addAttribute("ids", ids);
-        System.out.println(datesToInclude);
-        System.out.println(numOfDates);
-        System.out.println(ListOfTitles);
-        System.out.println(datesOfItems);
-        System.out.println(usedDates);
-        System.out.println(ids);
+         System.out.println(datesToInclude);
+         System.out.println(numOfDates);
+         System.out.println(ListOfTitles);
+         System.out.println(datesOfItems);
+         System.out.println(usedDates);
+         System.out.println(ids);
         return "infographics";
     }
 }
