@@ -34,6 +34,7 @@
     <div id="chartWrapper">
         <canvas id="myChart"></canvas>
     </div>
+    <button class="btn btn-primary" onclick="myResetZoom()">Reset Zoom</button>
     <ul class="hiddenBullet" id="infoLinks">
 
     </ul>
@@ -138,4 +139,8 @@
         document.getElementById('myChart'),
         config
     );
+
+    function myResetZoom()    {
+        myChart.resetZoom();
+    }
 </script>
