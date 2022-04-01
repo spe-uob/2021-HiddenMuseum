@@ -41,6 +41,12 @@
             <div class="popupNoArrow">
                 <span class="help hide l4">The Bristol museum logo will always link back to the home page.</span>
             </div>
+            <div class="popupNoArrow">
+                <span class="help hide l7">Choose how many results to display per page.</span>
+            </div>
+            <div class="popupNoArrow">
+                <span class="help hide l8">Export the data as a csv or json file.</span>
+            </div>
         </div>
         <br>
         <br>
@@ -86,6 +92,12 @@
             </form>
         </div>
         <br>
+        <div class="popupNoArrow">
+            <span class="help hide l9">It will link to any results matching your search, if you hover on a link, if it has an image, it will display it on the right. If you click on the link it will take you to the items page.</span>
+        </div>
+        <div class="popupNoArrow">
+            <span class="help hide l10">Scroll all the way down for the next page.</span>
+        </div>
         <ul class="hiddenBullet textContent">
             <li><p class="textContent">
                 <th:block th:if="${response.nhits!= 1}" th:text="${response.nhits} + ' results found for '"/>

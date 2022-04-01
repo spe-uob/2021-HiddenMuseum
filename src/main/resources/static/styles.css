@@ -292,6 +292,8 @@ h2    {
     text-decoration: none !important;
 }
 
+
+/* further styles are mostly for popups, l1-ln are just various popup placements */
 .popup .help {
     width: 160px;
     background-color: #555;
@@ -359,4 +361,24 @@ h2    {
 
 .l6{
     top: 19%;
+}
+
+.l7{
+    width: 160px;
+    left: 42%;
+}
+
+.l8{
+    width: 160px;
+    left: 53%;
+}
+
+.l9{
+left:5%;
+width: 300px;
+}
+
+.l10{
+    left:75%;
+    width: 200px;
 }
