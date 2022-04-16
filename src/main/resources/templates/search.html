@@ -98,7 +98,7 @@
                         th:text="'by ' + ${record.fields.get('artist')}"></span>
                     <div class="hover">
                         <img th:if="${record.fields.get('image_of_object')}"
-                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${record.fields.get('image_of_object').get('id')}+'/300'"
+                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/' + ${dataset} + '/files/'+${record.fields.get('image_of_object').get('id')}+'/300'"
                             alt="image of object">
                     </div>
                 </a>

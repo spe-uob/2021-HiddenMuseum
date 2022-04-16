@@ -33,9 +33,10 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam (defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "open-data-gallery-3-european-old-masters", required = false) String dataset,
             Model model) {
-        var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", dataset);
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
