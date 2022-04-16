@@ -6,9 +6,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
+import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONValue;
@@ -39,7 +42,9 @@ public class SearchController {
         String base = "https://opendata.bristol.gov.uk/";
         String datasetLink = dataset.replace(base, "");
         datasetLink = datasetLink.replace("explore/dataset/", "");
+        datasetLink = datasetLink.replace("information", "");
         datasetLink = datasetLink.replace("/", "");
+
         var srq = new SearchRequestBuilder(base, datasetLink);
         srq.setQuery(q);
         srq.setLimit(nhits);
@@ -64,6 +69,42 @@ public class SearchController {
         var scrq = new SchemaRequestBuilder(base, datasetLink);
         var schResponse = scrq.sendRequest();
         var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
+
+        String titleField = "";
+        String imageField = "";
+        Boolean titleFound = false;
+        Boolean imageFound = false;
+
+
+        for(Object field : fieldList)  {
+            System.out.println(field);
+            String regex = "title.|.title.|title|Title.|.Title.|Title";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                titleField = (String) field;
+                titleFound = true;
+            }
+            regex = "image.|.image.|image|Image.|.Image.|Image";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                imageField = (String) field;
+                imageFound = true;
+            }
+            if(imageFound && titleFound)    {
+                continue;
+            }
+        }
+        for (SearchRecord record : response.records) {
+            System.out.println(record.fields.get(imageField));
+        }
+        System.out.println(imageField);
+        System.out.println(titleField);
+
+        model.addAttribute("imageField", imageField);
+
+        model.addAttribute("titleField", titleField);
 
         model.addAttribute("fieldList", fieldList);
 

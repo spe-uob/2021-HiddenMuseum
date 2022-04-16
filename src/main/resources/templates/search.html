@@ -95,13 +95,14 @@
                     <b th:if="${response.nhits== 1}" th:text="${query}"></b>
                 </p></li>
             <li th:each="record : ${response.records}">
-                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid} + '?q=' + ${query} + ${values}">
-                    <b th:text="${record.fields.get('title_of_object')}"></b>
+                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid} + '?q=' + ${query} + ${values} + '&dataset='
+                    + ${dataset} + '&titleField=' + ${titleField} + '&imageField=' + ${imageField}">
+                    <b th:text="${record.fields.get(titleField)}"></b>
                     <span th:if="${record.fields.get('artist')}"
                         th:text="'by ' + ${record.fields.get('artist')}"></span>
                     <div class="hover">
-                        <img th:if="${record.fields.get('image_of_object')}"
-                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/' + ${dataset} + '/files/'+${record.fields.get('image_of_object').get('id')}+'/300'"
+                        <img th:if="${record.fields.get(imageField)}"
+                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/' + ${dataset} + '/files/'+${record.fields.get(imageField).get('id')}+'/300'"
                             alt="image of object">
                     </div>
                 </a>

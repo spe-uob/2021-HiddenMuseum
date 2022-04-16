@@ -38,7 +38,7 @@
         <div th:each="field : ${response.fields}">
             <div th:switch="${field.key}">
                 <div class="left">
-                    <div th:case="'title_of_object'">
+                    <div th:case="${titleField}">
                         <h1 th:text="${field.value}"></h1>
                         <br>
                         <div class="left">
@@ -74,12 +74,12 @@
 
 
                 </div>
-                <div class="imgDiv" th:case="'image_of_object'">
+                <div class="imgDiv" th:case="${imageField}">
                     <br>
                     <br>
                     <br>
                     <br>
-                    <img class="objImg"  th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${field.value.get('id')}+'/300'" alt="image of object" id="right">
+                    <img class="objImg"  th:src="'https://opendata.bristol.gov.uk/explore/dataset/' + ${dataset} + '/files/'+${field.value.get('id')}+'/300'" alt="image of object" id="right">
                     <br>
                 </div>
                 <div th:case="*"></div>
