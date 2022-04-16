@@ -36,7 +36,11 @@ public class SearchController {
             @RequestParam(defaultValue = "" ,required = false) List<String> values,
             @RequestParam(defaultValue = "open-data-gallery-3-european-old-masters", required = false) String dataset,
             Model model) {
-        var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", dataset);
+        String base = "https://opendata.bristol.gov.uk/";
+        String datasetLink = dataset.replace(base, "");
+        datasetLink = datasetLink.replace("explore/dataset/", "");
+        datasetLink = datasetLink.replace("/", "");
+        var srq = new SearchRequestBuilder(base, datasetLink);
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
@@ -57,7 +61,7 @@ public class SearchController {
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
-        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var scrq = new SchemaRequestBuilder(base, datasetLink);
         var schResponse = scrq.sendRequest();
         var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
 
@@ -86,6 +90,8 @@ public class SearchController {
         model.addAttribute("query", q);
 
         model.addAttribute("pageNumber", page);
+
+        model.addAttribute("dataset", datasetLink);
 
         return "search";
     }
