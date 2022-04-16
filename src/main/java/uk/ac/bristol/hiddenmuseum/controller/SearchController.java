@@ -107,7 +107,7 @@ public class SearchController {
         model.addAttribute("exportJSON", exportJSON);
 
         //setting up to export as CSV
-        String exportCSV = "/export?q=" + q;
+        String exportCSV = "/export";
         model.addAttribute("exportCSV", exportCSV);
 
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
