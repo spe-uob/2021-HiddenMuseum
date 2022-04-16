@@ -4,6 +4,7 @@ package uk.ac.bristol.hiddenmuseum.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
@@ -16,9 +17,11 @@ import java.util.regex.Pattern;
 @Controller
 public class InfographicController {
     @GetMapping("/infographics")
-    public String Info(Model model) {
+    public String Info(@RequestParam(defaultValue = "open-data-gallery-3-european-old-masters", required = false)
+                                   String dataset,
+                                   Model model) {
         var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/",
-                "open-data-gallery-3-european-old-masters");
+                dataset);
         srq.setLimit(999);
         var response = srq.sendRequest();
         var listRecords = response.records;
@@ -180,6 +183,7 @@ public class InfographicController {
         model.addAttribute("datesOfItems", datesOfItems);
         model.addAttribute("usedDates", usedDates);
         model.addAttribute("ids", ids);
+        model.addAttribute("dataset", dataset);
          System.out.println(datesToInclude);
          System.out.println(numOfDates);
          System.out.println(ListOfTitles);
