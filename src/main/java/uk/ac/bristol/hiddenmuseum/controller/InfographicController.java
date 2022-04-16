@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
@@ -24,6 +25,9 @@ public class InfographicController {
                 dataset);
         srq.setLimit(999);
         var response = srq.sendRequest();
+        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", dataset);
+        var schResponse = scrq.sendRequest();
+        var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
         var listRecords = response.records;
         List<Integer> intDates = new ArrayList<Integer>();
         ArrayList<String> ListOfTitles = new ArrayList<String>();
@@ -33,14 +37,53 @@ public class InfographicController {
         List<Integer> datesOfItemsBC = new ArrayList<Integer>();
         List<Integer> linksToItemsAD = new ArrayList<Integer>();
         List<Integer> linksToItemsBC = new ArrayList<Integer>();
-        /* find the highest and lowest dates */
 
+        String titleField = "";
+        String yearField = "";
+        String imageField = "";
+        boolean titleFound = false;
+        boolean imageFound = false;
+        boolean yearFound = false;
+
+        for(Object field : fieldList)  {
+            System.out.println(field);
+            String regex = "title.|.title.|title|Title.|.Title.|Title";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                titleField = (String) field;
+                titleFound = true;
+            }
+            regex = "year.|.year.|year|Year.|.Year.|Year|date|.date.|date.";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                yearField = (String) field;
+                yearFound = true;
+            }
+            regex = "image.|.image.|image|Image.|.Image.|Image";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                imageField = (String) field;
+                imageFound = true;
+            }
+
+            if(titleFound && yearFound && imageFound)    {
+                continue;
+            }
+        }
+        System.out.println("=========================");
+        System.out.println(yearField);
+        System.out.println(titleField);
+
+        /* find the highest and lowest dates */
         Integer high = -9999;
         Integer low = 9999;
         for (SearchRecord record : listRecords) {
             String date = "";
             try {
-                date = record.fields.get("year_of_creation").toString();
+                date = record.fields.get(yearField).toString();
             } catch (Exception e) {
                 // ignore as it just means it doesn't have year_of_creation
             }
@@ -98,7 +141,7 @@ public class InfographicController {
                 if (!(datesOfItems.contains((dateFound)))) {
                     datesOfItems.add((dateFound));
                     try {
-                        ListOfTitles.add(record.fields.get("title_of_object").toString());
+                        ListOfTitles.add(record.fields.get(titleField).toString());
                     } catch (Exception e) {
                         // ignore as it just means it doesn't have title_of_object
                     }
@@ -106,7 +149,7 @@ public class InfographicController {
                     String x = ListOfTitles.get(datesOfItems.indexOf((dateFound)));
                     try {
                         ListOfTitles.set(datesOfItems.indexOf((dateFound)),
-                                x + " | " + record.fields.get("title_of_object").toString());
+                                x + " | " + record.fields.get(titleField).toString());
                     } catch (Exception e) {
                         // ignore as it just means it doesn't have title_of_object
                     }
@@ -184,6 +227,8 @@ public class InfographicController {
         model.addAttribute("usedDates", usedDates);
         model.addAttribute("ids", ids);
         model.addAttribute("dataset", dataset);
+        model.addAttribute("titleField", titleField);
+        model.addAttribute("imageField", imageField);
          System.out.println(datesToInclude);
          System.out.println(numOfDates);
          System.out.println(ListOfTitles);

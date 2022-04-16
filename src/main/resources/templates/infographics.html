@@ -54,9 +54,12 @@
     const ids = /*[[${ids}]]*/[];
     const usedDates = /*[[${usedDates}]]*/[];
     const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/[];
-
+    const dataset = [[${dataset}]];
+    const titleField = [[${titleField}]];
+    const imageField = [[${imageField}]];
     const numOFLinksMax = Math.max.apply(Math, numOfDates);
-
+    console.log(dataset);
+    console.log("=/=/=/=/=/=/=//=/=//=");
     const data = {
         labels: datesToInclude,
         datasets: [{
@@ -139,7 +142,8 @@
                     var children = list.children;
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
-                        linkChild.children[0].setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
+                        linkChild.children[0].setAttribute('href','item/' + dataset + '/' + ids[i + indexOfIdList] + '?imageField='
+                        + imageField + '&titleField=' + titleField);
                     }
                     //container.get
                 } catch (error) {

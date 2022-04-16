@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
-import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.List;
@@ -96,11 +95,6 @@ public class SearchController {
                 continue;
             }
         }
-        for (SearchRecord record : response.records) {
-            System.out.println(record.fields.get(imageField));
-        }
-        System.out.println(imageField);
-        System.out.println(titleField);
 
         model.addAttribute("imageField", imageField);
 
