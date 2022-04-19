@@ -20,7 +20,7 @@
                 <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1"
                      alt="Bristol museum logo" height="100">
             </a>
-            <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
+            <button class="dropdown-btn navBut"><a th:href="'/infographics' + '?dataset=' + ${dataset}">Infographics</a></button>
             <button class="dropdown-btn navBut"><a href="/about">About</a></button>
             <div class="dropdown-container">
                 <button class="dropdown-btn ">Items per page</button>
@@ -34,7 +34,8 @@
                 <button class="dropdown-btn ">Export Data</button>
                 <div class="dropdown-items">
                     <a class="" download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
-                    <a class="" download="data.csv" th:href="${exportCSV}" target="_blank">Export CSV</a>
+                    <a class="" download="data.csv" th:href="${exportCSV} + '?q=' + ${query} + ${values} +
+                        '&dataset=' + ${dataset}" target="_blank">Export CSV</a>
                 </div>
             </div>
         </div>
@@ -46,6 +47,9 @@
             <form class="form" action="/search" onsubmit="cleanURL()">
                 <div class="input-group mb-3">
                     <input id="q" name="q" class="form-control" type="text" placeholder="Search">
+
+                    <input class="form-control" type="text" name="dataset" placeholder="Dataset"
+                           th:value="${dataset}">
                     <button id="search-button" class="btn btn-primary" type="submit">
                         <i class="fa fa-search"></i>
                     </button>
@@ -92,13 +96,14 @@
                     <b th:if="${response.nhits== 1}" th:text="${query}"></b>
                 </p></li>
             <li th:each="record : ${response.records}">
-                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid} + '?q=' + ${query} + ${values}">
-                    <b th:text="${record.fields.get('title_of_object')}"></b>
+                <a class="link" th:href="'/item/' + ${record.datasetid} + '/' + ${record.recordid} + '?q=' + ${query} + ${values} + '&dataset='
+                    + ${dataset} + '&titleField=' + ${titleField} + '&imageField=' + ${imageField}">
+                    <b th:text="${record.fields.get(titleField)}"></b>
                     <span th:if="${record.fields.get('artist')}"
                         th:text="'by ' + ${record.fields.get('artist')}"></span>
                     <div class="hover">
-                        <img th:if="${record.fields.get('image_of_object')}"
-                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/open-data-gallery-3-european-old-masters/files/'+${record.fields.get('image_of_object').get('id')}+'/300'"
+                        <img th:if="${record.fields.get(imageField)}"
+                            th:src="'https://opendata.bristol.gov.uk/explore/dataset/' + ${dataset} + '/files/'+${record.fields.get(imageField).get('id')}+'/300'"
                             alt="image of object">
                     </div>
                 </a>

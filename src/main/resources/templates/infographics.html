@@ -25,12 +25,20 @@
         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1"
              alt="Bristol museum logo" height="100">
     </a>
-    <button class="dropdown-btn navBut"><a href="/search"> Back to search</a></button>
+    <button class="dropdown-btn navBut"><a th:href="'/search?dataset=' + ${dataset}"> Back to search</a></button>
 </div>
 <br>
 <br>
 <br>
 <br>
+<form class="form" action="/infographics" onsubmit="cleanURL()">
+    <div class="input-group mb-3">
+        <input class="form-control" type="text" name="dataset" placeholder="Dataset"
+            th:value="${dataset}">
+        <button id="search-button" class="btn btn-primary" type="submit">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+    </div>
     <div class="zoomButtons">
         <b>Zoom buttons</b>
         <br>
@@ -54,9 +62,12 @@
     const ids = /*[[${ids}]]*/[];
     const usedDates = /*[[${usedDates}]]*/[];
     const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/[];
-
+    const dataset = [[${dataset}]];
+    const titleField = [[${titleField}]];
+    const imageField = [[${imageField}]];
     const numOFLinksMax = Math.max.apply(Math, numOfDates);
-
+    console.log(dataset);
+    console.log("=/=/=/=/=/=/=//=/=//=");
     const data = {
         labels: datesToInclude,
         datasets: [{
@@ -139,7 +150,8 @@
                     var children = list.children;
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
-                        linkChild.children[0].setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
+                        linkChild.children[0].setAttribute('href','item/' + dataset + '/' + ids[i + indexOfIdList] + '?imageField='
+                        + imageField + '&titleField=' + titleField);
                     }
                     //container.get
                 } catch (error) {
