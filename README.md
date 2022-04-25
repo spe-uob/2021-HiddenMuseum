@@ -95,7 +95,7 @@ Go to [localhost:8080](http://localhost:8080), where you should see it running.
 
 ## Documentation
 
-Find the javaocs [here](https://spe-uob.github.io/2021-HiddenMuseum/).
+Find the javadocs [here](https://spe-uob.github.io/2021-HiddenMuseum/).
 
 
 ## License

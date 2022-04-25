@@ -4,23 +4,12 @@ package uk.ac.bristol.hiddenmuseum.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.thymeleaf.exceptions.ParserInitializationException;
-import org.yaml.snakeyaml.tokens.TagTuple;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRecord;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 

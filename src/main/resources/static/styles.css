@@ -292,3 +292,28 @@ h2    {
     text-decoration: none !important;
 }
 
+#chartWrapper    {
+    width: 75%;
+    height: 60%;
+}
+
+.zoomButtons    {
+    margin-left: 60%;
+    margin-bottom: 0;
+    margin-right: 30%;
+    background-color: lightgrey;
+    padding: .5rem;
+}
+
+.border {
+    border-color: darkgray;
+}
+
+.zoom   {
+    width: 3.8rem;
+    margin-bottom: 0.2rem;
+}
+
+#resetZoom  {
+    width: 7.9rem;
+}
