@@ -12,7 +12,13 @@
     <link href="https://db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
     <link href="https://db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
           rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <title>Museum Search Tool</title>
+    <style>
+        #changeSel {
+            width: 240px;
+        }
+    </style>
 </head>
 
 <body id="home">
@@ -45,7 +51,7 @@
                     </tr>
                     <tr class="Filter1">
                         <td id="dropdown">
-                            <select name="values">
+                            <select name="values" onchange="changeData(this)" id="selectF">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
                                         th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
                                         th:selected='${i=="medium"}'>
@@ -59,7 +65,8 @@
                             </select>
                         </td>
                         <td>
-                            <input class="form-control" type="text" name="values" placeholder="Input">
+<!--                            <input class="form-control" type="text" name="values" placeholder="Input">-->
+                            <select name="value" id="changeSel"></select>
                         </td>
                         <td><input type="button" class="Filter1 btn btn-danger" value="Remove Filter" onclick="removeRow(this)"/></td>
                     </tr>
@@ -70,6 +77,44 @@
     </main>
 </body>
 <script>
+    $(function () {
+        console.log($('#selectF').val())
+        $.ajax({
+            type: 'get',
+            url: '/getSelector?id=' + $('#selectF').val(),
+            success: function (res) {
+                console.log(res)
+                // $('#changeSel').append()
+                $("#changeSel").empty();
+                var obj = document.getElementById('changeSel')
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i]) {
+                        obj.options.add(new Option(res[i], res[i]))
+                    }
+                }
+            }
+        })
+    })
+    function changeData(e) {
+        console.log($(e).val())
+        $.ajax({
+            type: 'get',
+            url: '/getSelector?id=' + $(e).val(),
+            success: function (res) {
+                console.log(res)
+                // $('#changeSel').append()
+                $("#changeSel").empty();
+                var obj = document.getElementById('changeSel')
+                for (var i = 0; i < res.length; i++) {
+                    if (res[i]) {
+                        obj.options.add(new Option(res[i], res[i]))
+                    }
+                }
+            }
+        })
+        // console.log(this.fieldList)
+
+    }
     //global variable that says the number of rows in the table. just so each new row gets a unique ID. Necessary in previous versions.
     let NUM_ROWS = 1;
 
@@ -97,6 +142,7 @@
             "                                <option value=\"excludeBy\">Exclude</option>\n" +
             "                            </select>"
         let input = row.insertCell(2);
+        // input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         let remove = row.insertCell(3);
         let className = "\"Filter" + filterNum.toString() + " btn btn-danger\"";

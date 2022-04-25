@@ -117,6 +117,7 @@
                     var children = container.children;
                     console.log(container);
                     console.log(children);
+                    console.log(ids);
                     for (var i = 0; i < children.length; i++) {
                         var linkChild = children[i];
                         linkChild.setAttribute('href', '/');
@@ -124,6 +125,7 @@
                     }
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
+                        console.log(ids[i + indexOfIdList], 2222222222222222222222222)
                         linkChild.setAttribute('class', 'shown');
                         linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
                     }
