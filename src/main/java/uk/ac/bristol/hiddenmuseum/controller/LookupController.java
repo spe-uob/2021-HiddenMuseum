@@ -29,6 +29,8 @@ public class LookupController {
             @PathVariable("id") String recordID,
             @RequestParam(defaultValue = "" ,required = false) String q,
             @RequestParam(defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "", required = false) String titleField,
+            @RequestParam(defaultValue = "", required = false) String imageField,
             Model model) {
         var lrq = new LookupRequestBuilder("https://opendata.bristol.gov.uk/", dataset, recordID);
         var response = lrq.sendRequest();
@@ -51,6 +53,12 @@ public class LookupController {
         //add the CSV url
         String exportCSV = "/exportItem?q=" + response.recordid;
         model.addAttribute("exportCSV", exportCSV);
+        System.out.println(response.recordid);
+
+        model.addAttribute("imageField", imageField);
+
+        model.addAttribute("titleField", titleField);
+
 
         return "item";
     }

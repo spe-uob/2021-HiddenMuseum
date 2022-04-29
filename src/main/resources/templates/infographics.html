@@ -25,21 +25,39 @@
         <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1"
              alt="Bristol museum logo" height="100">
     </a>
-    <button class="dropdown-btn navBut"><a href="/search"> Back to search</a></button>
+    <button class="dropdown-btn navBut"><a th:href="'/search?dataset=' + ${dataset}"> Back to search</a></button>
     <button class="dropdown-btn navBut" onclick="helpPopup()">Help</button>
     <div class="popupNoArrow">
         <span class="help hide l4">The Bristol museum logo will always link back to the home page.</span>
     </div>
+
 </div>
 <br>
 <br>
 <br>
 <br>
-    <div>
+<form class="form" action="/infographics" onsubmit="cleanURL()">
+    <div class="input-group mb-3">
+        <input class="form-control" type="text" name="dataset" placeholder="Dataset"
+            th:value="${dataset}">
+        <button id="search-button" class="btn btn-primary" type="submit">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="zoomButtons">
+        <b>Zoom buttons</b>
+        <br>
+        <button  class="zoom border" onclick="myZoomIn()"> + </button>
+        <button  class="zoom border" onclick="myZoomOut()"> - </button>
+        <button  class="border" id="resetZoom" onclick="myResetZoom()">Reset Zoom</button>
+    </div>
+
+    <div id="chartWrapper">
         <canvas id="myChart"></canvas>
     </div>
-    <p id="Title"></p>
-    <div id="container"></div>
+    <ul class="hiddenBullet" id="infoLinks">
+
+    </ul>
 </body>
 <script th:inline="javascript">
     const datesToInclude = /*[[${datesToInclude}]]*/[];
@@ -49,25 +67,19 @@
     const ids = /*[[${ids}]]*/[];
     const usedDates = /*[[${usedDates}]]*/[];
     const numOfDatesNonZero = /*[[${numOfDatesNonZero}]]*/[];
-
+    const dataset = [[${dataset}]];
+    const titleField = [[${titleField}]];
+    const imageField = [[${imageField}]];
     const numOFLinksMax = Math.max.apply(Math, numOfDates);
-    var container = document.getElementById("container");
-    for (i = 0; i < numOFLinksMax; i++) {
-        newlink = document.createElement('a');
-        newlink.setAttribute('href', '/');
-        newlink.name = "link" + i;
-        newlink.innerHTML = 'link' + i;
-        newlink.setAttribute('class', 'shown');
-        container.appendChild(newlink);
-    }
-
+    console.log(dataset);
+    console.log("=/=/=/=/=/=/=//=/=//=");
     const data = {
         labels: datesToInclude,
         datasets: [{
             label: 'Artworks by time',
             borderColor: 'rgb(255, 99, 132)',
             data: numOfDates,
-            barThickness: 2,
+            barThickness: 6,
             backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
@@ -80,14 +92,32 @@
         type: 'bar',
         data: data,
         options:    {
+            responsive: true,
             plugins: {
                 zoom:   {
+                    pan:    {
+                        enabled: true,
+                        mode: 'x'
+                    },
                     zoom:   {
+                        mode: 'x',
                         wheel: {
                             enabled: true
+                        },
+                        drag:   {
+                            enabled: true,
+                            modifierKey: 'ctrl'
                         }
-
                     }
+                }
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    dataView: { show: true, readOnly: false },
+                    magicType: { show: true, type: ['line', 'bar'] },
+                    restore: { show: true },
+                    saveAsImage: { show: true }
                 }
             },
             layout: {
@@ -99,7 +129,20 @@
                 try {
                     console.log(whereAt[0].index);
                     console.log("===== </CLICK EVENT> =====");
-                    document.getElementById("Title").innerHTML = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])]
+                    //add a child to the list
+                    let titleChunk = ListOfTitles[datesOfItems.indexOf(whereAt[0].index + datesToInclude[0])];
+                    let titles = titleChunk.split("|");
+                    let list = document.getElementById("infoLinks");
+                    list.innerHTML = '';
+                    for (const title of titles) {
+                        let item = document.createElement("li");
+                        let link = document.createElement("a");
+                        link.innerText = title;
+                        link.setAttribute("href", "/");
+                        item.appendChild(link);
+                        list.appendChild(item);
+                    }
+
                     var indexOfIdList = 0;
                     for (var i=0; i < whereAt[0].index; i++) {
                         indexOfIdList += numOfDates[i];
@@ -108,21 +151,14 @@
                     console.log(indexOfIdList);
 
                     var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
-                    console.log(sizeOfThisClump);
-                    var children = container.children;
-                    console.log(container);
-                    console.log(children);
-                    for (var i = 0; i < children.length; i++) {
-                        var linkChild = children[i];
-                        linkChild.setAttribute('href', '/');
-                        linkChild.setAttribute('class', 'hidden');
-                    }
+                    console.log(sizeOfThisClump)
+                    var children = list.children;
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
-                        linkChild.setAttribute('class', 'shown');
-                        linkChild.setAttribute('href', '/item/open-data-gallery-3-european-old-masters/' + ids[i + indexOfIdList]);
+                        linkChild.children[0].setAttribute('href','item/' + dataset + '/' + ids[i + indexOfIdList] + '?imageField='
+                        + imageField + '&titleField=' + titleField);
                     }
-                    container.get
+                    //container.get
                 } catch (error) {
                     console.log(error)
                 }
@@ -133,7 +169,19 @@
         document.getElementById('myChart'),
         config
     );
-    Char
+      function myResetZoom()    {
+        myChart.resetZoom();
+    }
+
+    function myZoomIn()     {
+        myChart.zoom(1.3);
+    }
+
+    function myZoomOut()    {
+        myChart.zoom(0.7);
+    }
+
+
 </script>
 <script src="script.js">  
 </script>

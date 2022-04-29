@@ -293,6 +293,7 @@ h2    {
 }
 
 
+
 /* further styles are mostly for popups, l1-ln are just various popup placements */
 .popup .help {
     width: 160px;
@@ -391,3 +392,30 @@ width: 300px;
     left:31%;
     width: 160px;
 }
+
+#chartWrapper    {
+    width: 75%;
+    height: 60%;
+}
+
+.zoomButtons    {
+    margin-left: 60%;
+    margin-bottom: 0;
+    margin-right: 30%;
+    background-color: lightgrey;
+    padding: .5rem;
+}
+
+.border {
+    border-color: darkgray;
+}
+
+.zoom   {
+    width: 3.8rem;
+    margin-bottom: 0.2rem;
+}
+
+#resetZoom  {
+    width: 7.9rem;
+}
+
