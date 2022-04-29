@@ -8,10 +8,11 @@
 
     <link rel="stylesheet" href="/styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet" type="text/css"/>
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://db.onlinewebfonts.com/c/97294bc26984beb9185137b039854f9b?family=D-DIN" rel="stylesheet"
+        type="text/css" />
     <link href="https://db.onlinewebfonts.com/c/8e59fdbc7a7fdb1bab1b12af14615047?family=ITCAvantGardeGothicW05-Book"
-          rel="stylesheet" type="text/css"/>
+        rel="stylesheet" type="text/css" />
     <title>Museum Search Tool</title>
 </head>
 
@@ -19,11 +20,22 @@
     <div class="BristolMuseum">
         <a href="/">
             <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OCdb4ZnlSV7vmUEh3SXcjwHaFl%26pid%3DApi&f=1"
-                 alt="Bristol museum logo" height="100">
+                alt="Bristol museum logo" height="100">
+                
         </a>
         <button class="dropdown-btn navBut"><a href="/infographics">Infographics</a></button>
         <button class="dropdown-btn navBut"><a href="/search">Search</a></button>
         <button class="dropdown-btn navBut"><a href="/about">About</a></button>
+        <button class="dropdown-btn navBut" onclick="helpPopup()" id="a">Help</button>
+        <div class="popupNoArrow">
+            <span class="help hide l4">The Bristol museum logo will always link back to the home page.</span>
+        </div>
+        <div class="popupNoArrow">
+            <span class="help hide l11">To hide boxes, click help again.</span>
+        </div>
+        <div class="popup">
+            <span class="help hide l20">Select the dataset you want to search.</span>
+        </div>
     </div>
     <br>
     <h1 id="title">Hidden Museums Advanced Search Tool</h1>
@@ -34,22 +46,34 @@
                     <input id="q" name="q" class="form-control" type="text" placeholder="Search">
                     <input class="form-control" type="text" name="dataset" placeholder="Dataset">
                     <button id="search-button" class="btn btn-primary" type="submit">
-						<i class="fa fa-search"></i>
-					</button>
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+                <div class="popup">
+                    <span class="help hide l6">Main Search</span>
                 </div>
                 <table class="table" id="filters">
                     <tr>
                         <th scope="col">Filter</th>
+                        <div class="popup">
+                            <span class="help hide l3">Change what field your input will be applied to.</span>
+                        </div>
                         <th scope="col">Option</th>
+                        <div class="popup">
+                            <span class="help hide l2">Do you want to include or exlude the field</span>
+                        </div>
                         <th scope="col">Input</th>
+                        <div class="popup">
+                            <span class="help hide l1">Put your case sensitive query here.</span>
+                        </div>
                         <th scope="col"></th>
                     </tr>
                     <tr class="Filter1">
                         <td id="dropdown">
                             <select name="values">
                                 <option th:each="i : ${fieldList}" th:value="${i}"
-                                        th:with="prettyField=${i.replaceAll('_', ' ')}"  th:text="${#strings.capitalize(prettyField)}"
-                                        th:selected='${i=="medium"}'>
+                                    th:with="prettyField=${i.replaceAll('_', ' ')}"
+                                    th:text="${#strings.capitalize(prettyField)}" th:selected='${i=="medium"}'>
                                 </option>
                             </select>
                         </td>
@@ -62,11 +86,15 @@
                         <td>
                             <input class="form-control" type="text" name="values" placeholder="Input">
                         </td>
-                        <td><input type="button" class="Filter1 btn btn-danger" value="Remove Filter" onclick="removeRow(this)"/></td>
+                        <td><input type="button" class="Filter1 btn btn-danger" value="Remove Filter"
+                                onclick="removeRow(this)" /></td>
                     </tr>
                 </table>
                 <input type="button" class="btn btn-success" value="Add Filter" onclick="createRow()"></input>
             </form>
+            <div class="popupNoArrow">
+                <span class="help hide l5">The main search is 'Fuzzy' so any input in there is not case sensitive and will be compared to all fields simultaneously, use a Filter for a specific field.</span>
+            </div>
         </div>
     </main>
 </body>
@@ -86,7 +114,7 @@
         NUM_ROWS--;
     }
     //add a new working filter to the table
-    function createRow()    {
+    function createRow() {
         let filterNum = NUM_ROWS + 1;
         let table = document.getElementById("filters");
         let row = table.insertRow(filterNum);
@@ -101,9 +129,13 @@
         input.innerHTML = "<input class=\"form-control\" type=\"text\" name=\"values\" placeholder=\"Input\">";
         let remove = row.insertCell(3);
         let className = "\"Filter" + filterNum.toString() + " btn btn-danger\"";
-        remove.innerHTML = "<input type=\"button\" class=" +className + "\"" +
+        remove.innerHTML = "<input type=\"button\" class=" + className + "\"" +
             " value=\"Remove Filter\" onclick=\"removeRow(this)\"/>";
         NUM_ROWS++;
     }
+
 </script>
+<script src="script.js">  
+</script>
+
 </html>

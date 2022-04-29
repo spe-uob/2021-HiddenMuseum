@@ -292,6 +292,118 @@ h2    {
     text-decoration: none !important;
 }
 
+
+
+/* further styles are mostly for popups, l1-ln are just various popup placements */
+.popup .help {
+    width: 160px;
+    background-color: #555;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    padding: 8px 0;
+    z-index: 1 ;
+  }
+
+
+.popup .help::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+
+  .help .show {
+    visibility: visible;
+  }
+
+  .hide{
+    visibility: hidden;
+  }
+
+  .l1{
+    left: 55%;
+    top: 29%;
+  }
+
+  .l2{
+   left: 40%;
+    top: 26%;
+  }
+
+  .l3{
+    left: 18%;
+    top: 26%;
+  }
+
+  .l4{
+    width: 160px;
+  }
+
+  .popupNoArrow .help {
+    background-color: #555;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    border-radius: 6px;
+    position: absolute;
+    padding: 8px 0;
+    z-index: 1 ;
+  }
+
+.l5{
+    top: 60%;
+    width: 300px;
+}
+
+.l6{
+    top: 19%;
+}
+
+.l7{
+    width: 160px;
+    left: 42%;
+}
+
+.l8{
+    width: 160px;
+    left: 53%;
+}
+
+.l9{
+left:5%;
+width: 300px;
+}
+
+.l10{
+    left:75%;
+    width: 200px;
+}
+
+.l11{
+    left:38%;
+}
+
+.l12{
+    left:31%;
+    width: 160px;
+}
+
+.l13{
+    left:70%;
+    width: 160px;
+}
+
+.l20{
+    width: 160px;
+    left: 65%;
+    margin-top: 15px;
+}
+
 #chartWrapper    {
     width: 75%;
     height: 60%;
@@ -317,3 +429,4 @@ h2    {
 #resetZoom  {
     width: 7.9rem;
 }
+
