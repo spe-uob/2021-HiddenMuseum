@@ -393,6 +393,12 @@ width: 300px;
     width: 160px;
 }
 
+.l20{
+    width: 160px;
+    left: 65%;
+    margin-top: 15px;
+}
+
 #chartWrapper    {
     width: 75%;
     height: 60%;
