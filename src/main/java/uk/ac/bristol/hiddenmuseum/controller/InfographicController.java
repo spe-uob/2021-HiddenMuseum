@@ -1,6 +1,7 @@
 
 package uk.ac.bristol.hiddenmuseum.controller;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,9 @@ public class InfographicController {
         var listRecords = response.records;
         List<Integer> intDates = new ArrayList<Integer>();
         ArrayList<String> ListOfTitles = new ArrayList<String>();
+        HashMap<String, String> MapofTitlesToID = new HashMap<>();
+
+        HashMap<String,	Pair<String, Integer>> MapWithIdDateTitle = new HashMap<>();
         List<Integer> datesOfItems = new ArrayList<Integer>();
         HashMap<String, Integer> linksToItems = new HashMap<>();
         List<Integer> datesOfItemsAD = new ArrayList<Integer>();
@@ -134,26 +138,31 @@ public class InfographicController {
                 } // adding the link to a hashmap and the titles to a list
                 try {
                     linksToItems.put(record.recordid.toString(), (dateFound));
+                    MapWithIdDateTitle.put(record.recordid.toString(),Pair.of(record.fields.get(titleField).toString(),dateFound));
                     System.out.println(record.recordid.toString());
                 } catch (Exception e) {
                     linksToItems.put("", (dateFound));
+                    MapWithIdDateTitle.put("",Pair.of(record.fields.get(titleField).toString(),dateFound));
                 }
                 if (!(datesOfItems.contains((dateFound)))) {
                     datesOfItems.add((dateFound));
                     try {
-                        ListOfTitles.add(record.fields.get(titleField).toString());
+                        //ListOfTitles.add(record.fields.get(titleField).toString());
+                        MapofTitlesToID.put(record.recordid.toString(),record.fields.get(titleField).toString());
+                        //System.out.println(MapofTitlesToID);
                     } catch (Exception e) {
+                        MapofTitlesToID.put(record.recordid.toString(),"");
                         // ignore as it just means it doesn't have title_of_object
                     }
-                } else {
-                    String x = ListOfTitles.get(datesOfItems.indexOf((dateFound)));
-                    try {
-                        ListOfTitles.set(datesOfItems.indexOf((dateFound)),
-                                x + " | " + record.fields.get(titleField).toString());
-                    } catch (Exception e) {
+                } //else {
+                    //String x = ListOfTitles.get(datesOfItems.indexOf((dateFound)));
+                    //try {
+                    //    ListOfTitles.set(datesOfItems.indexOf((dateFound)),
+                     //           x + " | " + record.fields.get(titleField).toString());
+                    //} catch (Exception e) {
                         // ignore as it just means it doesn't have title_of_object
-                    }
-                }
+                    //}
+                //}
             }
         }
         /*
@@ -193,6 +202,8 @@ public class InfographicController {
         }
 
         List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(linksToItems.entrySet());
+        List<Map.Entry<String, String>> list2 = new LinkedList<Map.Entry<String, String>>(MapofTitlesToID.entrySet());
+        List<Map.Entry<String, Pair<String, Integer>>> list3 = new LinkedList<Map.Entry<String, Pair<String, Integer>>>(MapWithIdDateTitle.entrySet());
 
         // 2. Sort list with Collections.sort(), provide a custom Comparator
         // Try switch the o1 o2 position for a different order
@@ -202,22 +213,95 @@ public class InfographicController {
                 return (o1.getValue()).compareTo(o2.getValue());
             }
         });
-
+        Collections.sort(list2, new Comparator<Map.Entry<String, String>>() {
+            public int compare(Map.Entry<String, String> o1,
+                    Map.Entry<String, String> o2) {
+                return (o1.getValue()).compareTo(o2.getValue());
+            }
+        });
+        Collections.sort(list3, new Comparator<Map.Entry<String,  Pair<String, Integer>>>() {
+            public int compare(Map.Entry<String,  Pair<String, Integer>> o1,
+                    Map.Entry<String,  Pair<String, Integer>> o2) {
+                return (o1.getValue().getLeft().compareTo(o2.getValue().getLeft()));
+            }
+        });
+        Collections.sort(list3, new Comparator<Map.Entry<String,  Pair<String, Integer>>>() {
+            public int compare(Map.Entry<String,  Pair<String, Integer>> o1,
+                    Map.Entry<String,  Pair<String, Integer>> o2) {
+                return (o1.getValue().getRight().compareTo(o2.getValue().getRight()));
+            }
+        });
+        Map<String, Pair<String, Integer>> sortedMap3 = new LinkedHashMap<String, Pair<String, Integer>>();
+        for (Map.Entry<String, Pair<String, Integer>> entry : list3) {
+            sortedMap3.put(entry.getKey(), entry.getValue());
+        }
+        System.out.println("start");
+        for (Map.Entry<String, Pair<String, Integer>> d : sortedMap3.entrySet()) {
+            System.out.println(d);
+        }
+        System.out.println("end");
         // 3. Loop the sorted list and put it into a new insertion order Map
         // LinkedHashMap
         Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
         for (Map.Entry<String, Integer> entry : list) {
             sortedMap.put(entry.getKey(), entry.getValue());
         }
+         Map<String, String> sortedMap2 = new LinkedHashMap<String, String>();
+         for (Map.Entry<String, String> entry : list2) {
+             sortedMap2.put(entry.getKey(), entry.getValue());
+         }
         
         // for (Integer aa : datesOfItems){
-        for (Map.Entry<String, Integer> a : sortedMap.entrySet()) {
+Integer TempDate = 99999999;
+        for (Map.Entry<String, Pair<String, Integer>> d : sortedMap3.entrySet()) {
+            if (datesOfItems.contains(d.getValue().getRight())) {
+                ids.add(d.getKey());
+                System.out.println("old");
+                System.out.println(TempDate);
+                System.out.println(d.getValue().getRight());
+                if (d.getValue().getRight().equals(TempDate)){
+                    System.out.println("Bruh");
+                    ListOfTitles.set(ListOfTitles.size()-1, ListOfTitles.get(ListOfTitles.size()-1) + " | " + d.getValue().getLeft());
+                }
+                else{
+                    ListOfTitles.add(d.getValue().getLeft());
+                }
+                TempDate = d.getValue().getRight();
+                System.out.println("new");
+                System.out.println(TempDate);
+            }
+         }
+        
+       /* for (Map.Entry<String, Integer> a : sortedMap.entrySet()) {
             // System.out.println(a.getValue());
             if (datesOfItems.contains(a.getValue())) {
-                ids.add(a.getKey());
+                List<String> TempIdList = new ArrayList<String>();
+                Integer date = a.getValue();
+                System.out.println(a.getKey());
+                sortedMap2.forEach((key, value) -> {
+                    if (value == "bruh2") {
+                        ids.add(a.getKey());
+                    }});
 
-            }
-        }
+
+                for (Map.Entry<String, String> b : sortedMap2.entrySet()) {
+                    if (b.getValue()== "Saints Francis and Anthony Abbot"){
+                        System.out.println("HHHMMMMH");
+                    }
+                    //System.out.println(b.getValue());
+                    //if(b.getValue()==date){
+                    //    TempIdList.add(b.getKey());
+                    //}
+                }
+                //for (Map.Entry<String, String> c : sortedMap2.entrySet()) {
+                  //  if(TempIdList.contains(c.getKey())){
+                   //     ids.add(a.getKey());
+                  //  }
+                //}
+
+                  */ //}
+        //}
+        Collections.sort(datesOfItems);
         // System.out.println(ids.get(0));
         // adding the data to the model and outputting it for developmental purposes
         model.addAttribute("datesToInclude", datesToInclude);
