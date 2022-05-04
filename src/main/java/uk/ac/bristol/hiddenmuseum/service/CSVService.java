@@ -74,10 +74,14 @@ public class CSVService {
     public static String getCSV(String query, List<String> values, String dataset)  {
         List<String> fieldList = getFields(dataset);
         StringBuilder csv = new StringBuilder();
+        int i = 0;
         for (String field : fieldList) {
             csv.append("\"");
             csv.append(field.replaceAll("\"", "\"\""));
             csv.append("\"");
+            if(i++ == fieldList.size() - 1) {
+                break;
+            }
             csv.append(",");
         }
 
@@ -85,10 +89,14 @@ public class CSVService {
 
         List<SearchRecord> data = getRecords(query, values, dataset);
         for (SearchRecord record : data) {
+            i = 0;
             for (String field : fieldList) {
                 csv.append("\"");
                 csv.append(record.fields.getOrDefault(field, "").toString().replaceAll("\"", "\"\""));
                 csv.append("\"");
+                if(i++ == fieldList.size() - 1) {
+                    break;
+                }
                 csv.append(",");
             }
             csv.append("\n");
@@ -105,20 +113,28 @@ public class CSVService {
     public static String getCSVItem(String query, String dataset)  {
         List<String> fieldList = getFields(dataset);
         StringBuilder csv = new StringBuilder();
+        int i = 0;
         for (String field : fieldList) {
             csv.append("\"");
             csv.append(field.replaceAll("\"", "\"\""));
             csv.append("\"");
+            if(i++ == fieldList.size() - 1) {
+                break;
+            }
             csv.append(",");
         }
 
         csv.append("\n");
 
         SearchRecord record = getRecord(query, dataset);
+        i = 0;
         for (String field : fieldList) {
             csv.append("\"");
             csv.append(record.fields.getOrDefault(field, "").toString().replaceAll("\"", "\"\""));
             csv.append("\"");
+            if(i++ == fieldList.size() - 1) {
+                break;
+            }
             csv.append(",");
         }
 
