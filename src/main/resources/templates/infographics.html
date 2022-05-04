@@ -156,17 +156,22 @@
                     for (var i=0; i < whereAt[0].index; i++) {
                         indexOfIdList += numOfDates[i];
                     }
-
+                    var children = list.children;
+                    for (var i=0; i < titles.length; i++){
+                        var linkChild = children[i];
+                        linkChild.children[0].setAttribute('href','item/' + dataset + '/' + ids[i + indexOfIdList] + '?imageField='
+                        + imageField + '&titleField=' + titleField);
+                    }
                     console.log(indexOfIdList);
 
-                    var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
+                    /*var sizeOfThisClump = numOfDates[whereAt[0].index]; //how many records are there in the next group
                     console.log(sizeOfThisClump)
                     var children = list.children;
                     for (var i = 0; i < sizeOfThisClump ; i++) {
                         var linkChild = children[i];
                         linkChild.children[0].setAttribute('href','item/' + dataset + '/' + ids[i + indexOfIdList] + '?imageField='
                         + imageField + '&titleField=' + titleField);
-                    }
+                    }*/
                     //container.get
                 } catch (error) {
                     console.log(error)
