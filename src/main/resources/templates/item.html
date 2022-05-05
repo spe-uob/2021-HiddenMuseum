@@ -28,7 +28,7 @@
         <a href="/about"><button class="dropdown-btn navBut">About</button></a>
         <button class="dropdown-btn navBut" onclick="helpPopup()">Help</button>
         <div class="dropdown-container">
-            <button class="dropdown-btn ">Export Data</button>
+            <button class="dropdown-btn">Export Data</button>
             <div class="dropdown-items">
                 <a download="data.json" th:href="${exportJSON}" target="_blank">Export JSON</a>
                 <a download="data.csv" th:href="${exportCSV} + '&dataset=' + ${dataset}" target="_blank">Export CSV</a>
