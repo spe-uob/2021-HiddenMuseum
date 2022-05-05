@@ -20,7 +20,8 @@ An advanced search tool for searching collections at the **Bristol Museum & Art 
 4. [Documentation](#documentation)
 5. [License](#license)
 6. [Contributing](#contributing)
-7. [Ethics](#ethics)
+7. [Design](#design)
+8. [Ethics](#ethics)
 
 
 ## Overview
@@ -111,6 +112,10 @@ Contribution guidelines are currently work in progress, check back soon.
 
 However, [we have a simple guide](/GITGUIDE.md) on how to use `git` with this project, [also available in Chinese](/GITGUIDE_zh.md).
 
+
+## Design
+
+The project is designed in Java using Spring Boot. We use Thymeleaf for templating and use CSS to style the pages. We use a controller for each page to perform any logic and give variables to Thymeleaf to template using the information gleaned from the requests to the OpenData API. The only exception to this is the infographics page. While this does have a controller that sends information to the template page the majority of the logic is handled using JavaScript and Charts.js. A UML Diagram of the search functionality is available [here](https://github.com/spe-uob/2021-HiddenMuseum/blob/main/Hidden%20Museum.png)
 
 ## Ethics
 
