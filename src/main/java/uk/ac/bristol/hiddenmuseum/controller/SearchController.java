@@ -9,6 +9,8 @@ import uk.ac.bristol.hiddenmuseum.requests.SchemaRequestBuilder;
 import uk.ac.bristol.hiddenmuseum.requests.SearchRequestBuilder;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 //import org.json.simple.JSONArray;
 //import org.json.simple.JSONValue;
@@ -33,9 +35,16 @@ public class SearchController {
             @RequestParam(defaultValue = "", required = false) String q,
             @RequestParam(defaultValue = "25", required = false) int nhits,
             @RequestParam(defaultValue = "0", required = false) int page,
-            @RequestParam (defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "" ,required = false) List<String> values,
+            @RequestParam(defaultValue = "open-data-gallery-3-european-old-masters", required = false) String dataset,
             Model model) {
-        var srq = new SearchRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        String base = "https://opendata.bristol.gov.uk/";
+        String datasetLink = dataset.replace(base, "");
+        datasetLink = datasetLink.replace("explore/dataset/", "");
+        datasetLink = datasetLink.replace("information", "");
+        datasetLink = datasetLink.replace("/", "");
+
+        var srq = new SearchRequestBuilder(base, datasetLink);
         srq.setQuery(q);
         srq.setLimit(nhits);
         srq.setOffset(nhits * page);
@@ -56,9 +65,40 @@ public class SearchController {
 
         var response = srq.sendRequest();
         model.addAttribute("response", response);
-        var scrq = new SchemaRequestBuilder("https://opendata.bristol.gov.uk/", "open-data-gallery-3-european-old-masters");
+        var scrq = new SchemaRequestBuilder(base, datasetLink);
         var schResponse = scrq.sendRequest();
         var fieldList = schResponse.fields.stream().map(f -> f.name).toArray();
+
+        String titleField = "";
+        String imageField = "";
+        Boolean titleFound = false;
+        Boolean imageFound = false;
+
+
+        for(Object field : fieldList)  {
+            System.out.println(field);
+            String regex = "title.|.title.|title|Title.|.Title.|Title";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                titleField = (String) field;
+                titleFound = true;
+            }
+            regex = "image.|.image.|image|Image.|.Image.|Image";
+            pattern = Pattern.compile(regex);
+            matcher = pattern.matcher((String) field);
+            if(matcher.find()) {
+                imageField = (String) field;
+                imageFound = true;
+            }
+            if(imageFound && titleFound)    {
+                continue;
+            }
+        }
+
+        model.addAttribute("imageField", imageField);
+
+        model.addAttribute("titleField", titleField);
 
         model.addAttribute("fieldList", fieldList);
 
@@ -67,7 +107,7 @@ public class SearchController {
         model.addAttribute("exportJSON", exportJSON);
 
         //setting up to export as CSV
-        String exportCSV = "/export?q=" + q;
+        String exportCSV = "/export";
         model.addAttribute("exportCSV", exportCSV);
 
         int pages = (response.nhits / nhits) + (response.nhits % nhits == 0 ? 0 : 1);
@@ -85,6 +125,8 @@ public class SearchController {
         model.addAttribute("query", q);
 
         model.addAttribute("pageNumber", page);
+
+        model.addAttribute("dataset", datasetLink);
 
         return "search";
     }
